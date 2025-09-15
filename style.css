@@ -846,6 +846,15 @@ ul li::marker {
         display: none;
     }
     
+    .strategy-timeline {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .strategy-timeline::before {
+        display: none;
+    }
+    
     .stakeholder-map .stakeholder-level {
         flex-direction: column;
         gap: 1rem;
