@@ -1,2 +1,2 @@
 # heidi-lowry-portfolio
-Product design leader portfolio for Heidi Lowry
+This is the product design leadership portfolio for Heidi Lowry. Welcome! We have cake. :D
