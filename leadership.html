@@ -3,211 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leadership & Philosophy | Heidi Lowry</title>
+    <title>Leadership Philosophy | Heidi Lowry</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Additional styles specific to leadership page */
+        .leadership-intro {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin: 2rem 0 3rem;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
-            line-height: 1.6;
-            color: #2d3748;
-            background: #ffffff;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 60px 24px;
-        }
-
-        header {
-            margin-bottom: 60px;
-            padding-bottom: 40px;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 16px;
-        }
-
-        .subtitle {
-            font-size: 1.25rem;
-            color: #4a5568;
-            font-weight: 400;
-        }
-
-        .intro {
+        .leadership-intro p {
             font-size: 1.125rem;
             line-height: 1.8;
-            color: #2d3748;
-            margin-bottom: 60px;
-            padding: 32px;
-            background: #f7fafc;
-            border-radius: 8px;
-            border-left: 4px solid #3182ce;
+            margin-bottom: 1rem;
+        }
+
+        .leadership-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        .leadership-intro strong {
+            color: var(--primary);
         }
 
         .section {
-            margin-bottom: 60px;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
         }
 
-        h2 {
-            font-size: 1.875rem;
-            font-weight: 700;
-            color: #2b6cb0;
-            margin-bottom: 24px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #bee3f8;
-        }
-
-        h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #2d3748;
-            margin-top: 32px;
-            margin-bottom: 16px;
-        }
-
-        p {
-            margin-bottom: 20px;
-            font-size: 1.0625rem;
-            line-height: 1.75;
-        }
-
-        ul {
-            margin-left: 24px;
-            margin-bottom: 24px;
-        }
-
-        li {
-            margin-bottom: 12px;
-            font-size: 1.0625rem;
-            line-height: 1.7;
+        .section:last-of-type {
+            border-bottom: none;
         }
 
         .principle-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-top: 32px;
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .principle-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: white;
+            border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 24px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            padding: 1.75rem;
+            transition: all 0.2s ease;
         }
 
         .principle-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
         }
 
         .principle-card h3 {
-            margin-top: 0;
+            margin: 0 0 1rem;
+            padding-left: 0;
             font-size: 1.125rem;
-            color: #2b6cb0;
+            color: var(--primary);
+        }
+
+        .principle-card h3::before {
+            display: none;
         }
 
         .principle-card p {
-            font-size: 1rem;
-            margin-bottom: 0;
+            margin: 0;
+            font-size: 0.9375rem;
+            line-height: 1.6;
         }
 
-        .quote {
-            font-style: italic;
-            color: #4a5568;
-            padding: 24px;
-            margin: 32px 0;
-            background: #edf2f7;
-            border-left: 4px solid #3182ce;
+        .quote-block {
+            background: var(--accent-light);
+            padding: 1.75rem 2rem;
+            margin: 2.5rem 0;
+            border-left: 4px solid var(--accent);
             border-radius: 4px;
         }
 
-        .highlight {
-            background: #fef5e7;
-            padding: 2px 6px;
-            border-radius: 3px;
-        }
-
-        strong {
-            color: #2b6cb0;
-            font-weight: 600;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 60px;
-            padding: 12px 24px;
-            background: #3182ce;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
+        .quote-block p {
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 1.125rem;
+            margin: 0;
             font-weight: 500;
-            transition: background 0.2s;
         }
 
-        .back-link:hover {
-            background: #2c5282;
+        .looking-forward {
+            background: var(--primary-light);
+            padding: 2.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 40px 20px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .principle-grid {
-                grid-template-columns: 1fr;
-            }
+        .looking-forward h2 {
+            margin-top: 0;
+            color: var(--primary);
         }
     </style>
 </head>
-
-    <body>
+<body>
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">Heidi Lowry</a>
             <div class="nav-links">
-                <a href="index.html" class="nav-link active">About</a>
+                <a href="index.html" class="nav-link">About</a>
                 <a href="ai-platform.html" class="nav-link">AI Platform</a>
                 <a href="process-manager.html" class="nav-link">Process Manager</a>
-                <a href="leadership.html" class="nav-link">Leadership</a>
+                <a href="leadership.html" class="nav-link active">Leadership</a>
                 <a href="mailto:heidi.lowry@gmail.com" class="nav-link">Contact</a>
             </div>
         </div>
     </nav>
 
     <div class="accent-bar"></div>
-<body>
+    
     <div class="container">
-        <header>
-            <h1>Leadership & Philosophy</h1>
-            <p class="subtitle">How I build teams, cultivate design excellence, and drive organizational change</p>
+        <!-- Hero Section -->
+        <header class="hero">
+            <h1>Leadership Philosophy</h1>
+            <p class="tagline">How I build teams, cultivate design excellence, and drive organizational change</p>
         </header>
 
-        <div class="intro">
+        <div class="leadership-intro">
             <p>Over 10 years in product design and 3+ years managing distributed teams, I've developed a clear philosophy: <strong>great design comes from great teams, and great teams come from leaders who create the conditions for people to do their best work.</strong></p>
-            <p style="margin-bottom: 0;">I believe in servant leadership, championing user-centered principles, and building collaborative environments where designers feel empowered to innovate while maintaining high craft standards.</p>
+            <p>I believe in servant leadership, championing user-centered principles, and building collaborative environments where designers feel empowered to innovate while maintaining high craft standards.</p>
         </div>
 
-        <div class="section">
+        <!-- Core Principles -->
+        <section class="section">
             <h2>Core Leadership Principles</h2>
             
             <div class="principle-grid">
@@ -241,9 +168,10 @@
                     <p>Complex problems require collaborative problem-solving. I rally teams around a shared vision while leaving space for exploration and team-led innovation. Ambiguity is an opportunity, not a threat.</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="section">
+        <!-- Building Teams -->
+        <section class="section">
             <h2>My Approach to Building Teams</h2>
             
             <h3>Hiring for Craft and Character</h3>
@@ -260,9 +188,10 @@
 
             <h3>Creating Psychological Safety</h3>
             <p>Teams perform best when people feel safe to take risks, admit mistakes, and ask questions. I model vulnerability, celebrate learning from failures, and ensure everyone's voice is heard—regardless of seniority. In design reviews, I focus on understanding intent before offering critique.</p>
-        </div>
+        </section>
 
-        <div class="section">
+        <!-- Organizational Maturity -->
+        <section class="section">
             <h2>Driving Organizational Design Maturity</h2>
             
             <p>As a design leader, I don't just manage my team—I work to elevate design's impact across the organization.</p>
@@ -281,9 +210,10 @@
 
             <h3>Championing User-Centered Principles</h3>
             <p>I believe great products come from deeply understanding users. I advocate for research, usability testing, and talking to customers—even when timelines are tight. I help teams balance business constraints with user needs, and make the case for investing in design quality.</p>
-        </div>
+        </section>
 
-        <div class="section">
+        <!-- Navigating Ambiguity -->
+        <section class="section">
             <h2>Navigating Complex, Ambiguous Problems</h2>
             
             <p>Enterprise B2B design often means working in spaces where requirements are unclear, stakeholders have competing priorities, and the 'right answer' isn't obvious.</p>
@@ -297,12 +227,13 @@
                 <li><strong>Make decisions with incomplete information:</strong> Waiting for perfect clarity often means missing opportunities. I help teams make informed decisions with the data available, while staying open to new information.</li>
             </ul>
 
-            <div class="quote">
-                "The goal isn't to eliminate ambiguity—it's to help teams move forward confidently despite it."
+            <div class="quote-block">
+                <p>"The goal isn't to eliminate ambiguity—it's to help teams move forward confidently despite it."</p>
             </div>
-        </div>
+        </section>
 
-        <div class="section">
+        <!-- Distributed Teams -->
+        <section class="section">
             <h2>Working with Distributed Teams</h2>
             
             <p>Managing designers across 4 regions has taught me that distributed work requires intentional practices:</p>
@@ -311,13 +242,14 @@
             <p>I document decisions, share context proactively, and create space for async collaboration. Regular 1:1s, team syncs, and design reviews keep everyone aligned and connected.</p>
 
             <h3>Building Connection Across Timezones</h3>
-            <p>I find creative ways to build team culture despite geography—whether that's virtual design critiques, slack channels for casual conversation, or occasional in-person gatherings. People need to feel part of a team, not isolated.</p>
+            <p>I find creative ways to build team culture despite geography—whether that's virtual design critiques, Slack channels for casual conversation, or occasional in-person gatherings. People need to feel part of a team, not isolated.</p>
 
             <h3>Respecting Work-Life Balance</h3>
             <p>Distributed teams can blur boundaries. I'm thoughtful about meeting times, respect people's off-hours, and model healthy work habits. Burnout helps no one.</p>
-        </div>
+        </section>
 
-        <div class="section">
+        <!-- AI Philosophy -->
+        <section class="section">
             <h2>My Philosophy on AI and Emerging Technology</h2>
             
             <p>I'm currently pioneering AI integration in design processes—both for users and for my team's productivity. My approach:</p>
@@ -328,9 +260,10 @@
                 <li><strong>Practical experimentation:</strong> I believe in learning by doing. I encourage my team to experiment with AI tools while maintaining healthy skepticism about their limitations.</li>
                 <li><strong>Strategic integration:</strong> AI is a tool, not a silver bullet. I work with leadership to identify where AI genuinely solves problems vs. where it's innovation theater.</li>
             </ul>
-        </div>
+        </section>
 
-        <div class="section">
+        <!-- Team Culture -->
+        <section class="section">
             <h2>What Designers Say About Working With Me</h2>
             
             <p>I believe in creating environments where:</p>
@@ -344,9 +277,10 @@
             </ul>
 
             <p>My goal is simple: I want the designers I work with to do the best work of their careers, grow in ways they didn't think possible, and look back on our time together as formative.</p>
-        </div>
+        </section>
 
-        <div class="section">
+        <!-- Looking Forward -->
+        <div class="looking-forward">
             <h2>Looking Forward</h2>
             
             <p>I'm excited about opportunities to bring this leadership approach to organizations that:</p>
@@ -359,9 +293,12 @@
             </ul>
 
             <p>If this resonates with how you think about design leadership, I'd love to connect.</p>
+            
+            <div class="contact-links" style="margin-top: 2rem;">
+                <a href="mailto:heidi.lowry@gmail.com" class="btn btn-primary">Get in touch</a>
+                <a href="index.html" class="btn btn-secondary">← Back to Portfolio</a>
+            </div>
         </div>
-
-        <a href="index.html" class="back-link">← Back to Portfolio</a>
     </div>
 
     <footer class="footer">
