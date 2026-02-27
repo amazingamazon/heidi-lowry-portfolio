@@ -72,6 +72,47 @@ Every case study page should follow this order:
 - To go live: commit to `portfolio-updates` → merge into `main` → push `main`
 - Never push directly to `main` without merging from `portfolio-updates`
 
+## Mobile Responsiveness — Required on Every Page
+
+Every page and every component you create or modify must be mobile responsive. This is non-negotiable.
+
+### Breakpoints
+- `768px` — primary mobile breakpoint (used in both `style.css` and page `<style>` blocks)
+- `480px` — small phone breakpoint for tightest layouts
+- `640px` — used in `style.css` for base container padding adjustments
+
+### Required Rules for Every Component
+
+**Grids → collapse to single column on mobile:**
+- `.strategy-cards` — add `gap: 1rem` at `768px`
+- `.bva-diagram` — `grid-template-columns: 1fr` at `768px`; arrow col switches to `flex-direction: row`
+- `.persona-entry` / `.persona-bridge` — `grid-template-columns: 1fr` at `768px`; connectors switch to `flex-direction: row`
+- `.impact-metrics-row` — `repeat(2, 1fr)` at `768px`, `1fr 1fr` at `480px`
+- `.cap-grid` — `repeat(2, 1fr)` at `768px`
+- `.figure-pair` — `grid-template-columns: 1fr` at `768px`
+
+**Phase tracks → stack vertically:**
+- `.phase-track` — `flex-direction: column; align-items: stretch` at `768px`; hide `::before` track line; `.phase-card` switches to `flex-direction: row` with number on left
+
+**Diagrams with directional arrows:**
+- Arrow lines rotate or shrink; use `flex-direction: row` for connector rows and reduce line to `width: 24px; height: 2px`
+
+**Navigation & layout:**
+- `.case-navigation > div` — `flex-direction: column; gap: 1rem` at `768px` (already in `style.css`)
+- `.contact-links` — `flex-direction: column` (already in `style.css`)
+
+### Where to Put Mobile Styles
+- Global patterns already covered by `style.css` — don't duplicate them in page `<style>` blocks
+- Page-specific components (diagrams, custom grids) go in the page's own `<style>` block
+- Always add `@media (max-width: 768px) { }` at the end of the page `<style>` block
+- Add `@media (max-width: 480px) { }` only if needed for very dense components
+
+### Viewport Meta Tag
+Every HTML page must include this in `<head>` (already present on existing pages — verify when creating new ones):
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
 ## Resume/Print Rules
 - Never use `page-break-before: always` or `page-break-after: always`
 - Only use `page-break-inside: avoid` on individual elements
@@ -109,6 +150,8 @@ Every case study page should follow this order:
 - Confirm all Lucide icon names are valid
 - Ensure the page structure matches the established case study template
 - Check that all internal anchor links resolve correctly
+- Confirm every new grid, multi-column layout, or diagram has a `@media (max-width: 768px)` rule collapsing it
+- Confirm the viewport meta tag is present in `<head>`
 
 **Update your agent memory** as you discover patterns, make structural decisions, or learn Heidi's preferences. This builds institutional knowledge across conversations.
 

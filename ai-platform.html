@@ -80,7 +80,7 @@
         }
         .strategy-card li { margin-bottom: 0.5rem; font-size: 0.95rem; }
 
-        /* Icon list for leading through complexity */
+        /* Icon list */
         .icon-list {
             list-style: none;
             padding-left: 0;
@@ -127,13 +127,570 @@
         }
         .visual-section-intro svg { color: var(--primary); }
 
-        /* Inline first visual */
-        .first-visual {
+        /* ============================================================
+           DIAGRAM 1: Before vs. After — Platform Fragmentation
+           Sits between the challenge prose and the metadata strip.
+           Shows six isolated capabilities vs. unified AI context layer.
+        ============================================================ */
+        .bva-diagram {
             margin: 2rem 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 0;
+            align-items: stretch;
+        }
+        .bva-panel {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            background: white;
+        }
+        .bva-panel-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .bva-panel-label.before { color: var(--text-medium); }
+        .bva-panel-label.after  { color: var(--success); }
+
+        /* before panel: isolated capability boxes */
+        .bva-silo-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .bva-silo {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .bva-silo svg { color: var(--border); flex-shrink: 0; }
+        .bva-silo-note {
+            margin-top: 0.75rem;
+            font-size: 0.78rem;
+            color: var(--text-light);
+            font-style: italic;
+            line-height: 1.5;
         }
 
+        /* after panel: hub model */
+        .bva-platform-hub {
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+        .bva-platform-hub small {
+            display: block;
+            font-weight: 400;
+            font-size: 0.75rem;
+            opacity: 0.85;
+            margin-top: 0.2rem;
+        }
+        .bva-spokes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        .bva-spoke {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid rgba(0,85,184,0.2);
+            border-radius: 20px;
+            padding: 0.3rem 0.75rem;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+        .bva-after-note {
+            margin-top: 0.75rem;
+            font-size: 0.78rem;
+            color: var(--success);
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* middle arrow column */
+        .bva-arrow-col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1rem;
+        }
+        .bva-arrow-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .bva-arrow-line {
+            width: 2px;
+            flex: 1;
+            background: var(--border);
+            min-height: 24px;
+        }
+        .bva-arrow-badge {
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================
+           DIAGRAM 2: Persona Entry Points
+           Sits inside Strategy Card 2 (Human-AI Partnership Principles).
+           Shows how technical vs. non-technical users engage differently
+           with the AI generation layer.
+        ============================================================ */
+        .persona-entry {
+            margin: 1.25rem 0 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            align-items: center;
+            gap: 0;
+        }
+        .pe-node {
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .pe-node.nontechnical {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+        }
+        .pe-node.ai-layer {
+            background: var(--primary);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 14px rgba(0,85,184,0.22);
+        }
+        .pe-node.technical {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+        }
+        .pe-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.6rem;
+        }
+        .pe-node.nontechnical .pe-icon,
+        .pe-node.technical .pe-icon {
+            background: var(--primary-light);
+        }
+        .pe-node.ai-layer .pe-icon {
+            background: rgba(255,255,255,0.2);
+        }
+        .pe-node.nontechnical svg,
+        .pe-node.technical svg { color: var(--primary); }
+        .pe-node.ai-layer svg { color: white; }
+
+        .pe-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        .pe-node.nontechnical .pe-name,
+        .pe-node.technical .pe-name { color: var(--text-dark); }
+        .pe-node.ai-layer .pe-name { color: white; }
+
+        .pe-detail {
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+        .pe-node.nontechnical .pe-detail,
+        .pe-node.technical .pe-detail { color: var(--text-medium); }
+        .pe-node.ai-layer .pe-detail { color: rgba(255,255,255,0.85); }
+
+        .pe-connect {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 0.5rem;
+            gap: 0.2rem;
+        }
+        .pe-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--border), var(--primary));
+        }
+        .pe-line.right {
+            background: linear-gradient(90deg, var(--primary), var(--border));
+        }
+        .pe-label {
+            font-size: 0.68rem;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+        .pe-insight {
+            margin-top: 1rem;
+            background: var(--success-light);
+            border-left: 4px solid var(--success);
+            border-radius: 4px;
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* ============================================================
+           DIAGRAM 3: Adaptive Interaction Mode Phase Track
+           Replaces the old emoji-based .interaction-flow diagram.
+           Sits after the Key Design Decisions bullet list.
+           Shows the three interaction modes as a progressive phase track.
+        ============================================================ */
+        .phase-track {
+            position: relative;
+            margin: 1.25rem 0 0.5rem;
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+        }
+        .phase-track::before {
+            content: "";
+            position: absolute;
+            top: 28px;
+            left: 28px;
+            right: 28px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-light) 0%, var(--primary) 50%, var(--success) 100%);
+            border-radius: 2px;
+            z-index: 0;
+        }
+        .phase-card {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            padding: 0 0.5rem;
+        }
+        .phase-number {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 3px solid var(--border);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        .phase-card.active .phase-number {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 14px rgba(0,85,184,0.3);
+        }
+        .phase-card.active .phase-number svg { color: white; }
+        .phase-card .phase-number svg { color: var(--text-medium); }
+        .phase-card.future .phase-number {
+            background: var(--success-light);
+            border-color: var(--success);
+        }
+        .phase-card.future .phase-number svg { color: var(--success); }
+        .phase-body {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 0.9rem;
+            margin-top: 0.75rem;
+            text-align: center;
+            width: 100%;
+            transition: border-color 0.2s ease;
+        }
+        .phase-card.active .phase-body {
+            border-color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,85,184,0.1);
+        }
+        .phase-card.future .phase-body {
+            border-color: rgba(5,150,105,0.35);
+        }
+        .phase-heading {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            margin-bottom: 0.4rem;
+        }
+        .phase-audience {
+            font-size: 0.78rem;
+            color: var(--text-medium);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        .phase-goal-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .phase-card .phase-goal-tag {
+            background: var(--bg-light);
+            color: var(--text-medium);
+            border: 1px solid var(--border);
+        }
+        .phase-card.active .phase-goal-tag {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: rgba(0,85,184,0.2);
+        }
+        .phase-card.future .phase-goal-tag {
+            background: var(--success-light);
+            color: var(--success);
+            border-color: rgba(5,150,105,0.25);
+        }
+
+        /* ============================================================
+           DIAGRAM 4: Impact Metrics Callout Row
+           Four large-number cards at the top of the impact section.
+        ============================================================ */
+        .impact-metrics-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .impact-metric-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .impact-metric-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0,85,184,0.1);
+        }
+        .imc-stat {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+        .imc-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+        }
+        .imc-desc {
+            font-size: 0.72rem;
+            color: var(--text-medium);
+            line-height: 1.4;
+        }
+        .impact-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 1.75rem;
+        }
+
+        /* ============================================================
+           DIAGRAM 5: Platform Capabilities Architecture
+           Sits inside Strategy Card 1.
+           Shows six capabilities feeding upward into the AI context layer.
+        ============================================================ */
+        .cap-architecture {
+            margin: 1.25rem 0 0;
+        }
+        .cap-ai-hub {
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            padding: 0.9rem 1.25rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .cap-ai-hub svg { color: white; flex-shrink: 0; }
+        .cap-ai-hub small {
+            display: block;
+            font-weight: 400;
+            font-size: 0.75rem;
+            opacity: 0.85;
+            margin-top: 0.15rem;
+        }
+        .cap-connector-row {
+            display: flex;
+            justify-content: space-around;
+            padding: 0 2rem;
+            margin: 0;
+        }
+        .cap-connector-line {
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--border) 100%);
+        }
+        .cap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+        .cap-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.65rem 0.75rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: border-color 0.2s ease;
+        }
+        .cap-item:hover {
+            border-color: var(--primary);
+            color: var(--text-dark);
+        }
+        .cap-item svg { color: var(--primary); flex-shrink: 0; }
+        .cap-note {
+            margin-top: 0.75rem;
+            font-size: 0.78rem;
+            color: var(--text-medium);
+            font-style: italic;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .strategy-cards { gap: 1rem; }
+
+            .strategy-card {
+                padding: 1.25rem;
+            }
+
+            .impact-section {
+                padding: 1.25rem;
+            }
+
+            /* BvA diagram */
+            .bva-diagram {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            .bva-arrow-col {
+                flex-direction: row;
+                padding: 0;
+                justify-content: center;
+            }
+            .bva-arrow-wrap {
+                flex-direction: row;
+            }
+            .bva-arrow-line {
+                width: 24px;
+                height: 2px;
+                min-height: unset;
+            }
+
+            /* Persona entry */
+            .persona-entry {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .pe-connect {
+                flex-direction: row;
+                padding: 0.25rem 0;
+                justify-content: center;
+            }
+            .pe-line, .pe-line.right {
+                width: 24px;
+                height: 2px;
+                background: var(--border);
+            }
+
+            /* Phase track */
+            .phase-track {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.75rem;
+            }
+            .phase-track::before { display: none; }
+            .phase-card {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 0.75rem;
+                padding: 0;
+            }
+            .phase-body {
+                margin-top: 0;
+                text-align: left;
+                flex: 1;
+            }
+            .phase-number {
+                flex-shrink: 0;
+                margin-top: 0.1rem;
+            }
+
+            /* Impact metrics */
+            .impact-metrics-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* Capabilities architecture */
+            .cap-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .cap-connector-row {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .impact-metrics-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .strategy-card {
+                padding: 1rem;
+            }
+
+            .impact-section {
+                padding: 1rem;
+            }
+
+            .cap-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -141,12 +698,15 @@
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">Heidi Lowry</a>
-            <div class="nav-links">
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <i data-lucide="menu" width="24" height="24"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
                 <a href="index.html" class="nav-link">About</a>
                 <a href="ai-platform.html" class="nav-link active">AI Platform</a>
                 <a href="process-manager.html" class="nav-link">Process Manager</a>
                 <a href="leadership.html" class="nav-link">Leadership</a>
-                <a href="design-coaching.html" class="nav-link">Coaching & Craft</a>
+                <a href="design-coaching.html" class="nav-link">Coaching &amp; Craft</a>
                 <a href="mailto:heidi.lowry@gmail.com" class="nav-link">Contact</a>
             </div>
         </div>
@@ -159,7 +719,7 @@
             <h2>AI-Powered Solution Development Platform</h2>
             <p class="subtitle">Transforming how businesses build custom AI solutions through strategic design leadership</p>
 
-            <!-- Hero image up top -->
+            <!-- Hero image -->
             <img
                 src="images/ai-start.png"
                 alt="AI platform entry point — users describe their business problem in natural language"
@@ -174,6 +734,76 @@
             <div class="challenge">
                 <h3>The Challenge</h3>
                 <p>Businesses were forcing SaaS products to fit their needs instead of getting custom AI solutions. Our platform had all the pieces – Processes, Workflows, Apps, Forms, Data, and Document Generation – but they weren't working together to give AI the business context it needed.</p>
+            </div>
+
+            <!-- DIAGRAM 1: Before vs. After — Platform Fragmentation -->
+            <div class="design-artifact">
+                <div class="diagram-title">The Core Problem: Disconnected Capabilities</div>
+                <div class="bva-diagram">
+                    <!-- Before panel -->
+                    <div class="bva-panel">
+                        <div class="bva-panel-label before">
+                            <i data-lucide="x-circle" width="13" height="13"></i>
+                            Before — Fragmented
+                        </div>
+                        <div class="bva-silo-group">
+                            <div class="bva-silo">
+                                <i data-lucide="book-open" width="14" height="14"></i>
+                                Processes
+                            </div>
+                            <div class="bva-silo">
+                                <i data-lucide="zap" width="14" height="14"></i>
+                                Workflows
+                            </div>
+                            <div class="bva-silo">
+                                <i data-lucide="layout" width="14" height="14"></i>
+                                Apps &amp; Forms
+                            </div>
+                            <div class="bva-silo">
+                                <i data-lucide="database" width="14" height="14"></i>
+                                Data
+                            </div>
+                            <div class="bva-silo">
+                                <i data-lucide="file-text" width="14" height="14"></i>
+                                Document Generation
+                            </div>
+                        </div>
+                        <div class="bva-silo-note">Five capabilities, no shared context. AI has no business intelligence to draw from — it can't build anything meaningful.</div>
+                    </div>
+
+                    <!-- Arrow column -->
+                    <div class="bva-arrow-col">
+                        <div class="bva-arrow-wrap">
+                            <div class="bva-arrow-line"></div>
+                            <div class="bva-arrow-badge">
+                                <i data-lucide="arrow-right" width="16" height="16"></i>
+                            </div>
+                            <div class="bva-arrow-line"></div>
+                        </div>
+                    </div>
+
+                    <!-- After panel -->
+                    <div class="bva-panel">
+                        <div class="bva-panel-label after">
+                            <i data-lucide="check-circle" width="13" height="13"></i>
+                            After — Unified Platform
+                        </div>
+                        <div class="bva-platform-hub">
+                            AI Solution Layer
+                            <small>Context-aware across all capabilities</small>
+                        </div>
+                        <div class="bva-spokes">
+                            <span class="bva-spoke">Processes</span>
+                            <span class="bva-spoke">Workflows</span>
+                            <span class="bva-spoke">Apps</span>
+                            <span class="bva-spoke">Forms</span>
+                            <span class="bva-spoke">Data</span>
+                            <span class="bva-spoke">Docs</span>
+                        </div>
+                        <div class="bva-after-note">All capabilities feed business context upward. AI can now generate genuinely custom solutions instead of generic outputs.</div>
+                    </div>
+                </div>
+                <p class="caption">The strategic opportunity: unify six platform capabilities so AI has the business context to build solutions that actually fit</p>
             </div>
 
             <!-- Metadata with icons -->
@@ -215,6 +845,52 @@
                         <li>Leveraged our platform's unique advantage: combining all capabilities to provide AI with rich business context</li>
                         <li>Positioned us for competitive differentiation in AI-powered business solutions</li>
                     </ul>
+
+                    <!-- DIAGRAM 5: Platform Capabilities Architecture -->
+                    <div class="cap-architecture">
+                        <div class="cap-ai-hub">
+                            <i data-lucide="cpu" width="18" height="18"></i>
+                            <div>
+                                AI Solution Engine
+                                <small>Rich business context from all platform layers</small>
+                            </div>
+                        </div>
+                        <div class="cap-connector-row">
+                            <div class="cap-connector-line"></div>
+                            <div class="cap-connector-line"></div>
+                            <div class="cap-connector-line"></div>
+                            <div class="cap-connector-line"></div>
+                            <div class="cap-connector-line"></div>
+                            <div class="cap-connector-line"></div>
+                        </div>
+                        <div class="cap-grid">
+                            <div class="cap-item">
+                                <i data-lucide="book-open" width="14" height="14"></i>
+                                Processes
+                            </div>
+                            <div class="cap-item">
+                                <i data-lucide="zap" width="14" height="14"></i>
+                                Workflows
+                            </div>
+                            <div class="cap-item">
+                                <i data-lucide="layout" width="14" height="14"></i>
+                                Apps
+                            </div>
+                            <div class="cap-item">
+                                <i data-lucide="file-text" width="14" height="14"></i>
+                                Forms
+                            </div>
+                            <div class="cap-item">
+                                <i data-lucide="database" width="14" height="14"></i>
+                                Data
+                            </div>
+                            <div class="cap-item">
+                                <i data-lucide="file-up" width="14" height="14"></i>
+                                Doc Generation
+                            </div>
+                        </div>
+                        <div class="cap-note">Our competitive advantage: no other platform combines all six. Together they give AI the business context to build solutions that actually fit.</div>
+                    </div>
                 </div>
 
                 <!-- Card 2 -->
@@ -231,6 +907,51 @@
                         <li>Established principle: AI generates, humans guide</li>
                         <li>Designed granular interaction patterns for different personas without cognitive overload</li>
                     </ul>
+
+                    <!-- DIAGRAM 2: Persona Entry Points -->
+                    <div class="persona-entry">
+                        <!-- Left node: Non-Technical -->
+                        <div class="pe-node nontechnical">
+                            <div class="pe-icon">
+                                <i data-lucide="briefcase" width="18" height="18"></i>
+                            </div>
+                            <div class="pe-name">Business User</div>
+                            <div class="pe-detail">Describes problem in plain language, reviews AI-generated solution as a whole</div>
+                        </div>
+
+                        <!-- Arrow left to center -->
+                        <div class="pe-connect">
+                            <div class="pe-line"></div>
+                            <div class="pe-label">natural language</div>
+                        </div>
+
+                        <!-- Center node: AI Layer -->
+                        <div class="pe-node ai-layer">
+                            <div class="pe-icon">
+                                <i data-lucide="cpu" width="18" height="18"></i>
+                            </div>
+                            <div class="pe-name">AI Generation Layer</div>
+                            <div class="pe-detail">Generates assets, workflows, and data structures from business context</div>
+                        </div>
+
+                        <!-- Arrow center to right -->
+                        <div class="pe-connect">
+                            <div class="pe-line right"></div>
+                            <div class="pe-label">structured output</div>
+                        </div>
+
+                        <!-- Right node: Technical -->
+                        <div class="pe-node technical">
+                            <div class="pe-icon">
+                                <i data-lucide="terminal" width="18" height="18"></i>
+                            </div>
+                            <div class="pe-name">Technical User</div>
+                            <div class="pe-detail">Validates and refines at the component level, customizes generated assets</div>
+                        </div>
+                    </div>
+                    <div class="pe-insight">
+                        Same AI output, different entry points. The design challenge was ensuring neither user had to work at the wrong level of granularity.
+                    </div>
                 </div>
 
                 <!-- Card 3 -->
@@ -262,7 +983,7 @@
 
             <h3>Design Process</h3>
 
-            <h4>Discovery & Alignment</h4>
+            <h4>Discovery &amp; Alignment</h4>
             <ul>
                 <li>Built continuous feedback loop with internal and external users</li>
                 <li>Balanced quick ideation for stakeholder alignment with engineering feasibility</li>
@@ -284,57 +1005,77 @@
                 <li><strong>Human-in-the-loop validation:</strong> Designed preview and validation steps that mimic peer collaboration, allowing early error detection and correction to prevent hallucination cascades and maintain user confidence</li>
             </ul>
 
-            <!-- AI Interaction Model Diagram -->
+            <!-- DIAGRAM 3: Adaptive Interaction Mode Phase Track -->
             <div class="design-artifact">
-                <div class="diagram-title">AI Interaction Evolution Model</div>
-                <div class="interaction-flow">
-                    <div class="flow-item">
-                        <div class="flow-icon">💬</div>
-                        <div class="flow-label">Exploration</div>
-                        <div class="flow-desc">Chat-based discovery for open-ended ideation</div>
+                <div class="diagram-title">Adaptive AI Interaction Model</div>
+                <div class="phase-track">
+                    <!-- Mode 1 -->
+                    <div class="phase-card">
+                        <div class="phase-number">
+                            <i data-lucide="message-square" width="22" height="22"></i>
+                        </div>
+                        <div class="phase-body">
+                            <div class="phase-heading">Exploration</div>
+                            <div class="phase-audience">Open-ended problem framing — users describe in natural language</div>
+                            <span class="phase-goal-tag">Chat-style AI</span>
+                        </div>
                     </div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-item">
-                        <div class="flow-icon">✏️</div>
-                        <div class="flow-label">Refinement</div>
-                        <div class="flow-desc">Inline AI for contextual improvements</div>
+
+                    <!-- Mode 2 (active) -->
+                    <div class="phase-card active">
+                        <div class="phase-number">
+                            <i data-lucide="edit-3" width="22" height="22"></i>
+                        </div>
+                        <div class="phase-body">
+                            <div class="phase-heading">Refinement</div>
+                            <div class="phase-audience">AI assists in context — suggestions appear where the user is already working</div>
+                            <span class="phase-goal-tag">Inline AI</span>
+                        </div>
                     </div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-item">
-                        <div class="flow-icon">✓</div>
-                        <div class="flow-label">Finalization</div>
-                        <div class="flow-desc">Manual edits for precise control</div>
+
+                    <!-- Mode 3 -->
+                    <div class="phase-card future">
+                        <div class="phase-number">
+                            <i data-lucide="check-square" width="22" height="22"></i>
+                        </div>
+                        <div class="phase-body">
+                            <div class="phase-heading">Finalization</div>
+                            <div class="phase-audience">Precise manual control — user makes targeted edits before committing</div>
+                            <span class="phase-goal-tag">Manual Edit</span>
+                        </div>
                     </div>
                 </div>
-                <p class="caption">Progressive interaction model aligning with user mental states throughout project lifecycle</p>
+                <p class="caption">Each mode matches the user's mental state as projects evolve from ambiguous to refined — AI steps back as clarity increases</p>
             </div>
 
             <!-- Impact section with background -->
             <div class="impact-section">
-                <h3>Impact & Outcomes</h3>
+                <h3>Impact &amp; Outcomes</h3>
 
-                <div class="design-artifact" style="margin-top: 0;">
-                    <div class="diagram-title">Human-AI Collaboration Framework</div>
-                    <div class="framework-grid">
-                        <div class="framework-principle">
-                            <h5>AI Generates</h5>
-                            <p>Creates initial solutions based on business context</p>
-                        </div>
-                        <div class="framework-principle">
-                            <h5>Humans Guide</h5>
-                            <p>Provide direction and validate outputs</p>
-                        </div>
-                        <div class="framework-principle">
-                            <h5>Progressive Control</h5>
-                            <p>Increasing human input as project matures</p>
-                        </div>
-                        <div class="framework-principle">
-                            <h5>Error Prevention</h5>
-                            <p>Early detection stops hallucination cascades</p>
-                        </div>
+                <!-- DIAGRAM 4: Impact Metrics Callout Row -->
+                <div class="impact-metrics-row">
+                    <div class="impact-metric-card">
+                        <div class="imc-stat">1</div>
+                        <div class="imc-label">Designer Promoted</div>
+                        <div class="imc-desc">Senior designer elevated to Staff through mentorship on this project</div>
                     </div>
-                    <p class="caption">Core principles driving our AI design strategy across the platform</p>
+                    <div class="impact-metric-card">
+                        <div class="imc-stat">3</div>
+                        <div class="imc-label">Interaction Modes</div>
+                        <div class="imc-desc">Unified design system for AI interaction used across the platform</div>
+                    </div>
+                    <div class="impact-metric-card">
+                        <div class="imc-stat" style="color: var(--success);">&#10003;</div>
+                        <div class="imc-label">Patterns Adopted</div>
+                        <div class="imc-desc">Design patterns now used by multiple teams across the organization</div>
+                    </div>
+                    <div class="impact-metric-card">
+                        <div class="imc-stat" style="font-size: 1.5rem;">6&rarr;1</div>
+                        <div class="imc-label">Capabilities Unified</div>
+                        <div class="imc-desc">Six platform capabilities connected through a single AI generation layer</div>
+                    </div>
                 </div>
+                <hr class="impact-divider">
 
                 <div class="impact-grid">
                     <div class="impact-item">
@@ -393,8 +1134,8 @@
 
         <section class="case-navigation">
             <div>
-                <a href="index.html" class="btn btn-secondary">← Back to Overview</a>
-                <a href="process-manager.html" class="btn btn-primary">Next: Process Manager →</a>
+                <a href="index.html" class="btn btn-secondary">&larr; Back to Overview</a>
+                <a href="process-manager.html" class="btn btn-primary">Next: Process Manager &rarr;</a>
             </div>
         </section>
     </div>
@@ -405,6 +1146,22 @@
         </div>
     </footer>
 
-    <script>lucide.createIcons();</script>
+    <script>
+        lucide.createIcons();
+        (function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links  = document.getElementById('nav-links');
+            if (!toggle || !links) return;
+            toggle.addEventListener('click', function() {
+                var open = links.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                var icon = toggle.querySelector('i');
+                if (icon) {
+                    icon.setAttribute('data-lucide', open ? 'x' : 'menu');
+                    lucide.createIcons();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

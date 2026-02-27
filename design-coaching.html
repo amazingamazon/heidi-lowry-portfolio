@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Design Coaching & Craft Evaluation - Heidi Lowry</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
         /* Custom styles for wider evaluation cards */
         .evaluation-section {
@@ -74,13 +75,25 @@
                 gap: 1.5rem;
             }
         }
+
+        @media (max-width: 640px) {
+            .evaluation-card {
+                padding: 1.25rem;
+            }
+            .category-header {
+                margin: 1.75rem 0 0.75rem;
+            }
+        }
     </style>
 </head>
 <body>
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">Heidi Lowry</a>
-            <div class="nav-links">
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <i data-lucide="menu" width="24" height="24"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
                 <a href="index.html" class="nav-link">About</a>
                 <a href="ai-platform.html" class="nav-link">AI Platform</a>
                 <a href="process-manager.html" class="nav-link">Process Manager</a>
@@ -361,5 +374,22 @@
             <p>&copy; 2026 Heidi Lowry. Available for leadership roles in Canada and US. Made with love ❤️ and AI 🤖</p>
         </div>
     </footer>
+    <script>
+        lucide.createIcons();
+        (function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links  = document.getElementById('nav-links');
+            if (!toggle || !links) return;
+            toggle.addEventListener('click', function() {
+                var open = links.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                var icon = toggle.querySelector('i');
+                if (icon) {
+                    icon.setAttribute('data-lucide', open ? 'x' : 'menu');
+                    lucide.createIcons();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

@@ -34,13 +34,21 @@
         .case-preview-content {
             padding: 2.5rem;
         }
+        @media (max-width: 640px) {
+            .case-preview-content {
+                padding: 1.25rem;
+            }
+        }
     </style>
 </head>
 <body>
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">Heidi Lowry</a>
-            <div class="nav-links">
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <i data-lucide="menu" width="24" height="24"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
                 <a href="index.html" class="nav-link active">About</a>
                 <a href="ai-platform.html" class="nav-link">AI Platform</a>
                 <a href="process-manager.html" class="nav-link">Process Manager</a>
@@ -170,6 +178,22 @@
         </div>
     </footer>
 
-    <script>lucide.createIcons();</script>
+    <script>
+        lucide.createIcons();
+        (function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links  = document.getElementById('nav-links');
+            if (!toggle || !links) return;
+            toggle.addEventListener('click', function() {
+                var open = links.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                var icon = toggle.querySelector('i');
+                if (icon) {
+                    icon.setAttribute('data-lucide', open ? 'x' : 'menu');
+                    lucide.createIcons();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
