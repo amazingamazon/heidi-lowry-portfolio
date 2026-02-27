@@ -5,6 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Solution Platform - Heidi Lowry</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+        /* Hero image */
+        .case-hero-image {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin: 2rem 0;
+            display: block;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        /* Skip to visuals link */
+        .skip-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            margin-bottom: 2rem;
+        }
+        .skip-link:hover { text-decoration: underline; }
+
+        /* Metadata with icons */
+        .metadata-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .metadata-label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-medium);
+            font-weight: 600;
+            font-size: 0.8125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .metadata-label svg { color: var(--primary); flex-shrink: 0; }
+
+        /* Strategy cards */
+        .strategy-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 1.5rem 0 2.5rem;
+        }
+        .strategy-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.75rem;
+        }
+        .strategy-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .strategy-card-header svg { color: var(--primary); flex-shrink: 0; }
+        .strategy-card-header h4 {
+            margin: 0;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+        }
+        .strategy-card ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+        .strategy-card li { margin-bottom: 0.5rem; font-size: 0.95rem; }
+
+        /* Icon list for leading through complexity */
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .icon-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.65rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .icon-list li svg {
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        /* Impact section background */
+        .impact-section {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+        }
+        .impact-section h3 {
+            margin-top: 0;
+        }
+        .impact-section .impact-grid {
+            margin: 0;
+        }
+        .impact-section .impact-item {
+            background: white;
+        }
+
+        /* Visual design section */
+        .visual-section-intro {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .visual-section-intro svg { color: var(--primary); }
+
+        /* Inline first visual */
+        .first-visual {
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .strategy-cards { gap: 1rem; }
+        }
+    </style>
 </head>
 <body>
     <nav class="nav">
@@ -22,69 +153,122 @@
     </nav>
 
     <div class="accent-bar"></div>
-    
+
     <div class="container">
-        <!-- Case Study -->
         <section class="case-study">
             <h2>AI-Powered Solution Development Platform</h2>
             <p class="subtitle">Transforming how businesses build custom AI solutions through strategic design leadership</p>
-            
+
+            <!-- Hero image up top -->
+            <img
+                src="images/ai-start.png"
+                alt="AI platform entry point — users describe their business problem in natural language"
+                class="case-hero-image"
+            >
+
+            <a href="#visuals" class="skip-link">
+                <i data-lucide="image" width="14" height="14"></i>
+                Skip to all visuals
+            </a>
+
             <div class="challenge">
                 <h3>The Challenge</h3>
                 <p>Businesses were forcing SaaS products to fit their needs instead of getting custom AI solutions. Our platform had all the pieces – Processes, Workflows, Apps, Forms, Data, and Document Generation – but they weren't working together to give AI the business context it needed.</p>
             </div>
-            
+
+            <!-- Metadata with icons -->
             <div class="metadata">
                 <div class="metadata-item">
-                    <strong>Role</strong>
+                    <div class="metadata-label">
+                        <i data-lucide="user" width="14" height="14"></i>
+                        Role
+                    </div>
                     <span>Product Design Manager</span>
                 </div>
                 <div class="metadata-item">
-                    <strong>Timeline</strong>
+                    <div class="metadata-label">
+                        <i data-lucide="calendar" width="14" height="14"></i>
+                        Timeline
+                    </div>
                     <span>2025 (Current)</span>
                 </div>
                 <div class="metadata-item">
-                    <strong>Team</strong>
+                    <div class="metadata-label">
+                        <i data-lucide="users" width="14" height="14"></i>
+                        Team
+                    </div>
                     <span>1 lead designer (direct report), 6 engineers, 1 PM, multiple senior leadership and C-suite stakeholders</span>
                 </div>
             </div>
-            
+
             <h3>Strategic Approach</h3>
-            
-            <h4>1. Identifying the Market Opportunity</h4>
-            <ul>
-                <li>Understood gap where businesses needed custom AI solutions</li>
-                <li>Leveraged our platform's unique advantage: combining all capabilities to provide AI with rich business context</li>
-                <li>Positioned us for competitive differentiation in AI-powered business solutions</li>
-            </ul>
-            
-            <h4>2. Establishing Human-AI Partnership Principles</h4>
-            <div class="key-insight">
-                "The hardest part isn't the AI generation—it's designing the right amount of AI output that humans can meaningfully review and act on."
+
+            <div class="strategy-cards">
+                <!-- Card 1 -->
+                <div class="strategy-card">
+                    <div class="strategy-card-header">
+                        <i data-lucide="search" width="20" height="20"></i>
+                        <h4>1. Identifying the Market Opportunity</h4>
+                    </div>
+                    <ul>
+                        <li>Understood gap where businesses needed custom AI solutions</li>
+                        <li>Leveraged our platform's unique advantage: combining all capabilities to provide AI with rich business context</li>
+                        <li>Positioned us for competitive differentiation in AI-powered business solutions</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="strategy-card">
+                    <div class="strategy-card-header">
+                        <i data-lucide="git-merge" width="20" height="20"></i>
+                        <h4>2. Establishing Human-AI Partnership Principles</h4>
+                    </div>
+                    <div class="key-insight" style="margin-top: 0; margin-bottom: 1rem;">
+                        "The hardest part isn't the AI generation—it's designing the right amount of AI output that humans can meaningfully review and act on."
+                    </div>
+                    <ul>
+                        <li>Challenged industry assumption that "AI should do everything"</li>
+                        <li>Established principle: AI generates, humans guide</li>
+                        <li>Designed granular interaction patterns for different personas without cognitive overload</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="strategy-card">
+                    <div class="strategy-card-header">
+                        <i data-lucide="navigation" width="20" height="20"></i>
+                        <h4>3. Leading Through Complexity</h4>
+                    </div>
+                    <ul class="icon-list">
+                        <li>
+                            <i data-lucide="users" width="15" height="15"></i>
+                            <span><strong>Stakeholder Management:</strong> Guided C-suite presentations and provided real-time meeting direction</span>
+                        </li>
+                        <li>
+                            <i data-lucide="shield" width="15" height="15"></i>
+                            <span><strong>Team Protection:</strong> Defended small, empowered teams to ensure streamlined leadership understanding and prevent scope creep</span>
+                        </li>
+                        <li>
+                            <i data-lucide="code-2" width="15" height="15"></i>
+                            <span><strong>Technical Partnership:</strong> Collaborated with engineering to ensure designs matched AI capabilities possible to deliver</span>
+                        </li>
+                        <li>
+                            <i data-lucide="focus" width="15" height="15"></i>
+                            <span><strong>User Focus:</strong> Maintained continuous learning loop despite rapid AI technology changes</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <ul>
-                <li>Challenged industry assumption that "AI should do everything"</li>
-                <li>Established principle: AI generates, humans guide</li>
-                <li>Designed granular interaction patterns for different personas without cognitive overload</li>
-            </ul>
-            
-            <h4>3. Leading Through Complexity</h4>
-            <ul>
-                <li><strong>Stakeholder Management:</strong> Guided C-suite presentations and provided real-time meeting direction</li>
-                <li><strong>Team Protection:</strong> Defended small, empowered teams to ensure streamlined leadership understanding and prevent scope creep</li>
-                <li><strong>Technical Partnership:</strong> Collaborated with engineering to ensure designs matched AI capabilities possible to deliver</li>
-                <li><strong>User Focus:</strong> Maintained continuous learning loop despite rapid AI technology changes</li>
-            </ul>
-            
+
             <h3>Design Process</h3>
-            
+
             <h4>Discovery & Alignment</h4>
             <ul>
                 <li>Built continuous feedback loop with internal and external users</li>
                 <li>Balanced quick ideation for stakeholder alignment with engineering feasibility</li>
                 <li>Created shared vision across multiple senior stakeholders</li>
             </ul>
-            
+
             <h4>Strategy to Execution</h4>
             <ul>
                 <li>Elevated established senior designer to higher-visibility role, coaching them through executive presentations</li>
@@ -92,14 +276,14 @@
                 <li>Mentored designer through executive stakeholder management, positioning them for promotion</li>
                 <li>Set team workloads and negotiated scope with PM to shape realistic roadmaps</li>
             </ul>
-            
+
             <h4>Key Design Decisions</h4>
             <ul>
                 <li><strong>Adaptive AI interaction modes:</strong> Combined chat-style AI for open-ended exploration, inline AI for contextual assistance, and quick manual edits for finishing touches – matching users' mental models as projects evolve from ambiguous to refined</li>
                 <li><strong>Progressive personalization strategy:</strong> Created different entry points for technical vs. non-technical users, with plans for role-based prompts and customizable AI behavior to meet each persona where they are</li>
                 <li><strong>Human-in-the-loop validation:</strong> Designed preview and validation steps that mimic peer collaboration, allowing early error detection and correction to prevent hallucination cascades and maintain user confidence</li>
             </ul>
-            
+
             <!-- AI Interaction Model Diagram -->
             <div class="design-artifact">
                 <div class="diagram-title">AI Interaction Evolution Model</div>
@@ -124,93 +308,91 @@
                 </div>
                 <p class="caption">Progressive interaction model aligning with user mental states throughout project lifecycle</p>
             </div>
-            
-            <h3>Impact & Outcomes</h3>
-            
-            <!-- Human-AI Framework -->
-            <div class="design-artifact">
-                <div class="diagram-title">Human-AI Collaboration Framework</div>
-                <div class="framework-grid">
-                    <div class="framework-principle">
-                        <h5>AI Generates</h5>
-                        <p>Creates initial solutions based on business context</p>
+
+            <!-- Impact section with background -->
+            <div class="impact-section">
+                <h3>Impact & Outcomes</h3>
+
+                <div class="design-artifact" style="margin-top: 0;">
+                    <div class="diagram-title">Human-AI Collaboration Framework</div>
+                    <div class="framework-grid">
+                        <div class="framework-principle">
+                            <h5>AI Generates</h5>
+                            <p>Creates initial solutions based on business context</p>
+                        </div>
+                        <div class="framework-principle">
+                            <h5>Humans Guide</h5>
+                            <p>Provide direction and validate outputs</p>
+                        </div>
+                        <div class="framework-principle">
+                            <h5>Progressive Control</h5>
+                            <p>Increasing human input as project matures</p>
+                        </div>
+                        <div class="framework-principle">
+                            <h5>Error Prevention</h5>
+                            <p>Early detection stops hallucination cascades</p>
+                        </div>
                     </div>
-                    <div class="framework-principle">
-                        <h5>Humans Guide</h5>
-                        <p>Provide direction and validate outputs</p>
+                    <p class="caption">Core principles driving our AI design strategy across the platform</p>
+                </div>
+
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <h4>Business Impact</h4>
+                        <ul>
+                            <li>Will shape platform product cohesion across all capabilities</li>
+                            <li>Informs AI asset generation strategy company-wide</li>
+                            <li>Fundamentally evolves how we communicate as an integrated platform</li>
+                        </ul>
                     </div>
-                    <div class="framework-principle">
-                        <h5>Progressive Control</h5>
-                        <p>Increasing human input as project matures</p>
-                    </div>
-                    <div class="framework-principle">
-                        <h5>Error Prevention</h5>
-                        <p>Early detection stops hallucination cascades</p>
+                    <div class="impact-item">
+                        <h4>Team Development</h4>
+                        <ul>
+                            <li>Elevated senior designer to executive-facing role, resulting in promotion trajectory</li>
+                            <li>Established design patterns now used across multiple teams</li>
+                            <li>Created framework for future AI feature development</li>
+                            <li>Built team capability in AI design through focused mentorship</li>
+                        </ul>
                     </div>
                 </div>
-                <p class="caption">Core principles driving our AI design strategy across the platform</p>
             </div>
-            
-            <div class="impact-grid">
-                <div class="impact-item">
-                    <h4>Business Impact</h4>
-                    <ul>
-                        <li>Will shape platform product cohesion across all capabilities</li>
-                        <li>Informs AI asset generation strategy company-wide</li>
-                        <li>Fundamentally evolves how we communicate as an integrated platform</li>
-                    </ul>
-                </div>
-                <div class="impact-item">
-                    <h4>Team Development</h4>
-                    <ul>
-                        <li>Elevated senior designer to executive-facing role, resulting in promotion trajectory</li>
-                        <li>Established design patterns now used across multiple teams</li>
-                        <li>Created framework for future AI feature development</li>
-                        <li>Built team capability in AI design through focused mentorship</li>
-                    </ul>
-                </div>
-            </div>
-            
+
             <div class="reflection-section">
                 <h3>Reflection</h3>
                 <p><strong>What I learned about leading AI design:</strong> The intersection of AI capabilities and human needs requires constant recalibration. Success came from protecting the team's focus while managing upward to keep stakeholders aligned.</p>
                 <p><strong>What I'd do differently:</strong> Keep the team smaller and more focused from the start. Too many stakeholders got involved too early, making it hard to narrow scope and costing us valuable learning time through mid-development changes. Small, empowered teams with clear decision rights actually move faster.</p>
             </div>
         </section>
-        <!-- Visual Design Examples -->
-<section class="visual-examples">
-    <h3>Visual Design</h3>
-        <p>Design completed under my coaching and direction by a Senior Designer who was promoted to Staff Designer.</p>
-    
-    <div class="design-artifact">
-        <img src="images/ai-start.png" alt="AI solution generator start screen" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-        <p class="caption">AI-powered solution entry point: users describe their business problem in natural language</p>
-    </div>
 
-    <div class="design-artifact">
-        <img src="images/ai-stories.png" alt="Generated user personas and stories" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-        <p class="caption">AI-generated personas and user stories based on business context</p>
-    </div>
+        <!-- Visual Design -->
+        <section id="visuals" class="visual-examples">
+            <h3>Visual Design</h3>
+            <p>Design completed under my coaching and direction by a Senior Designer who was promoted to Staff Designer.</p>
 
-    <div class="design-artifact">
-        <img src="images/ai-generator.png" alt="Solution generation progress view" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-        <p class="caption">Progressive disclosure: showing users where they are in the AI generation process</p>
-    </div>
+            <div class="design-artifact">
+                <img src="images/ai-start.png" alt="AI solution generator start screen" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
+                <p class="caption">AI-powered solution entry point: users describe their business problem in natural language</p>
+            </div>
+            <div class="design-artifact">
+                <img src="images/ai-stories.png" alt="Generated user personas and stories" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
+                <p class="caption">AI-generated personas and user stories based on business context</p>
+            </div>
+            <div class="design-artifact">
+                <img src="images/ai-generator.png" alt="Solution generation progress view" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
+                <p class="caption">Progressive disclosure: showing users where they are in the AI generation process</p>
+            </div>
+            <div class="design-artifact">
+                <img src="images/ai-connections.png" alt="External system connections interface" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
+                <p class="caption">Platform integration: connecting generated solutions to external systems for real-world implementation</p>
+            </div>
+            <div class="design-artifact">
+                <img src="images/ai-in-process.png" alt="Asset outline generation" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
+                <p class="caption">Human-in-the-loop validation: reviewing AI-generated asset outlines before final generation</p>
+            </div>
+        </section>
 
-    <div class="design-artifact">
-        <img src="images/ai-connections.png" alt="External system connections interface" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-        <p class="caption">Platform integration: connecting generated solutions to external systems for real-world implementation</p>
-    </div>
-
-    <div class="design-artifact">
-        <img src="images/ai-in-process.png" alt="Asset outline generation" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-        <p class="caption">Human-in-the-loop validation: reviewing AI-generated asset outlines before final generation</p>
-    </div>
-</section>
-        
-        <!-- Navigation to other case studies -->
         <section class="case-navigation">
-            <div style="display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; border-top: 1px solid var(--border);">
+            <div>
                 <a href="index.html" class="btn btn-secondary">← Back to Overview</a>
                 <a href="process-manager.html" class="btn btn-primary">Next: Process Manager →</a>
             </div>
@@ -222,5 +404,7 @@
             <p>&copy; 2026 Heidi Lowry. Available for leadership roles in Canada and the US. Made with love ❤️ and AI 🤖</p>
         </div>
     </footer>
+
+    <script>lucide.createIcons();</script>
 </body>
 </html>
