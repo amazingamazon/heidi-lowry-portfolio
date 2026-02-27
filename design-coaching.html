@@ -381,10 +381,7 @@
         }
 
         /* ---- Case navigation ---- */
-        .case-navigation {
-            padding: 2rem 0;
-            border-top: 1px solid var(--border);
-        }
+        /* inherits from style.css */
 
         /* ============================================================
            Mobile — 768px
@@ -435,6 +432,176 @@
         @media (max-width: 480px) {
             .coaching-stat-number {
                 font-size: 1.625rem;
+            }
+        }
+
+        /* ============================================================
+           LIGHTBOX — full-screen image viewer
+        ============================================================ */
+
+        /* Clickable image affordance */
+        .design-artifact img {
+            cursor: pointer;
+            transition: filter 0.2s ease, transform 0.2s ease;
+        }
+        .design-artifact img:hover {
+            filter: brightness(1.05);
+            transform: scale(1.01);
+        }
+
+        /* Overlay */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            padding: 3rem 1rem 120px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .lightbox.is-open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Main image area */
+        .lightbox-main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            max-width: 96vw;
+            width: 100%;
+        }
+        #lightbox-img {
+            max-height: none;
+            max-width: 96vw;
+            width: 100%;
+            object-fit: contain;
+            border-radius: 6px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+            display: block;
+        }
+        .lightbox-caption {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.875rem;
+            text-align: center;
+            line-height: 1.5;
+            max-width: 680px;
+            margin: 0;
+        }
+
+        /* Close button */
+        .lightbox-close {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            color: #111;
+            font-size: 1.5rem;
+            line-height: 1;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.15s ease, transform 0.15s ease;
+            z-index: 1001;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+        .lightbox-close:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        /* Prev / next buttons */
+        .lightbox-prev,
+        .lightbox-next {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            color: #111;
+            font-size: 2rem;
+            line-height: 1;
+            width: 52px;
+            height: 72px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.15s ease, transform 0.15s ease;
+            z-index: 1001;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+        .lightbox-prev { left: 1rem; }
+        .lightbox-next { right: 1rem; }
+        .lightbox-prev:hover { transform: translateY(-50%) scale(1.05); background: white; }
+        .lightbox-next:hover { transform: translateY(-50%) scale(1.05); background: white; }
+
+        /* Thumbnail strip */
+        .lightbox-strip {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .lightbox-thumbs {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            min-width: max-content;
+            margin: 0 auto;
+        }
+        .lightbox-thumb {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            object-position: top left;
+            border-radius: 4px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            opacity: 0.55;
+            transition: opacity 0.2s ease, border-color 0.2s ease;
+            flex-shrink: 0;
+        }
+        .lightbox-thumb:hover {
+            opacity: 0.85;
+        }
+        .lightbox-thumb.is-active {
+            border-color: var(--primary);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-prev { left: 0.25rem; }
+            .lightbox-next { right: 0.25rem; }
+            .lightbox-prev,
+            .lightbox-next {
+                width: 36px;
+                height: 52px;
+                font-size: 1.5rem;
+            }
+            .lightbox-thumb {
+                width: 60px;
+                height: 46px;
             }
         }
     </style>
@@ -909,6 +1076,9 @@
             <div>
                 <a href="leadership.html" class="btn btn-secondary">&larr; Previous: Leadership</a>
             </div>
+            <div>
+                <a href="index.html" class="btn btn-primary">Next: Overview &rarr;</a>
+            </div>
         </div>
 
     </div>
@@ -918,6 +1088,20 @@
             <p>&copy; 2026 Heidi Lowry. Available for leadership roles in Canada and US. Made with love ❤️ and AI 🤖</p>
         </div>
     </footer>
+
+    <!-- Lightbox modal -->
+    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
+        <button class="lightbox-prev" aria-label="Previous image">&#8249;</button>
+        <button class="lightbox-next" aria-label="Next image">&#8250;</button>
+        <div class="lightbox-main">
+            <img id="lightbox-img" src="" alt="">
+            <p id="lightbox-caption" class="lightbox-caption"></p>
+        </div>
+        <div class="lightbox-strip">
+            <div id="lightbox-thumbs" class="lightbox-thumbs"></div>
+        </div>
+    </div>
 
     <script>
         lucide.createIcons();
@@ -933,6 +1117,114 @@
                     icon.setAttribute('data-lucide', open ? 'x' : 'menu');
                     lucide.createIcons();
                 }
+            });
+        })();
+
+        // ============================================================
+        // LIGHTBOX
+        // ============================================================
+        (function () {
+            // Collect all content images inside .design-artifact
+            // This naturally excludes nav logos and any icon SVGs.
+            var imgEls = Array.from(
+                document.querySelectorAll('.design-artifact img')
+            );
+
+            if (imgEls.length === 0) return;
+
+            // Build the data array
+            var images = imgEls.map(function (el) {
+                // Look for the caption immediately after this image, not just
+                // any .caption in the parent (which breaks when multiple images
+                // share the same .design-artifact wrapper).
+                var caption = el.getAttribute('alt') || '';
+                var next = el.nextElementSibling;
+                if (next && next.classList.contains('caption')) {
+                    caption = next.textContent.trim();
+                }
+                return { src: el.getAttribute('src'), alt: el.getAttribute('alt') || '', caption: caption };
+            });
+
+            // DOM refs
+            var lightbox     = document.getElementById('lightbox');
+            var lightboxImg  = document.getElementById('lightbox-img');
+            var lightboxCap  = document.getElementById('lightbox-caption');
+            var thumbsEl     = document.getElementById('lightbox-thumbs');
+            var btnClose     = lightbox.querySelector('.lightbox-close');
+            var btnPrev      = lightbox.querySelector('.lightbox-prev');
+            var btnNext      = lightbox.querySelector('.lightbox-next');
+
+            var currentIndex = 0;
+            var thumbEls     = [];
+
+            // Build thumbnail strip
+            images.forEach(function (img, i) {
+                var thumb = document.createElement('img');
+                thumb.src = img.src;
+                thumb.alt = img.alt;
+                thumb.className = 'lightbox-thumb';
+                thumb.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    goTo(i);
+                });
+                thumbsEl.appendChild(thumb);
+                thumbEls.push(thumb);
+            });
+
+            function goTo(index) {
+                currentIndex = (index + images.length) % images.length;
+                var img = images[currentIndex];
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightboxCap.textContent = img.caption;
+
+                // Update thumbnail active state and scroll active thumb into view
+                thumbEls.forEach(function (t, i) {
+                    t.classList.toggle('is-active', i === currentIndex);
+                });
+                var activeThumb = thumbEls[currentIndex];
+                if (activeThumb) {
+                    activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            }
+
+            function openLightbox(index) {
+                goTo(index);
+                lightbox.classList.add('is-open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                btnClose.focus();
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('is-open');
+                lightbox.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            // Wire up click on each source image
+            imgEls.forEach(function (el, i) {
+                el.addEventListener('click', function () {
+                    openLightbox(i);
+                });
+            });
+
+            // Controls
+            btnClose.addEventListener('click', closeLightbox);
+            btnPrev.addEventListener('click', function (e) { e.stopPropagation(); goTo(currentIndex - 1); });
+            btnNext.addEventListener('click', function (e) { e.stopPropagation(); goTo(currentIndex + 1); });
+
+            // Click outside main image to close (click on dark overlay)
+            lightbox.addEventListener('click', function (e) {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            // Keyboard support
+            document.addEventListener('keydown', function (e) {
+                if (!lightbox.classList.contains('is-open')) return;
+                if (e.key === 'Escape')      closeLightbox();
+                if (e.key === 'ArrowLeft')   goTo(currentIndex - 1);
+                if (e.key === 'ArrowRight')  goTo(currentIndex + 1);
             });
         })();
     </script>
