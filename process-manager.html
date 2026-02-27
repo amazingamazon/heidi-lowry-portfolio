@@ -5,12 +5,760 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Process Manager Integration - Heidi Lowry</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+        /* Hero image */
+        .case-hero-image {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin: 2rem 0;
+            display: block;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        /* Skip to visuals link */
+        .skip-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            margin-bottom: 2rem;
+        }
+        .skip-link:hover { text-decoration: underline; }
+
+        /* Metadata with icons */
+        .metadata-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .metadata-label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-medium);
+            font-weight: 600;
+            font-size: 0.8125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .metadata-label svg { color: var(--primary); flex-shrink: 0; }
+
+        /* Strategy cards */
+        .strategy-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 1.5rem 0 2.5rem;
+        }
+        .strategy-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.75rem;
+        }
+        .strategy-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .strategy-card-header svg { color: var(--primary); flex-shrink: 0; }
+        .strategy-card-header h4 {
+            margin: 0;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+        }
+        .strategy-card ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+        .strategy-card li { margin-bottom: 0.5rem; font-size: 0.95rem; }
+
+        /* Icon list */
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .icon-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.65rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .icon-list li svg {
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        /* Impact section background */
+        .impact-section {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+        }
+        .impact-section h3 {
+            margin-top: 0;
+        }
+        .impact-section .impact-grid {
+            margin: 0;
+        }
+        .impact-section .impact-item {
+            background: white;
+        }
+
+        /* Visual design section */
+        .visual-section-intro {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .visual-section-intro svg { color: var(--primary); }
+
+        /* ============================================================
+           DIAGRAM 1: Before vs. After — Integration Model
+           Sits between the challenge prose and the metadata strip.
+           Shows the old siloed state vs. the new unified platform model.
+        ============================================================ */
+        .bva-diagram {
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 0;
+            align-items: stretch;
+        }
+        .bva-panel {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            background: white;
+        }
+        .bva-panel-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .bva-panel-label.before { color: var(--text-medium); }
+        .bva-panel-label.after  { color: var(--success); }
+
+        /* before panel: three isolated boxes */
+        .bva-silo-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .bva-silo {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .bva-silo svg { color: var(--border); flex-shrink: 0; }
+        .bva-silo.pm-standalone {
+            border-color: #d1d5db;
+            background: #f3f4f6;
+        }
+        .bva-silo-note {
+            margin-top: 0.75rem;
+            font-size: 0.78rem;
+            color: var(--text-light);
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* after panel: hub model */
+        .bva-platform-hub {
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+        .bva-platform-hub small {
+            display: block;
+            font-weight: 400;
+            font-size: 0.75rem;
+            opacity: 0.85;
+            margin-top: 0.2rem;
+        }
+        .bva-spokes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        .bva-spoke {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid rgba(0,85,184,0.2);
+            border-radius: 20px;
+            padding: 0.3rem 0.75rem;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+        .bva-spoke.pm-integrated {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Before panel: centered isolated PM box + pain tags */
+        .bva-before-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 0;
+        }
+        .bva-pm-box {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .bva-pm-box.isolated {
+            background: #f3f4f6;
+            border: 2px dashed #d1d5db;
+            color: var(--text-medium);
+        }
+        .bva-pm-box.isolated svg { color: #9ca3af; }
+        .bva-pain-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+        }
+        .bva-pain-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #fef2f2;
+            border: 1px solid #fca5a5;
+            color: #dc2626;
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+        .bva-pain-tag svg { color: #dc2626; flex-shrink: 0; }
+
+        /* After panel: stacked architecture */
+        .bva-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .bva-ai-cap {
+            background: var(--primary);
+            color: white;
+            border-radius: 8px 8px 0 0;
+            padding: 0.65rem 1rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .bva-ai-cap small {
+            font-weight: 400;
+            font-size: 0.72rem;
+            opacity: 0.85;
+            width: 100%;
+            margin-top: 0.1rem;
+        }
+        .bva-ai-cap svg { flex-shrink: 0; }
+        .bva-stack-connects {
+            display: flex;
+            justify-content: space-around;
+            padding: 0 1.5rem;
+            height: 18px;
+        }
+        .bva-stack-connects span {
+            width: 1px;
+            height: 100%;
+            background: var(--border);
+        }
+        .bva-platform-caps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            padding: 0.5rem 0;
+            justify-content: center;
+        }
+        .bva-cap-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.3rem 0.65rem;
+            border-radius: 20px;
+        }
+        .bva-cap-pill svg { color: var(--primary); flex-shrink: 0; }
+        .bva-pm-foundation {
+            background: #e8f0fc;
+            border: 2px solid var(--primary);
+            border-radius: 0 0 8px 8px;
+            padding: 0.65rem 1rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .bva-pm-foundation small {
+            font-weight: 400;
+            font-size: 0.72rem;
+            color: var(--text-medium);
+            width: 100%;
+            margin-top: 0.1rem;
+        }
+        .bva-pm-foundation svg { flex-shrink: 0; }
+
+        .bva-after-note {
+            margin-top: 0.75rem;
+            font-size: 0.78rem;
+            color: var(--success);
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* middle arrow column */
+        .bva-arrow-col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1rem;
+        }
+        .bva-arrow-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .bva-arrow-line {
+            width: 2px;
+            flex: 1;
+            background: var(--border);
+            min-height: 24px;
+        }
+        .bva-arrow-badge {
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================
+           DIAGRAM 2: Persona Bridge — Research Synthesis
+           Sits inside Strategy Card 2.
+           Visualizes Ana as connective tissue between LoB and Technical.
+        ============================================================ */
+        .persona-bridge {
+            margin: 1.25rem 0 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            align-items: center;
+            gap: 0;
+        }
+        .persona-node {
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .persona-node.lob {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+        }
+        .persona-node.connector {
+            background: var(--primary);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 14px rgba(0,85,184,0.22);
+        }
+        .persona-node.tech {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+        }
+        .persona-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.6rem;
+        }
+        .persona-node.lob .persona-icon,
+        .persona-node.tech .persona-icon {
+            background: var(--primary-light);
+        }
+        .persona-node.connector .persona-icon {
+            background: rgba(255,255,255,0.2);
+        }
+        .persona-node.lob svg,
+        .persona-node.tech svg { color: var(--primary); }
+        .persona-node.connector svg { color: white; }
+
+        .persona-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        .persona-node.lob .persona-name,
+        .persona-node.tech .persona-name { color: var(--text-dark); }
+        .persona-node.connector .persona-name { color: white; }
+
+        .persona-role {
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+        .persona-node.lob .persona-role,
+        .persona-node.tech .persona-role { color: var(--text-medium); }
+        .persona-node.connector .persona-role { color: rgba(255,255,255,0.85); }
+
+        .persona-connect-arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 0.5rem;
+            gap: 0.2rem;
+        }
+        .pca-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--border), var(--primary));
+        }
+        .pca-line.right {
+            background: linear-gradient(90deg, var(--primary), var(--border));
+        }
+        .pca-label {
+            font-size: 0.68rem;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+        .persona-insight {
+            margin-top: 1rem;
+            background: var(--success-light);
+            border-left: 4px solid var(--success);
+            border-radius: 4px;
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* ============================================================
+           DIAGRAM 3: Enhanced Phased Market Strategy Timeline
+           Replaces the existing .strategy-timeline in Card 3.
+           Three numbered phases with audience, goal, and status labels.
+        ============================================================ */
+        .phase-track {
+            position: relative;
+            margin: 1.25rem 0 0.5rem;
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+        }
+        /* Connecting track line behind the phases */
+        .phase-track::before {
+            content: "";
+            position: absolute;
+            top: 28px; /* center of phase-number circle */
+            left: 28px;
+            right: 28px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--border) 0%, var(--primary) 50%, var(--success) 100%);
+            border-radius: 2px;
+            z-index: 0;
+        }
+        .phase-card {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            padding: 0 0.5rem;
+        }
+        .phase-number {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 3px solid var(--border);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        .phase-card.active .phase-number {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 14px rgba(0,85,184,0.3);
+        }
+        .phase-card.future .phase-number {
+            background: var(--success-light);
+            border-color: var(--success);
+            color: var(--success);
+        }
+        .phase-body {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 0.9rem;
+            margin-top: 0.75rem;
+            text-align: center;
+            width: 100%;
+            transition: border-color 0.2s ease;
+        }
+        .phase-card.active .phase-body {
+            border-color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,85,184,0.1);
+        }
+        .phase-card.future .phase-body {
+            border-color: rgba(5,150,105,0.35);
+        }
+        .phase-heading {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            margin-bottom: 0.4rem;
+        }
+        .phase-audience {
+            font-size: 0.78rem;
+            color: var(--text-medium);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        .phase-goal-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .phase-card .phase-goal-tag {
+            background: var(--bg-light);
+            color: var(--text-medium);
+            border: 1px solid var(--border);
+        }
+        .phase-card.active .phase-goal-tag {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: rgba(0,85,184,0.2);
+        }
+        .phase-card.future .phase-goal-tag {
+            background: var(--success-light);
+            color: var(--success);
+            border-color: rgba(5,150,105,0.25);
+        }
+        .phase-status {
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .phase-card.active .phase-status { color: var(--primary); }
+        .phase-card.future  .phase-status { color: var(--success); }
+        .phase-card          .phase-status { color: var(--text-light); }
+
+        /* ============================================================
+           DIAGRAM 4: Impact Metrics Callout Cards
+           Four large-number / large-symbol cards at top of impact section.
+        ============================================================ */
+        .impact-metrics-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .impact-metric-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .impact-metric-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0,85,184,0.1);
+        }
+        .imc-stat {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+        .imc-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+        }
+        .imc-desc {
+            font-size: 0.72rem;
+            color: var(--text-medium);
+            line-height: 1.4;
+        }
+        /* Divider between metrics row and detail grids */
+        .impact-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 1.75rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .strategy-cards { gap: 1rem; }
+
+            .strategy-card {
+                padding: 1.25rem;
+            }
+
+            .impact-section {
+                padding: 1.25rem;
+            }
+
+            /* BvA diagram */
+            .bva-diagram {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            .bva-arrow-col {
+                flex-direction: row;
+                padding: 0;
+                justify-content: center;
+            }
+            .bva-arrow-wrap {
+                flex-direction: row;
+            }
+            .bva-arrow-line {
+                width: 24px;
+                height: 2px;
+                min-height: unset;
+            }
+
+            /* Persona bridge */
+            .persona-bridge {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .persona-connect-arrow {
+                flex-direction: row;
+                padding: 0.25rem 0;
+                justify-content: center;
+            }
+            .pca-line, .pca-line.right {
+                width: 24px;
+                height: 2px;
+                background: var(--border);
+            }
+
+            /* Phase track */
+            .phase-track {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.75rem;
+            }
+            .phase-track::before { display: none; }
+            .phase-card {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 0.75rem;
+                padding: 0;
+            }
+            .phase-body {
+                margin-top: 0;
+                text-align: left;
+                flex: 1;
+            }
+            .phase-number {
+                flex-shrink: 0;
+                margin-top: 0.1rem;
+            }
+
+            /* Impact metrics */
+            .impact-metrics-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .impact-metrics-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .strategy-card {
+                padding: 1rem;
+            }
+
+            .impact-section {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">Heidi Lowry</a>
-            <div class="nav-links">
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <i data-lucide="menu" width="24" height="24"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
                 <a href="index.html" class="nav-link">About</a>
                 <a href="ai-platform.html" class="nav-link">AI Platform</a>
                 <a href="process-manager.html" class="nav-link active">Process Manager</a>
@@ -22,159 +770,376 @@
     </nav>
 
     <div class="accent-bar"></div>
-    
+
     <div class="container">
-        <!-- Case Study -->
         <section class="case-study">
             <h2>Process Manager Platform Integration</h2>
             <p class="subtitle">Leading cross-functional strategy to modernize enterprise process management while protecting existing revenue</p>
-            
+
+            <!-- Hero image -->
+            <img
+                src="images/process-solutions.png"
+                alt="Process Manager integrated into the unified platform — Solutions home view"
+                class="case-hero-image"
+            >
+
+            <a href="#visuals" class="skip-link">
+                <i data-lucide="image" width="14" height="14"></i>
+                Skip to all visuals
+            </a>
+
             <div class="challenge">
                 <h3>The Strategic Challenge</h3>
                 <p>Process Manager was a powerful standalone product for documenting and managing business processes, but it was increasingly misaligned with our company's unified platform strategy. Users complained it looked outdated, was hard to navigate, and had slow loading speeds.</p>
                 <p>The real challenge wasn't just modernizing the UI—it was transforming a siloed product into an integrated platform capability without losing existing customers or revenue, while opening new market opportunities.</p>
             </div>
-            
+
+            <!-- DIAGRAM 1: Before vs. After — Process Manager Transformation -->
+            <div class="design-artifact">
+                <div class="diagram-title">The Strategic Shift: Documentation Tool → Intelligence Layer</div>
+                <div class="bva-diagram">
+                    <!-- Before panel -->
+                    <div class="bva-panel">
+                        <div class="bva-panel-label before">
+                            <i data-lucide="x-circle" width="13" height="13"></i>
+                            Before — Isolated Tool
+                        </div>
+                        <div class="bva-before-center">
+                            <div class="bva-pm-box isolated">
+                                <i data-lucide="book-open" width="18" height="18"></i>
+                                <span>Process Manager</span>
+                            </div>
+                            <div class="bva-pain-tags">
+                                <span class="bva-pain-tag"><i data-lucide="alert-circle" width="11" height="11"></i> Outdated UI</span>
+                                <span class="bva-pain-tag"><i data-lucide="alert-circle" width="11" height="11"></i> Hard to Navigate</span>
+                                <span class="bva-pain-tag"><i data-lucide="alert-circle" width="11" height="11"></i> Slow Performance</span>
+                                <span class="bva-pain-tag"><i data-lucide="alert-circle" width="11" height="11"></i> Disconnected</span>
+                            </div>
+                        </div>
+                        <div class="bva-silo-note">Valuable process data — roles, locations, ownership, procedures — locked inside an isolated tool.</div>
+                    </div>
+
+                    <!-- Arrow column -->
+                    <div class="bva-arrow-col">
+                        <div class="bva-arrow-wrap">
+                            <div class="bva-arrow-line"></div>
+                            <div class="bva-arrow-badge">
+                                <i data-lucide="arrow-right" width="16" height="16"></i>
+                            </div>
+                            <div class="bva-arrow-line"></div>
+                        </div>
+                    </div>
+
+                    <!-- After panel -->
+                    <div class="bva-panel">
+                        <div class="bva-panel-label after">
+                            <i data-lucide="check-circle" width="13" height="13"></i>
+                            After — Platform Foundation
+                        </div>
+                        <div class="bva-stack">
+                            <div class="bva-ai-cap">
+                                <i data-lucide="cpu" width="14" height="14"></i>
+                                AI Context Layer
+                                <small>Draws on real business intelligence</small>
+                            </div>
+                            <div class="bva-stack-connects">
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                            <div class="bva-platform-caps">
+                                <span class="bva-cap-pill"><i data-lucide="zap" width="11" height="11"></i> Workflows</span>
+                                <span class="bva-cap-pill"><i data-lucide="layout" width="11" height="11"></i> Apps</span>
+                                <span class="bva-cap-pill"><i data-lucide="file-text" width="11" height="11"></i> Forms</span>
+                                <span class="bva-cap-pill"><i data-lucide="database" width="11" height="11"></i> Data</span>
+                            </div>
+                            <div class="bva-stack-connects">
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                            <div class="bva-pm-foundation">
+                                <i data-lucide="book-open" width="14" height="14"></i>
+                                Process Manager — Intelligence Foundation
+                                <small>Processes · Roles · Locations · Ownership</small>
+                            </div>
+                        </div>
+                        <div class="bva-after-note">Business context flows up through the platform — enabling AI that understands how your organization actually works.</div>
+                    </div>
+                </div>
+                <p class="caption">The real opportunity wasn't a UI refresh — it was making Process Manager the business context engine the entire platform depends on.</p>
+            </div>
+
+            <!-- Metadata with icons -->
             <div class="metadata">
                 <div class="metadata-item">
-                    <strong>Role</strong>
+                    <div class="metadata-label">
+                        <i data-lucide="user" width="14" height="14"></i>
+                        Role
+                    </div>
                     <span>Product Design Manager</span>
                 </div>
                 <div class="metadata-item">
-                    <strong>Timeline</strong>
+                    <div class="metadata-label">
+                        <i data-lucide="calendar" width="14" height="14"></i>
+                        Timeline
+                    </div>
                     <span>18-month strategy evolution, implementation starting Q1 2025</span>
                 </div>
                 <div class="metadata-item">
-                    <strong>Team</strong>
+                    <div class="metadata-label">
+                        <i data-lucide="users" width="14" height="14"></i>
+                        Team
+                    </div>
                     <span>1.5 FTE designers, Lead PM, Engineering team, Research collaboration</span>
                 </div>
                 <div class="metadata-item">
-                    <strong>Status</strong>
+                    <div class="metadata-label">
+                        <i data-lucide="activity" width="14" height="14"></i>
+                        Status
+                    </div>
                     <span>Strategy approved, implementation in progress</span>
                 </div>
             </div>
-            
-            <div class="status-badge">
-                Active Project - Strategic Leadership in Progress
-            </div>
-            
-            <h3>Strategic Leadership Approach</h3>
-            
-            <h4>1. Long-term Strategic Partnership</h4>
-            <p>Over 18 months, I evolved my thinking alongside our Lead PM from surface-level modernization to deep strategic transformation. Rather than focusing on easier-to-build features like dashboards, we identified that <strong>editing and visualizing processes</strong> was the core functionality that would differentiate us in the market.</p>
-            
-            <div class="key-insight">
-                Key insight: Process documentation isn't just about compliance—it's the business context that makes AI solutions truly valuable across our entire platform.
-            </div>
-            
-            <h4>2. Cross-Functional Research Integration</h4>
-            <p>I worked closely with our Research team to evangelize their persona work, which revealed a critical strategic opportunity. Their updated persona research showed that Ana (Administrator) serves as connective tissue between Line of Business users and technical users—a role we had previously undervalued.</p>
-            
-            <h4>3. Phased Market Strategy</h4>
-            <p>Rather than a big-bang redesign that could alienate existing customers, I developed a phased approach that protects existing ARR while growing new revenue streams:</p>
-            
-  <!-- Strategic Timeline -->
-            <div class="design-artifact">
-                <div class="diagram-title">Go-to-Market Strategy Timeline</div>
-                <div class="strategy-timeline">
-                    <div class="timeline-phase">
-                        <div class="phase-title">Phase 1</div>
-                        <div class="phase-desc">Net new platform users + competitive saves</div>
+
+            <h3>Strategic Approach</h3>
+
+            <div class="strategy-cards">
+                <!-- Card 1 -->
+                <div class="strategy-card">
+                    <div class="strategy-card-header">
+                        <i data-lucide="handshake" width="20" height="20"></i>
+                        <h4>1. Long-term Strategic Partnership</h4>
                     </div>
-                    <div class="timeline-phase current">
-                        <div class="phase-title">Phase 2</div>
-                        <div class="phase-desc">Smaller orgs, less granular needs</div>
-                    </div>
-                    <div class="timeline-phase">
-                        <div class="phase-title">Phase 3</div>
-                        <div class="phase-desc">Large customers as design partners</div>
+                    <p style="margin: 0 0 0.75rem; font-size: 0.95rem;">Over 18 months, I evolved my thinking alongside our Lead PM from surface-level modernization to deep strategic transformation. Rather than focusing on easier-to-build features like dashboards, we identified that <strong>editing and visualizing processes</strong> was the core functionality that would differentiate us in the market.</p>
+                    <div class="key-insight" style="margin: 0.75rem 0 0;">
+                        Key insight: Process documentation isn't just about compliance—it's the business context that makes AI solutions truly valuable across our entire platform.
                     </div>
                 </div>
-                <p class="caption">Iterative market expansion strategy protecting existing revenue while capturing new opportunities</p>
+
+                <!-- Card 2 -->
+                <div class="strategy-card">
+                    <div class="strategy-card-header">
+                        <i data-lucide="microscope" width="20" height="20"></i>
+                        <h4>2. Cross-Functional Research Integration</h4>
+                    </div>
+                    <p style="margin: 0 0 1rem; font-size: 0.95rem;">I worked closely with our Research team to evangelize their persona work, which revealed a critical strategic opportunity. Their updated persona research showed that Ana (Administrator) serves as connective tissue between Line of Business users and technical users—a role we had previously undervalued.</p>
+
+                    <!-- DIAGRAM 2: Persona Bridge -->
+                    <div class="persona-bridge">
+                        <!-- Left node: Line of Business -->
+                        <div class="persona-node lob">
+                            <div class="persona-icon">
+                                <i data-lucide="briefcase" width="18" height="18"></i>
+                            </div>
+                            <div class="persona-name">Line of Business</div>
+                            <div class="persona-role">Needs processes documented and accessible</div>
+                        </div>
+
+                        <!-- Arrow left to center -->
+                        <div class="persona-connect-arrow">
+                            <div class="pca-line"></div>
+                            <div class="pca-label">hands off</div>
+                        </div>
+
+                        <!-- Center node: Ana -->
+                        <div class="persona-node connector">
+                            <div class="persona-icon">
+                                <i data-lucide="user-check" width="18" height="18"></i>
+                            </div>
+                            <div class="persona-name">Ana — Administrator</div>
+                            <div class="persona-role">Connective tissue: translates business needs into platform configuration</div>
+                        </div>
+
+                        <!-- Arrow center to right -->
+                        <div class="persona-connect-arrow">
+                            <div class="pca-line right"></div>
+                            <div class="pca-label">configures</div>
+                        </div>
+
+                        <!-- Right node: Technical -->
+                        <div class="persona-node tech">
+                            <div class="persona-icon">
+                                <i data-lucide="terminal" width="18" height="18"></i>
+                            </div>
+                            <div class="persona-name">Technical Users</div>
+                            <div class="persona-role">Consumes structured process data for automation</div>
+                        </div>
+                    </div>
+                    <div class="persona-insight">
+                        This research reframing changed our entire prioritization model. Designing for Ana first means serving all three groups simultaneously—and unlocking the platform's AI potential.
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="strategy-card">
+                    <div class="strategy-card-header">
+                        <i data-lucide="map" width="20" height="20"></i>
+                        <h4>3. Phased Market Strategy</h4>
+                    </div>
+                    <p style="margin: 0 0 1rem; font-size: 0.95rem;">Rather than a big-bang redesign that could alienate existing customers, I developed a phased approach that protects existing ARR while growing new revenue streams:</p>
+
+                    <!-- DIAGRAM 3: Enhanced Phase Track -->
+                    <div class="phase-track">
+                        <!-- Phase 1 -->
+                        <div class="phase-card">
+                            <div class="phase-number">1</div>
+                            <div class="phase-body">
+                                <div class="phase-heading">New Ground</div>
+                                <div class="phase-audience">Net new platform users + competitive saves</div>
+                                <span class="phase-goal-tag">Acquire</span>
+                                <div class="phase-status">Complete</div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 2 (active/current) -->
+                        <div class="phase-card active">
+                            <div class="phase-number">2</div>
+                            <div class="phase-body">
+                                <div class="phase-heading">Expand Mid-Market</div>
+                                <div class="phase-audience">Smaller orgs with less granular process needs</div>
+                                <span class="phase-goal-tag">Grow</span>
+                                <div class="phase-status">In progress</div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 3 -->
+                        <div class="phase-card future">
+                            <div class="phase-number">3</div>
+                            <div class="phase-body">
+                                <div class="phase-heading">Enterprise Partners</div>
+                                <div class="phase-audience">Large customers as design partners for complex needs</div>
+                                <span class="phase-goal-tag">Deepen</span>
+                                <div class="phase-status">Planned</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="caption" style="margin-top: 1.25rem;">Each phase protects existing ARR while opening the next revenue tier — no big-bang risk</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="strategy-card">
+                    <div class="strategy-card-header">
+                        <i data-lucide="trending-up" width="20" height="20"></i>
+                        <h4>4. Team Development Through Strategic Work</h4>
+                    </div>
+                    <p style="margin: 0 0 0.75rem; font-size: 0.95rem;">I'm mentoring a mid-level designer through senior-level work that directly feeds her promotion this year. Rather than designing the solution myself, I'm directing her to:</p>
+                    <ul>
+                        <li>Integrate AI into the redesign from the start (following patterns from our AI platform work)</li>
+                        <li>Modernize the experience using our Nintex Design System for platform cohesion</li>
+                        <li>Focus on core editing/visualization rather than peripheral features</li>
+                        <li>Think strategically about user migration paths and business impact</li>
+                    </ul>
+                </div>
             </div>
-            
-            <h4>4. Team Development Through Strategic Work</h4>
-            <p>I'm mentoring a mid-level designer through senior-level work that directly feeds her promotion this year. Rather than designing the solution myself, I'm directing her to:</p>
-            <ul>
-                <li>Integrate AI into the redesign from the start (following patterns from our AI platform work)</li>
-                <li>Modernize the experience using our Nintex Design System for platform cohesion</li>
-                <li>Focus on core editing/visualization rather than peripheral features</li>
-                <li>Think strategically about user migration paths and business impact</li>
-            </ul>
-            
-            <h3>Leadership Framework in Action</h3>
-            
-            <div class="impact-grid">
-                <div class="impact-item">
-                    <h4>Strategic Business Thinking</h4>
-                    <ul>
-                        <li>Aligned product transformation with platform objectives</li>
-                        <li>Protected existing ARR while opening new revenue streams</li>
-                        <li>Developed phased market approach for risk mitigation</li>
-                    </ul>
-                </div>
-                <div class="impact-item">
-                    <h4>Cross-Functional Orchestration</h4>
-                    <ul>
-                        <li>Coordinated 18-month strategy evolution with PM</li>
-                        <li>Leveraged research insights for strategic direction</li>
-                        <li>Secured C-suite alignment for complex transformation</li>
-                    </ul>
-                </div>
-                <div class="impact-item">
-                    <h4>Team Development</h4>
-                    <ul>
-                        <li>Elevated mid-level designer through senior strategic work</li>
-                        <li>Directly supporting team member's promotion</li>
-                        <li>Built team capability while delivering business results</li>
-                    </ul>
-                </div>
-                <div class="impact-item">
-                    <h4>Systems Integration</h4>
-                    <ul>
-                        <li>Connected previously siloed user groups</li>
-                        <li>Transformed standalone product into platform intelligence layer</li>
-                        <li>Enabled AI context across all platform capabilities</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h3>Current Implementation & Impact</h3>
-            
+
+            <h3>Design Process</h3>
+
             <h4>Resource Allocation & Team Strategy</h4>
             <p>I'm currently working with PM and Engineering to break down the strategic vision into deliverable chunks for our team starting this quarter. With 1.5 FTE designers, I've divided their work to balance immediate delivery needs with long-term strategic vision.</p>
-            
+
             <h4>Technical Leadership Decisions</h4>
-            <ul>
-                <li><strong>AI-First Integration:</strong> Directing AI integration from the start rather than retrofitting later</li>
-                <li><strong>Design System Alignment:</strong> Ensuring platform cohesion through consistent patterns</li>
-                <li><strong>Core Functionality Focus:</strong> Prioritizing process editing/visualization over easier peripheral features</li>
-                <li><strong>Data Context Strategy:</strong> Leveraging Process Manager's rich textual data to enhance AI solutions across the platform</li>
+            <ul class="icon-list">
+                <li>
+                    <i data-lucide="cpu" width="15" height="15"></i>
+                    <span><strong>AI-First Integration:</strong> Directing AI integration from the start rather than retrofitting later</span>
+                </li>
+                <li>
+                    <i data-lucide="layout-grid" width="15" height="15"></i>
+                    <span><strong>Design System Alignment:</strong> Ensuring platform cohesion through consistent patterns</span>
+                </li>
+                <li>
+                    <i data-lucide="focus" width="15" height="15"></i>
+                    <span><strong>Core Functionality Focus:</strong> Prioritizing process editing/visualization over easier peripheral features</span>
+                </li>
+                <li>
+                    <i data-lucide="database" width="15" height="15"></i>
+                    <span><strong>Data Context Strategy:</strong> Leveraging Process Manager's rich textual data to enhance AI solutions across the platform</span>
+                </li>
             </ul>
-            
-            <h3>Strategic Outcomes</h3>
-            
-            <div class="impact-grid">
-                <div class="impact-item">
-                    <h4>Business Impact</h4>
-                    <ul>
-                        <li>Strategy approved by C-suite for major product transformation</li>
-                        <li>Revenue protection model while opening new market segments</li>
-                        <li>Platform intelligence layer enabling AI context across all capabilities</li>
-                        <li>Competitive differentiation through integrated process intelligence</li>
-                    </ul>
+
+            <!-- Impact section with background -->
+            <div class="impact-section">
+                <h3>Impact & Outcomes</h3>
+
+                <!-- DIAGRAM 4: Impact Metrics Callout Cards -->
+                <div class="impact-metrics-row">
+                    <div class="impact-metric-card">
+                        <div class="imc-stat">18mo</div>
+                        <div class="imc-label">Strategy Evolution</div>
+                        <div class="imc-desc">Sustained partnership with PM to shift from UI refresh to platform transformation</div>
+                    </div>
+                    <div class="impact-metric-card">
+                        <div class="imc-stat" style="color: var(--success);">&#10003;</div>
+                        <div class="imc-label">C-Suite Approved</div>
+                        <div class="imc-desc">Strategy greenlit for major product transformation across the organization</div>
+                    </div>
+                    <div class="impact-metric-card">
+                        <div class="imc-stat">1</div>
+                        <div class="imc-label">Designer Promoted</div>
+                        <div class="imc-desc">Mid-level designer elevated to senior through strategic mentorship on this project</div>
+                    </div>
+                    <div class="impact-metric-card">
+                        <div class="imc-stat" style="font-size: 1.5rem;">3&rarr;1</div>
+                        <div class="imc-label">Silos Unified</div>
+                        <div class="imc-desc">Three disconnected product areas connected through a shared AI intelligence layer</div>
+                    </div>
                 </div>
-                <div class="impact-item">
-                    <h4>Team & Organizational Impact</h4>
-                    <ul>
-                        <li>Mid-level designer elevated to senior-level strategic work (promotion pathway)</li>
-                        <li>Cross-functional alignment on complex 18-month strategy evolution</li>
-                        <li>Research insights translated into strategic product direction</li>
-                        <li>Established framework for future legacy product transformations</li>
-                    </ul>
+                <hr class="impact-divider">
+
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <h4>Strategic Business Thinking</h4>
+                        <ul>
+                            <li>Aligned product transformation with platform objectives</li>
+                            <li>Protected existing ARR while opening new revenue streams</li>
+                            <li>Developed phased market approach for risk mitigation</li>
+                        </ul>
+                    </div>
+                    <div class="impact-item">
+                        <h4>Cross-Functional Orchestration</h4>
+                        <ul>
+                            <li>Coordinated 18-month strategy evolution with PM</li>
+                            <li>Leveraged research insights for strategic direction</li>
+                            <li>Secured C-suite alignment for complex transformation</li>
+                        </ul>
+                    </div>
+                    <div class="impact-item">
+                        <h4>Team Development</h4>
+                        <ul>
+                            <li>Elevated mid-level designer through senior strategic work</li>
+                            <li>Directly supporting team member's promotion</li>
+                            <li>Built team capability while delivering business results</li>
+                        </ul>
+                    </div>
+                    <div class="impact-item">
+                        <h4>Systems Integration</h4>
+                        <ul>
+                            <li>Connected previously siloed user groups</li>
+                            <li>Transformed standalone product into platform intelligence layer</li>
+                            <li>Enabled AI context across all platform capabilities</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="impact-grid" style="margin-top: 2rem;">
+                    <div class="impact-item">
+                        <h4>Business Impact</h4>
+                        <ul>
+                            <li>Strategy approved by C-suite for major product transformation</li>
+                            <li>Revenue protection model while opening new market segments</li>
+                            <li>Platform intelligence layer enabling AI context across all capabilities</li>
+                            <li>Competitive differentiation through integrated process intelligence</li>
+                        </ul>
+                    </div>
+                    <div class="impact-item">
+                        <h4>Team & Organizational Impact</h4>
+                        <ul>
+                            <li>Mid-level designer elevated to senior-level strategic work (promotion pathway)</li>
+                            <li>Cross-functional alignment on complex 18-month strategy evolution</li>
+                            <li>Research insights translated into strategic product direction</li>
+                            <li>Established framework for future legacy product transformations</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            
+
             <div class="reflection-section">
                 <h3>Leadership Reflection</h3>
                 <p><strong>What this project taught me about strategic leadership:</strong> The most valuable transformations happen slowly, through consistent partnership and evolved thinking. Taking 18 months to evolve from surface-level modernization to deep strategic insight was time well spent.</p>
@@ -182,41 +1147,40 @@
                 <p><strong>The power of research integration:</strong> The persona insights weren't just user research—they became our strategic foundation for connecting siloed platform capabilities. This reinforced my belief that great design leadership means recognizing when research reveals business strategy, not just user needs.</p>
             </div>
         </section>
-        <!-- Visual Design Examples -->
-<section class="visual-examples">
-    <h3>Visual Design</h3>
-        <p>Design completed under my coaching and direction by a Mid-Level Designer who was promoted to Senior Designer, using Platform elements designed by the Design System team.</p>
-    
-    <div class="design-artifact">
-        <img src="images/process-solutions.png" alt="Solutions home page with platform navigation" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-        <p class="caption">Platform integration: Process Manager as part of unified solution architecture</p>
-    </div>
 
-    <div class="design-artifact">
-        <img src="images/process-employees.png" alt="Employees folder showing process list" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-        <p class="caption">Modernized folder structure with clear status indicators and ownership visibility</p>
-    </div>
+        <!-- Visual Design -->
+        <section id="visuals" class="visual-examples">
+            <h3>Visual Design</h3>
+            <p>Design completed under my coaching and direction by a Mid-Level Designer who was promoted to Senior Designer, using Platform elements designed by the Design System team.</p>
 
-    <div class="design-artifact">
-        <img src="images/process-canvas.png" alt="Process map canvas with workflow visualization" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-        <p class="caption">Map view concept: visualizing process flows for better understanding of complex workflows</p>
-    </div>
+            <div class="design-artifact">
+                <img src="images/process-solutions.png" alt="Solutions home page with platform navigation" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
+                <p class="caption">Platform integration: Process Manager as part of unified solution architecture</p>
+            </div>
 
-    <div class="design-artifact">
-        <img src="images/process-detail.png" alt="Process detail view with embedded map" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-        <p class="caption">Integrated detail view: combining traditional process information with visual flow representation</p>
-    </div>
+            <div class="design-artifact">
+                <img src="images/process-employees.png" alt="Employees folder showing process list" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
+                <p class="caption">Modernized folder structure with clear status indicators and ownership visibility</p>
+            </div>
 
-    <div class="design-artifact">
-        <img src="images/process-map-view.png" alt="Simple workflow sequence visualization" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-        <p class="caption">Strategic pivot: simplified map view showing linear workflow progression for initial release</p>
-    </div>
-</section>
+            <div class="design-artifact">
+                <img src="images/process-canvas.png" alt="Process map canvas with workflow visualization" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
+                <p class="caption">Map view concept: visualizing process flows for better understanding of complex workflows</p>
+            </div>
 
-        
-        <!-- Navigation to other case studies -->
+            <div class="design-artifact">
+                <img src="images/process-detail.png" alt="Process detail view with embedded map" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
+                <p class="caption">Integrated detail view: combining traditional process information with visual flow representation</p>
+            </div>
+
+            <div class="design-artifact">
+                <img src="images/process-map-view.png" alt="Simple workflow sequence visualization" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
+                <p class="caption">Strategic pivot: simplified map view showing linear workflow progression for initial release</p>
+            </div>
+        </section>
+
         <section class="case-navigation">
-            <div style="display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; border-top: 1px solid var(--border);">
+            <div>
                 <a href="ai-platform.html" class="btn btn-secondary">← Previous: AI Platform</a>
                 <a href="index.html" class="btn btn-primary">Back to Overview →</a>
             </div>
@@ -228,5 +1192,23 @@
             <p>&copy; 2026 Heidi Lowry. Available for leadership roles in Canada and the US. Made with love ❤️ and AI 🤖</p>
         </div>
     </footer>
+
+    <script>
+        lucide.createIcons();
+        (function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var links  = document.getElementById('nav-links');
+            if (!toggle || !links) return;
+            toggle.addEventListener('click', function() {
+                var open = links.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                var icon = toggle.querySelector('i');
+                if (icon) {
+                    icon.setAttribute('data-lucide', open ? 'x' : 'menu');
+                    lucide.createIcons();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
