@@ -4,8 +4,8 @@
 - `ai-platform.html` — complete with 5 HTML/CSS diagrams added Feb 2026; mobile-responsive Feb 2026
 - `process-manager.html` — complete with 4 HTML/CSS diagrams added Feb 2026; mobile-responsive Feb 2026
 - `index.html` — complete; mobile-responsive Feb 2026
-- `leadership.html` — complete (prose-heavy, principle-grid, quote-block, looking-forward); mobile-responsive Feb 2026
-- `design-coaching.html` — complete (evaluation-row, coaching case study, reflection); mobile-responsive Feb 2026
+- `leadership.html` — complete with icons + diagrams added Feb 2026; mobile-responsive Feb 2026
+- `design-coaching.html` — enhanced Feb 2026: stat strip, h2-with-icon chips, section-h3-with-icon, strategy cards, coaching-flow stepper, icon-upgraded metadata, impact-section wrapper, quote-block, case-navigation; mobile-responsive
 
 ## Confirmed Case Study Page Structure (both ai-platform + process-manager)
 1. Title + subtitle
@@ -112,6 +112,52 @@ All 5 pages are fully responsive. Key decisions:
 - `ai-platform.html` + `process-manager.html`: `.strategy-card` and `.impact-section` padding reduced at ≤768px and ≤480px (in page style blocks); `.cap-grid` → 1-col at ≤480px
 
 **Inline figure notes**: `.figure-pair` / `.inline-figure` classes referenced in MEMORY but NOT present in process-manager.html — they were forward-looking notes and were never built.
+
+## HTML/CSS Diagrams and Patterns in leadership.html (added Feb 2026)
+All defined in the page `<style>` block. No changes to style.css.
+
+1. **Experience stats strip** (`.experience-stats`) — 4-col grid of `.exp-stat-card` with icon, large number/label. Collapses to 2-col at ≤768px. Placed between hero and leadership-intro block.
+
+2. **Section h2 with icon** (`.h2-with-icon`) — flex row, icon + `<h2>` element, used on every major section heading. Icon is `var(--primary)`.
+
+3. **Section h3 with icon** (`.section-h3-with-icon`) — flex row, icon (20px) + `<span>` text. Used in place of bare `<h3>` inside sections. Avoids the global h3 `::before` left bar (which is not suppressed here — note `.section-h3-with-icon` is a div/flex wrapper, not an `<h3>` tag).
+
+4. **Icon list** (`.icon-list`) — same pattern as case studies. Defined per-page (not in style.css on leadership page). Flex-column, gap 0.75rem, icon + span per item.
+
+5. **30-60-90 phase track** — uses `.phase-track`, `.phase-card`, `.phase-number`, `.phase-body`, `.phase-heading`, `.phase-goal-tag`. Same pattern as ai-platform + process-manager phase tracks. Collapses to flex-column row-direction cards on mobile. Wrapped in `.design-artifact`.
+
+6. **Ambiguity process flow** (`.ambiguity-flow`) — vertical numbered stepper. Each `.ambiguity-step` has `.ambiguity-step-num` (32px blue circle) + `.ambiguity-step-body` (strong title + p). Connector line drawn with `::after` pseudo-element on each non-last step (left: 15px, top: 32px, width: 2px). No mobile changes needed — already vertical.
+
+7. **Practice cards** (`.practice-cards`) — 3-col grid of `.practice-card` with icon, h4, p. Used for Distributed Teams section. Collapses to 1-col at ≤768px.
+
+8. **Culture grid** (`.culture-grid`) — 3-col grid of `.culture-card` (bg-light, icon + p). Used for "What Designers Say" section. Collapses to 2-col at ≤768px, 1-col at ≤480px.
+
+New Lucide icons confirmed valid on leadership.html: `compass`, `award`, `pen-tool`, `map`, `bar-chart-2`, `target`, `star`, `key`, `mic`, `link`, `battery-charging`, `globe`
+
+## HTML/CSS Diagrams and Patterns in design-coaching.html (added Feb 2026)
+All defined in the page `<style>` block. No changes to style.css.
+
+1. **Stat cards strip** (`.coaching-stats`) — 4-col grid of `.coaching-stat-card`, same visual pattern as `.experience-stats` on leadership.html but with coaching-specific class names to avoid conflicts. Collapses to 2-col at ≤768px. Placed after hero, before case study section.
+
+2. **Coaching process stepper** (`.coaching-flow`) — vertical numbered stepper. Same structure as `.ambiguity-flow` on leadership.html: `.coaching-step` + `.coaching-step-num` (32px blue circle) + `.coaching-step-body`. Connector drawn with `::after` pseudo-element. Wrapped in `.design-artifact`. No mobile override needed — already vertical.
+
+3. **Three evaluation lenses as strategy cards** (`.strategy-cards` / `.strategy-card`) — same pattern as case studies. Replaces the old `.impact-grid` that held these three lenses. Cards use `layout`, `mouse-pointer`, `users` icons.
+
+4. **Metadata with icons** — `.metadata-label` pattern (icon + uppercase text + span value), same as ai-platform and process-manager. Overrides global `.metadata-item` in the page style block.
+
+5. **`h2-with-icon` / `.section-icon-chip`** — exact same classes and CSS as leadership.html. Used on "My Coaching Approach", "The Design Options", "Strategic Decision & Evolution", "Impact & Outcomes".
+
+6. **`section-h3-with-icon`** — same class as leadership.html. Used for "Current State" and "Three Evaluation Lenses" subsections. Note: apply `style="margin-top: 3rem;"` on the first one after `.status-badge` to preserve spacing.
+
+7. **`category-header` upgrade** — added `display: flex; align-items: center; gap: 0.5rem;` and an icon (`eye` for visual analysis, `mouse-pointer` for interaction analysis) to each `.category-header` inside the evaluation framework.
+
+8. **`quote-block`** — same CSS as leadership.html. Placed after the "Strategic Decision" prose, before the Impact section. Uses `var(--accent)` / `var(--accent-light)`.
+
+9. **`impact-section` wrapper** — same as ai-platform/process-manager: bg-light, border, border-radius 10px, `.impact-item { background: white }` override.
+
+10. **Case navigation** — `.case-navigation` + `.case-navigation > div` (flex, space-between from style.css). Links to Process Manager (prev) and Leadership (next).
+
+New Lucide icons confirmed valid on design-coaching.html: `layers`, `mouse-pointer`, `git-branch`, `alert-circle`, `alert-triangle`, `eye`, `layout`
 
 ## See Also
 - `patterns.md` — detailed component reference (to be created as needed)

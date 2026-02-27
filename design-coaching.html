@@ -7,81 +7,434 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
-        /* Custom styles for wider evaluation cards */
+        /* ---- Page hero ---- */
+        .coaching-hero {
+            padding: 3rem 0 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .coaching-hero h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .coaching-hero .tagline {
+            margin-bottom: 0;
+        }
+
+        /* ---- Stat cards strip ---- */
+        .coaching-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0 2.5rem;
+        }
+
+        .coaching-stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem 1.25rem;
+            text-align: center;
+        }
+
+        .coaching-stat-icon {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coaching-stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .coaching-stat-label {
+            font-size: 0.8125rem;
+            color: var(--text-medium);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            line-height: 1.3;
+        }
+
+        /* ---- Section h2 with icon chip ---- */
+        .h2-with-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .h2-with-icon .section-icon-chip {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .h2-with-icon .section-icon-chip svg {
+            color: var(--primary);
+        }
+
+        .h2-with-icon h2 {
+            margin: 0;
+        }
+
+        /* ---- Section h3 with icon ---- */
+        .section-h3-with-icon {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            margin: 2.5rem 0 1rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .section-h3-with-icon svg {
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        /* ---- Icon list ---- */
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 1.25rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .icon-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.625rem;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .icon-list li svg {
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ---- Metadata with icons ---- */
+        .metadata-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .metadata-label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-medium);
+            font-weight: 600;
+            font-size: 0.8125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metadata-label svg {
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        /* ---- Strategy cards for evaluation lenses ---- */
+        .strategy-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin: 1.5rem 0 2.5rem;
+        }
+
+        .strategy-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.75rem;
+        }
+
+        .strategy-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .strategy-card-header svg {
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .strategy-card-header h4 {
+            margin: 0;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+        }
+
+        .strategy-card ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .strategy-card li {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* ---- Coaching process stepper ---- */
+        .coaching-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 2rem 0;
+        }
+
+        .coaching-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .coaching-step:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 32px;
+            width: 2px;
+            height: calc(100% - 8px);
+            background: var(--border);
+        }
+
+        .coaching-step-num {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8125rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .coaching-step-body {
+            padding: 0 0 1.75rem;
+            flex: 1;
+        }
+
+        .coaching-step-body strong {
+            display: block;
+            font-size: 0.9375rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .coaching-step-body p {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        /* ---- Evaluation cards ---- */
         .evaluation-section {
             margin: 2rem 0;
         }
-        
+
         .evaluation-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin: 2rem 0;
+            gap: 1.5rem;
+            margin: 1.25rem 0;
         }
-        
+
         .evaluation-card {
             background: white;
-            padding: 2rem;
+            padding: 1.75rem;
             border-radius: 8px;
             border: 1px solid var(--border);
         }
-        
+
         .evaluation-card.strengths {
             border-left: 4px solid var(--success);
         }
-        
+
         .evaluation-card.concerns {
             border-left: 4px solid var(--accent);
         }
-        
+
         .evaluation-card h4 {
             margin-top: 0;
             margin-bottom: 1rem;
-            font-size: 1.125rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
+
         .evaluation-card.strengths h4 {
             color: var(--success);
         }
-        
+
         .evaluation-card.concerns h4 {
             color: var(--accent);
         }
-        
+
         .evaluation-card ul {
             margin: 0;
             padding-left: 1.25rem;
         }
-        
+
         .evaluation-card li {
             margin-bottom: 0.875rem;
             line-height: 1.6;
+            font-size: 0.9rem;
         }
-        
+
+        .evaluation-card li:last-child {
+            margin-bottom: 0;
+        }
+
         .category-header {
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 0.8125rem;
+            font-weight: 700;
             color: var(--primary);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin: 2.5rem 0 1rem;
+            letter-spacing: 0.06em;
+            margin: 2rem 0 0.75rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
+
+        .category-header svg {
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .category-header:first-child {
+            margin-top: 0;
+        }
+
+        /* ---- Impact section ---- */
+        .impact-section {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .impact-section h3 {
+            margin-top: 0;
+        }
+
+        .impact-section .impact-grid {
+            margin: 0;
+        }
+
+        .impact-section .impact-item {
+            background: white;
+        }
+
+        /* ---- Quote / callout block ---- */
+        .quote-block {
+            background: var(--accent-light);
+            padding: 1.75rem 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+        }
+
+        .quote-block p {
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 1.0625rem;
+            margin: 0;
+            font-weight: 500;
+            line-height: 1.7;
+        }
+
+        /* ---- Case navigation ---- */
+        .case-navigation {
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ============================================================
+           Mobile — 768px
+        ============================================================ */
         @media (max-width: 768px) {
+            .coaching-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .evaluation-row {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 1rem;
+            }
+
+            .strategy-card {
+                padding: 1.25rem;
+            }
+
+            .impact-section {
+                padding: 1.25rem;
             }
         }
 
+        /* ============================================================
+           Mobile — 640px
+        ============================================================ */
         @media (max-width: 640px) {
+            .coaching-hero {
+                padding: 2rem 0 1.5rem;
+            }
+
             .evaluation-card {
                 padding: 1.25rem;
             }
+
+            .quote-block {
+                padding: 1.25rem;
+            }
+
             .category-header {
-                margin: 1.75rem 0 0.75rem;
+                margin: 1.5rem 0 0.75rem;
+            }
+        }
+
+        /* ============================================================
+           Mobile — 480px
+        ============================================================ */
+        @media (max-width: 480px) {
+            .coaching-stat-number {
+                font-size: 1.625rem;
             }
         }
     </style>
@@ -105,81 +458,204 @@
     </nav>
 
     <div class="accent-bar"></div>
-    
+
     <div class="container">
+
+        <!-- Page hero -->
+        <header class="coaching-hero">
+            <h1>Design Coaching & Craft Evaluation</h1>
+            <p class="tagline">Developing senior designers through systematic visual design analysis and strategic decision-making</p>
+        </header>
+
+        <!-- Stat strip -->
+        <div class="coaching-stats">
+            <div class="coaching-stat-card">
+                <div class="coaching-stat-icon">
+                    <i data-lucide="trending-up" width="24" height="24"></i>
+                </div>
+                <div class="coaching-stat-number">1</div>
+                <div class="coaching-stat-label">Designer promoted to senior</div>
+            </div>
+            <div class="coaching-stat-card">
+                <div class="coaching-stat-icon">
+                    <i data-lucide="layers" width="24" height="24"></i>
+                </div>
+                <div class="coaching-stat-number">3</div>
+                <div class="coaching-stat-label">Evaluation lenses taught</div>
+            </div>
+            <div class="coaching-stat-card">
+                <div class="coaching-stat-icon">
+                    <i data-lucide="git-branch" width="24" height="24"></i>
+                </div>
+                <div class="coaching-stat-number">2</div>
+                <div class="coaching-stat-label">Design directions compared</div>
+            </div>
+            <div class="coaching-stat-card">
+                <div class="coaching-stat-icon">
+                    <i data-lucide="activity" width="24" height="24"></i>
+                </div>
+                <div class="coaching-stat-number">Active</div>
+                <div class="coaching-stat-label">Implementation ongoing</div>
+            </div>
+        </div>
+
         <!-- Case Study -->
         <section class="case-study">
-            <h2>Design Coaching & Craft Evaluation</h2>
-            <p class="subtitle">Developing senior designers through systematic visual design analysis and strategic decision-making</p>
-            
+
+            <!-- Challenge -->
             <div class="challenge">
                 <h3>The Dual Challenge</h3>
                 <p><strong>Product Challenge:</strong> Our procedure editing interface was outdated—bloated UI, unclear hierarchy between activity and task content, and interaction patterns that felt dated compared to modern tools.</p>
                 <p><strong>Development Opportunity:</strong> I had a talented mid-level designer ready for senior-level work. Rather than designing the solution myself, I used this modernization project as a coaching opportunity to develop her craft evaluation skills and strategic thinking.</p>
             </div>
-            
+
+            <!-- Metadata strip with icons -->
             <div class="metadata">
                 <div class="metadata-item">
-                    <strong>Role</strong>
+                    <div class="metadata-label">
+                        <i data-lucide="user" width="13" height="13"></i>
+                        Role
+                    </div>
                     <span>Product Design Manager (Coach)</span>
                 </div>
                 <div class="metadata-item">
-                    <strong>Timeline</strong>
-                    <span>2025-2026 (Ongoing)</span>
+                    <div class="metadata-label">
+                        <i data-lucide="calendar" width="13" height="13"></i>
+                        Timeline
+                    </div>
+                    <span>2025–2026 (Ongoing)</span>
                 </div>
                 <div class="metadata-item">
-                    <strong>Team</strong>
-                    <span>1 mid-level designer (promoted to senior), PM, Engineering</span>
-                </div>
-                <div class="metadata-item">
-                    <strong>Outcome</strong>
+                    <div class="metadata-label">
+                        <i data-lucide="award" width="13" height="13"></i>
+                        Outcome
+                    </div>
                     <span>Designer promoted to senior role</span>
                 </div>
             </div>
-            
+
             <div class="status-badge">
-                Active Project - Designer Promoted, Implementation Ongoing
+                Active Project — Designer Promoted, Implementation Ongoing
             </div>
-            
-            <h3>Current State: The Legacy Experience</h3>
-            
+
+            <!-- Current State -->
+            <div class="section-h3-with-icon" style="margin-top: 3rem;">
+                <i data-lucide="eye" width="20" height="20"></i>
+                <span>Current State: The Legacy Experience</span>
+            </div>
+
             <div class="design-artifact">
                 <div class="diagram-title">What We Were Modernizing</div>
                 <img src="images/legacy-procedure-interface.png" alt="Legacy procedure editing interface showing outdated visual design, bloated UI, and unclear hierarchy" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1.5rem;">
                 <p class="caption">Original interface: Outdated visual design, bloated UI with excessive options, and unclear hierarchy between activity-level and task-level content</p>
             </div>
-            
+
             <h4>Problems to Solve:</h4>
-            <ul>
-                <li>Outdated visual design doesn't align with modern platform aesthetic</li>
-                <li>Bloated UI with excessive options creates cognitive load</li>
-                <li>Unclear hierarchy between activity-level and task-level content</li>
-                <li>Interaction patterns feel dated compared to contemporary tools</li>
+            <ul class="icon-list">
+                <li>
+                    <i data-lucide="alert-circle" width="16" height="16"></i>
+                    <span>Outdated visual design doesn't align with modern platform aesthetic</span>
+                </li>
+                <li>
+                    <i data-lucide="alert-circle" width="16" height="16"></i>
+                    <span>Bloated UI with excessive options creates cognitive load</span>
+                </li>
+                <li>
+                    <i data-lucide="alert-circle" width="16" height="16"></i>
+                    <span>Unclear hierarchy between activity-level and task-level content</span>
+                </li>
+                <li>
+                    <i data-lucide="alert-circle" width="16" height="16"></i>
+                    <span>Interaction patterns feel dated compared to contemporary tools</span>
+                </li>
             </ul>
-            
-            <h3>My Coaching Approach</h3>
-            
+
+            <!-- My Coaching Approach -->
+            <div class="h2-with-icon" style="margin-top: 3rem;">
+                <div class="section-icon-chip">
+                    <i data-lucide="book-open" width="22" height="22"></i>
+                </div>
+                <h2>My Coaching Approach</h2>
+            </div>
+
             <p>Instead of directing the designer toward a specific solution, I taught her to evaluate design options systematically using three lenses:</p>
-            
-            <div class="impact-grid">
-                <div class="impact-item">
-                    <h4>Visual Design Assessment</h4>
+
+            <!-- Coaching process flow -->
+            <div class="design-artifact">
+                <div class="diagram-title">How I Structure a Coaching Engagement</div>
+                <div class="coaching-flow">
+                    <div class="coaching-step">
+                        <div class="coaching-step-num">1</div>
+                        <div class="coaching-step-body">
+                            <strong>Observe without directing</strong>
+                            <p>I watch how the designer approaches the problem before offering any guidance—understanding their instincts helps me know where to push.</p>
+                        </div>
+                    </div>
+                    <div class="coaching-step">
+                        <div class="coaching-step-num">2</div>
+                        <div class="coaching-step-body">
+                            <strong>Frame the evaluation lens</strong>
+                            <p>I introduce a structured way of looking at the work—visual hierarchy, interaction patterns, user impact—so critique becomes systematic, not subjective.</p>
+                        </div>
+                    </div>
+                    <div class="coaching-step">
+                        <div class="coaching-step-num">3</div>
+                        <div class="coaching-step-body">
+                            <strong>Let them explore options</strong>
+                            <p>I create space for the designer to generate and compare directions, coaching them to articulate the tradeoffs rather than just picking a favorite.</p>
+                        </div>
+                    </div>
+                    <div class="coaching-step">
+                        <div class="coaching-step-num">4</div>
+                        <div class="coaching-step-body">
+                            <strong>Evaluate against user impact</strong>
+                            <p>We pressure-test every option against who it serves well and who it disadvantages—turning design decisions into user advocacy.</p>
+                        </div>
+                    </div>
+                    <div class="coaching-step">
+                        <div class="coaching-step-num">5</div>
+                        <div class="coaching-step-body">
+                            <strong>Reflect on the decision</strong>
+                            <p>After choices are made, I help the designer name what they learned and how they'd apply it next time. This is where the skill actually sticks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Three evaluation lenses as strategy cards -->
+            <div class="section-h3-with-icon">
+                <i data-lucide="search" width="20" height="20"></i>
+                <span>The Three Evaluation Lenses</span>
+            </div>
+
+            <div class="strategy-cards">
+                <div class="strategy-card">
+                    <div class="strategy-card-header">
+                        <i data-lucide="layout" width="22" height="22"></i>
+                        <h4>Visual Design Assessment</h4>
+                    </div>
                     <ul>
                         <li>How does visual hierarchy guide user attention?</li>
                         <li>Does spacing create natural scanning patterns?</li>
                         <li>Are interactive elements clearly afforded?</li>
                     </ul>
                 </div>
-                <div class="impact-item">
-                    <h4>Interaction Pattern Analysis</h4>
+                <div class="strategy-card">
+                    <div class="strategy-card-header">
+                        <i data-lucide="mouse-pointer" width="22" height="22"></i>
+                        <h4>Interaction Pattern Analysis</h4>
+                    </div>
                     <ul>
                         <li>How discoverable are key actions?</li>
                         <li>Does the pattern match user mental models?</li>
                         <li>What's the cognitive load at each step?</li>
                     </ul>
                 </div>
-                <div class="impact-item">
-                    <h4>User Impact Consideration</h4>
+                <div class="strategy-card">
+                    <div class="strategy-card-header">
+                        <i data-lucide="users" width="22" height="22"></i>
+                        <h4>User Impact Consideration</h4>
+                    </div>
                     <ul>
                         <li>Who does this serve well?</li>
                         <li>Who might struggle with this approach?</li>
@@ -187,25 +663,37 @@
                     </ul>
                 </div>
             </div>
-            
-            <h3>The Design Options</h3>
-            
+
+            <!-- The Design Options -->
+            <div class="h2-with-icon">
+                <div class="section-icon-chip">
+                    <i data-lucide="git-branch" width="22" height="22"></i>
+                </div>
+                <h2>The Design Options</h2>
+            </div>
+
             <p>The designer explored two fundamentally different approaches. I coached her to create a systematic comparison that would help stakeholders understand the tradeoffs.</p>
-            
+
             <!-- Visual Design Comparison -->
             <div class="design-artifact">
                 <div class="diagram-title">Design Evaluation Framework</div>
-                
+
                 <h4>Option 1: Prescriptive, Structured Approach</h4>
-                <img src="images/option-1-prescriptive.png" alt="Prescriptive approach showing explicit UI controls, structured layout with clear boundaries" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 2rem;">
+                <img src="images/option-1-prescriptive.png" alt="Prescriptive approach showing explicit UI controls, structured layout with clear boundaries" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1.5rem;">
                 <p class="caption">Prescriptive approach: Explicit controls and guidance with visible structure and clear boundaries</p>
-                
+
                 <div class="evaluation-section">
-                    <div class="category-header">Visual Design Analysis</div>
-                    
+                    <div class="category-header">
+                        <i data-lucide="eye" width="14" height="14"></i>
+                        Visual Design Analysis
+                    </div>
+
                     <div class="evaluation-row">
                         <div class="evaluation-card strengths">
-                            <h4>Strengths</h4>
+                            <h4>
+                                <i data-lucide="check-circle" width="16" height="16"></i>
+                                Strengths
+                            </h4>
                             <ul>
                                 <li>Clear visual hierarchy separates activity-level content from nested task/note details</li>
                                 <li>Explicit button labels ("Add task", "Add note", image/file icons) provide clear affordances</li>
@@ -213,32 +701,44 @@
                                 <li>Structured layout with consistent spacing creates predictable scanning pattern</li>
                             </ul>
                         </div>
-                        
+
                         <div class="evaluation-card concerns">
-                            <h4>Concerns</h4>
+                            <h4>
+                                <i data-lucide="alert-triangle" width="16" height="16"></i>
+                                Concerns
+                            </h4>
                             <ul>
                                 <li>Multiple button options at bottom of each activity could create visual clutter and decision fatigue</li>
                                 <li>"Add participant(s) and system(s)" secondary section competes with activity name for visual priority</li>
-                                <li>Still rather rigid structure - is modernization enough to differentiate from legacy experience?</li>
+                                <li>Still rather rigid structure — is modernization enough to differentiate from legacy experience?</li>
                                 <li>Visual weight distributed across many UI elements rather than focusing on primary actions</li>
                             </ul>
                         </div>
                     </div>
-                    
-                    <div class="category-header">Interaction Pattern Analysis</div>
-                    
+
+                    <div class="category-header">
+                        <i data-lucide="mouse-pointer" width="14" height="14"></i>
+                        Interaction Pattern Analysis
+                    </div>
+
                     <div class="evaluation-row">
                         <div class="evaluation-card strengths">
-                            <h4>Strengths</h4>
+                            <h4>
+                                <i data-lucide="check-circle" width="16" height="16"></i>
+                                Strengths
+                            </h4>
                             <ul>
                                 <li>Explicit controls make all actions discoverable without exploration</li>
                                 <li>Users can add different content types (tasks, notes, images, docs) in any order</li>
-                                <li>Button group always visible at activity level - no hidden interactions</li>
+                                <li>Button group always visible at activity level — no hidden interactions</li>
                             </ul>
                         </div>
-                        
+
                         <div class="evaluation-card concerns">
-                            <h4>Concerns</h4>
+                            <h4>
+                                <i data-lucide="alert-triangle" width="16" height="16"></i>
+                                Concerns
+                            </h4>
                             <ul>
                                 <li>Requiring users to choose content type upfront (task vs. note vs. image) adds cognitive load before they can start working</li>
                                 <li>Every activity shows all options regardless of whether user needs them</li>
@@ -247,21 +747,27 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="key-insight">
                     <strong>User Impact:</strong> This approach serves conservative users transitioning from legacy systems (familiar patterns reduce change resistance) and new users who need scaffolding to understand available features. However, power users who want to work quickly without clicking through options may find the structure adds friction, and teams with simple documentation needs may feel the structure is over-engineered.
                 </div>
-                
+
                 <h4>Option 2: Flexible, Free-Form Approach</h4>
-                <img src="images/option-2-flexible.png" alt="Flexible approach showing minimal interface, less exposed structure, more like modern authoring tools" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 2rem;">
+                <img src="images/option-2-flexible.png" alt="Flexible approach showing minimal interface, less exposed structure, more like modern authoring tools" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1.5rem;">
                 <p class="caption">Flexible approach: Less exposed structure with more flexible editing experience, interaction pattern similar to Notion</p>
-                
+
                 <div class="evaluation-section">
-                    <div class="category-header">Visual Design Analysis</div>
-                    
+                    <div class="category-header">
+                        <i data-lucide="eye" width="14" height="14"></i>
+                        Visual Design Analysis
+                    </div>
+
                     <div class="evaluation-row">
                         <div class="evaluation-card strengths">
-                            <h4>Strengths</h4>
+                            <h4>
+                                <i data-lucide="check-circle" width="16" height="16"></i>
+                                Strengths
+                            </h4>
                             <ul>
                                 <li>Very clean, minimal interface lets procedure content be the visual focus</li>
                                 <li>Reduced chrome and UI controls create more breathing room for actual content</li>
@@ -269,94 +775,125 @@
                                 <li>Modern aesthetic aligns with contemporary collaboration tools users already know</li>
                             </ul>
                         </div>
-                        
+
                         <div class="evaluation-card concerns">
-                            <h4>Concerns</h4>
+                            <h4>
+                                <i data-lucide="alert-triangle" width="16" height="16"></i>
+                                Concerns
+                            </h4>
                             <ul>
-                                <li>Slash command (/) interaction completely hidden - no visual cue this functionality exists</li>
-                                <li>Editing actions tucked behind icons without labels - users must discover through trial</li>
+                                <li>Slash command (/) interaction completely hidden — no visual cue this functionality exists</li>
+                                <li>Editing actions tucked behind icons without labels — users must discover through trial</li>
                                 <li>Minimalist approach removes visual scaffolding that helps users understand document structure</li>
                                 <li>Generic content blocks don't distinguish between tasks, notes, and narrative text at a glance</li>
                             </ul>
                         </div>
                     </div>
-                    
-                    <div class="category-header">Interaction Pattern Analysis</div>
-                    
+
+                    <div class="category-header">
+                        <i data-lucide="mouse-pointer" width="14" height="14"></i>
+                        Interaction Pattern Analysis
+                    </div>
+
                     <div class="evaluation-row">
                         <div class="evaluation-card strengths">
-                            <h4>Strengths</h4>
+                            <h4>
+                                <i data-lucide="check-circle" width="16" height="16"></i>
+                                Strengths
+                            </h4>
                             <ul>
-                                <li>"/" slash command allows fast content insertion for users who learn it - type naturally, invoke menu when needed</li>
-                                <li>Inline editing reduces mode-switching - users stay in content flow rather than clicking buttons</li>
-                                <li>Flexible text entry removes friction - start typing immediately without choosing content type</li>
-                                <li>Modern pattern familiar from Notion, Slack, ClickUp - low learning curve for users of these tools</li>
+                                <li>"/" slash command allows fast content insertion for users who learn it — type naturally, invoke menu when needed</li>
+                                <li>Inline editing reduces mode-switching — users stay in content flow rather than clicking buttons</li>
+                                <li>Flexible text entry removes friction — start typing immediately without choosing content type</li>
+                                <li>Modern pattern familiar from Notion, Slack, ClickUp — low learning curve for users of these tools</li>
                             </ul>
                         </div>
-                        
+
                         <div class="evaluation-card concerns">
-                            <h4>Concerns</h4>
+                            <h4>
+                                <i data-lucide="alert-triangle" width="16" height="16"></i>
+                                Concerns
+                            </h4>
                             <ul>
-                                <li>Discoverability crisis - users won't know "/" triggers options without onboarding or documentation</li>
-                                <li>Hidden functionality creates "expert" vs. "novice" divide - power users thrive, new users struggle</li>
-                                <li>No visual distinction between task ("a. Warmly greet customer") vs. descriptive text - semantic meaning lost</li>
+                                <li>Discoverability crisis — users won't know "/" triggers options without onboarding or documentation</li>
+                                <li>Hidden functionality creates "expert" vs. "novice" divide — power users thrive, new users struggle</li>
+                                <li>No visual distinction between task ("a. Warmly greet customer") vs. descriptive text — semantic meaning lost</li>
                                 <li>Abstraction through generic terms ("text", "lettered list", "toggle list") may obscure that this is process documentation with specific structure and the terms are non-standard</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="key-insight">
                     <strong>User Impact:</strong> This approach serves new customers familiar with modern editing tools (immediate comfort with interaction patterns), users who want to document quickly without UI friction, and teams creating simple, narrative-style procedures without complex task hierarchies. However, users expecting explicit process structure (activities → tasks → notes) may struggle with the flexible format not enforcing this, teams needing consistency across documentation may see too much flexibility leading to varied patterns, and anyone without prior exposure to slash-command interfaces will face a completely hidden functionality crisis.
                 </div>
             </div>
-            
-            <h3>Strategic Decision & Evolution</h3>
-            
+
+            <!-- Strategic Decision & Evolution -->
+            <div class="h2-with-icon">
+                <div class="section-icon-chip">
+                    <i data-lucide="navigation" width="22" height="22"></i>
+                </div>
+                <h2>Strategic Decision &amp; Evolution</h2>
+            </div>
+
             <p>The team chose Option 1 (prescriptive approach) because our existing user base expected explicit process structure and we needed to minimize change resistance during the modernization.</p>
-            
+
             <p>We continued iterating on the procedure view design, working toward a final version that would build on the strengths we identified. As we refined the details, I coached the designer to collaborate with our design system team to align similar interaction patterns across platform capabilities—work the design system team ultimately picked up to ensure consistency.</p>
-            
+
             <div class="design-artifact">
                 <div class="diagram-title">Final Procedure View Design</div>
                 <img src="images/final-procedure-design.png" alt="Final procedure view design incorporating iteration learnings and design system alignment" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1.5rem;">
                 <p class="caption">Final procedure view: Refined through iteration, incorporating evaluation learnings and aligned with platform design system patterns</p>
             </div>
-            
+
             <div class="key-insight">
                 <strong>Coaching Moment:</strong> Rather than viewing this as "handing off" work to another team, I coached the designer to see the design system team's involvement as validation that our patterns were valuable enough to scale across the platform. This is exactly the kind of strategic collaboration senior designers need to recognize and leverage.
             </div>
-            
+
             <p>Simultaneously, we shifted focus to designing a complementary map view visualization. After consulting with engineering, we learned the map view presented bigger technical unknowns that needed deeper exploration. As a complement to the procedure view, the map view would serve our existing user base who needed to visualize process flows—making it the ideal candidate for the deep user testing and technical validation we needed to conduct next.</p>
-            
+
             <p>The designer is currently iterating on the map view approach through user testing with our target user group, applying the same systematic evaluation framework we established during the initial comparison.</p>
-            
-            <h3>Impact & Outcomes</h3>
-            
-            <div class="impact-grid">
-                <div class="impact-item">
-                    <h4>Product Impact</h4>
-                    <ul>
-                        <li>Modernized interface approach approved by stakeholders</li>
-                        <li>Systematic evaluation framework now used across team for design decisions</li>
-                        <li>Design system team adopted interaction patterns for platform-wide consistency</li>
-                        <li>User testing validating map view iteration (ongoing)</li>
-                        <li>Strategic collaboration demonstrated cross-team design maturity</li>
-                    </ul>
+
+            <div class="quote-block">
+                <p>"The best way to develop senior-level designers is to teach them how to think systematically about design decisions, not just execute solutions."</p>
+            </div>
+
+            <!-- Impact & Outcomes -->
+            <div class="h2-with-icon">
+                <div class="section-icon-chip">
+                    <i data-lucide="trending-up" width="22" height="22"></i>
                 </div>
-                <div class="impact-item">
-                    <h4>Designer Development Impact</h4>
-                    <ul>
-                        <li><strong>Promoted from mid-level to senior designer</strong></li>
-                        <li>Developed systematic approach to visual design evaluation</li>
-                        <li>Built confidence presenting design rationale to stakeholders</li>
-                        <li>Learned to recognize when design system collaboration adds strategic value</li>
-                        <li>Navigated technical constraints by consulting engineering early</li>
-                        <li>Now coaches other designers using similar frameworks</li>
-                    </ul>
+                <h2>Impact &amp; Outcomes</h2>
+            </div>
+
+            <div class="impact-section">
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <h4>Product Impact</h4>
+                        <ul>
+                            <li>Modernized interface approach approved by stakeholders</li>
+                            <li>Systematic evaluation framework now used across team for design decisions</li>
+                            <li>Design system team adopted interaction patterns for platform-wide consistency</li>
+                            <li>User testing validating map view iteration (ongoing)</li>
+                            <li>Strategic collaboration demonstrated cross-team design maturity</li>
+                        </ul>
+                    </div>
+                    <div class="impact-item">
+                        <h4>Designer Development Impact</h4>
+                        <ul>
+                            <li><strong>Promoted from mid-level to senior designer</strong></li>
+                            <li>Developed systematic approach to visual design evaluation</li>
+                            <li>Built confidence presenting design rationale to stakeholders</li>
+                            <li>Learned to recognize when design system collaboration adds strategic value</li>
+                            <li>Navigated technical constraints by consulting engineering early</li>
+                            <li>Now coaches other designers using similar frameworks</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            
+
+            <!-- Reflection -->
             <div class="reflection-section">
                 <h3>Leadership Reflection</h3>
                 <p><strong>On coaching through craft:</strong> The best way to develop senior-level designers is to teach them how to think systematically about design decisions, not just execute solutions. By creating evaluation frameworks together, I helped this designer build lasting analytical skills she now applies to every project.</p>
@@ -364,9 +901,16 @@
                 <p><strong>On strategic collaboration:</strong> When the design system team picked up our interaction patterns, I coached the designer to view this as success, not loss of ownership. Learning to recognize when your work scales beyond your immediate project is a critical senior-level insight.</p>
                 <p><strong>Most importantly:</strong> This designer's promotion wasn't because she executed my vision—it was because she developed her own systematic approach to design evaluation that she'll carry throughout her career. That's the real measure of successful coaching.</p>
             </div>
+
         </section>
-        
-        
+
+        <!-- Case Navigation -->
+        <div class="case-navigation">
+            <div>
+                <a href="leadership.html" class="btn btn-secondary">&larr; Previous: Leadership</a>
+            </div>
+        </div>
+
     </div>
 
     <footer class="footer">
@@ -374,6 +918,7 @@
             <p>&copy; 2026 Heidi Lowry. Available for leadership roles in Canada and US. Made with love ❤️ and AI 🤖</p>
         </div>
     </footer>
+
     <script>
         lucide.createIcons();
         (function() {
