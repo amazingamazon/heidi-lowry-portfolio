@@ -5,6 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heidi Lowry - Product Design Leadership</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+        .philosophy-card .card-icon {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .philosophy-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0 0 0.75rem;
+            color: var(--text-dark);
+        }
+        .case-study-preview {
+            padding: 0;
+            overflow: hidden;
+        }
+        .case-preview-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            object-position: top left;
+            display: block;
+            border-bottom: 1px solid var(--border);
+        }
+        .case-preview-content {
+            padding: 2.5rem;
+        }
+    </style>
 </head>
 <body>
     <nav class="nav">
@@ -24,12 +54,14 @@
     <div class="accent-bar"></div>
     
     <div class="container">
-        <!-- Hero Section -->
         <header class="hero">
             <h1>Heidi Lowry</h1>
-            <p class="tagline">Product Design Leadership • Building AI-powered enterprise solutions</p>
+            <p class="tagline">Product Design Leader • I take the work seriously. Not myself.</p>
             <p class="bio">
-                I'm a Product Design Manager with 10 years of experience leading design for complex B2B platforms. I specialize in transforming ambiguous technical challenges into clear product strategies, building high-performing design teams, and driving organizational change through design leadership. Currently focused on AI-human collaboration patterns and enterprise platform integration.
+                I'm a design leader who grows designers. My job is to create the conditions for smart, curious people to do the best work of their careers — solving real problems that fade into the background and let users do what they're actually good at.
+            </p>
+            <p class="bio">
+                I manage a team of 6 across 3 global regions, working on AI integration and enterprise workflow tools. I care deeply about the people doing the work as much as the work itself.
             </p>
             <div class="contact-links">
                 <a href="mailto:heidi.lowry@gmail.com" class="btn btn-primary">Get in touch</a>
@@ -37,34 +69,41 @@
             </div>
         </header>
 
-        <!-- Leadership Philosophy -->
         <section class="leadership-philosophy">
             <h2>Leadership Philosophy</h2>
             <div class="philosophy-grid">
                 <div class="philosophy-card">
-                    <h3>Strategic Orchestration</h3>
-                    <p>I believe great design leadership happens at the intersection of user needs, business strategy, and technical feasibility. I spend time understanding the broader business context so I can position design as a strategic driver, not just a service function.</p>
+                    <i data-lucide="compass" class="card-icon" width="28" height="28"></i>
+                    <h3>I think before I build</h3>
+                    <p>Great design leadership happens at the intersection of user needs, business strategy, and technical feasibility. I spend time understanding the broader context so design drives decisions — it doesn't just execute them.</p>
                 </div>
                 <div class="philosophy-card">
-                    <h3>Team Development Through Challenge</h3>
-                    <p>The best way to develop team members is through meaningful, challenging work that stretches their capabilities. I actively create opportunities for designers to work on high-visibility projects that directly support their career growth.</p>
+                    <i data-lucide="trending-up" class="card-icon" width="28" height="28"></i>
+                    <h3>I grow people through real work</h3>
+                    <p>The best way to develop designers is through meaningful, challenging work that actually stretches them. I actively create opportunities for high-visibility projects that directly support people's career growth — not just the team's output.</p>
                 </div>
                 <div class="philosophy-card">
-                    <h3>Systems Thinking</h3>
-                    <p>Complex enterprise platforms require thinking beyond individual features. I focus on how design decisions create coherent experiences across multiple touchpoints and user journeys, always considering the broader ecosystem impact.</p>
+                    <i data-lucide="layers" class="card-icon" width="28" height="28"></i>
+                    <h3>I see the whole before the parts</h3>
+                    <p>Complex enterprise platforms require thinking beyond individual features. I focus on how design decisions create coherent experiences across multiple touchpoints — always considering the broader ecosystem impact before touching any single piece.</p>
                 </div>
                 <div class="philosophy-card">
-                    <h3>Proactive Remote Leadership</h3>
-                    <p>Remote design leadership requires intentional communication and relationship building. I thrive in distributed environments by being proactive in stakeholder management, clear in asynchronous communication, and focused on building engaged, cohesive teams across time zones.</p>
+                    <i data-lucide="globe" class="card-icon" width="28" height="28"></i>
+                    <h3>Distance doesn't slow me down</h3>
+                    <p>Remote leadership requires intentional communication and real relationship-building. I thrive in distributed environments by being proactive in stakeholder management, clear in async communication, and genuinely focused on keeping people connected — not just aligned.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Featured Case Studies -->
         <section class="featured-work">
             <h2>Featured Work</h2>
             
             <div class="case-study-preview">
+                <img 
+                    src="https://heidilowry.com/images/ai-start.png" 
+                    alt="AI Platform entry point interface" 
+                    class="case-preview-image"
+                >
                 <div class="case-preview-content">
                     <h3>AI-Powered Solution Development Platform</h3>
                     <p class="case-subtitle">Strategic design leadership for transforming how businesses build custom AI solutions</p>
@@ -79,6 +118,11 @@
             </div>
 
             <div class="case-study-preview">
+                <img 
+                    src="https://heidilowry.com/images/process-solutions.png" 
+                    alt="Process Manager unified platform dashboard" 
+                    class="case-preview-image"
+                >
                 <div class="case-preview-content">
                     <h3>Process Manager Platform Integration</h3>
                     <p class="case-subtitle">Leading cross-functional strategy to modernize enterprise process management</p>
@@ -93,29 +137,24 @@
             </div>
         </section>
 
-        <!-- Additional Experience -->
         <section class="additional-work">
             <h2>Additional Leadership Experience</h2>
-            
             <div class="work-grid">
                 <div class="work-item">
                     <h4>Analytics & Recommendations Platform</h4>
                     <p class="work-company">Nintex • 2025</p>
                     <p>Led design strategy for unified data visualization across 6+ platform capabilities, enabling AI-powered business intelligence for non-technical users.</p>
                 </div>
-                
                 <div class="work-item">
                     <h4>Process Intelligence Segment Launch</h4>
                     <p class="work-company">Nintex • 2023</p>
                     <p>Lead designer for new product category combining Process Management, Insights, and Discovery. Presented vision to C-suite and established design thinking still in use. Mentored and directed work for two individual contributors.</p>
                 </div>
-                
                 <div class="work-item">
                     <h4>Construction Management Platform</h4>
                     <p class="work-company">Viewpoint Construction Software • 2020-2021</p>
                     <p>Led design for enterprise construction platform serving global firms. Improved Human Resource Employee Portal, helping organizations onboard and orient new workers on construction sites faster and more efficiently.</p>
                 </div>
-                
                 <div class="work-item">
                     <h4>Enterprise Client Practice</h4>
                     <p class="work-company">Emerge Interactive • 2018-2019</p>
@@ -130,5 +169,7 @@
             <p>&copy; 2026 Heidi Lowry. Available for leadership roles in Canada and the US. Made with love ❤️ and AI 🤖</p>
         </div>
     </footer>
+
+    <script>lucide.createIcons();</script>
 </body>
 </html>
