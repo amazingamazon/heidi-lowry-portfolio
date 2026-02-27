@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
-        /* Additional styles specific to leadership page */
+        /* ---- Leadership intro block ---- */
         .leadership-intro {
             background: var(--bg-light);
             padding: 2rem;
@@ -30,6 +30,48 @@
             color: var(--primary);
         }
 
+        /* ---- Experience stats strip ---- */
+        .experience-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 0 0 3rem;
+        }
+
+        .exp-stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem 1.25rem;
+            text-align: center;
+        }
+
+        .exp-stat-icon {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exp-stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .exp-stat-label {
+            font-size: 0.8125rem;
+            color: var(--text-medium);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            line-height: 1.3;
+        }
+
+        /* ---- Section wrapper ---- */
         .section {
             padding: 3rem 0;
             border-bottom: 1px solid var(--border);
@@ -39,6 +81,7 @@
             border-bottom: none;
         }
 
+        /* ---- Principle grid ---- */
         .principle-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -60,11 +103,17 @@
             border-color: var(--primary);
         }
 
-        .principle-card h3 {
-            margin: 0 0 1rem;
-            padding-left: 0;
-            font-size: 1.125rem;
+        .principle-card-icon {
             color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .principle-card h3 {
+            margin: 0 0 0.75rem;
+            padding-left: 0;
+            font-size: 1.0625rem;
+            color: var(--text-dark);
+            font-weight: 600;
         }
 
         .principle-card h3::before {
@@ -77,6 +126,263 @@
             line-height: 1.6;
         }
 
+        /* ---- Icon lists (borrowed from case studies) ---- */
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 1.25rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .icon-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.625rem;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .icon-list li svg {
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ---- Section h3 with icon ---- */
+        .section-h3-with-icon {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            margin: 2.5rem 0 1rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .section-h3-with-icon svg {
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        /* ---- Onboarding phase track ---- */
+        .phase-track {
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .phase-track::before {
+            content: "";
+            position: absolute;
+            top: 20px; /* center of the circle */
+            left: 20px;
+            right: 20px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--success) 100%);
+            z-index: 0;
+            border-radius: 2px;
+        }
+
+        .phase-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 0 0.75rem;
+        }
+
+        .phase-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .phase-number.done {
+            background: var(--primary);
+            color: white;
+        }
+
+        .phase-number.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 0 4px var(--primary-light);
+        }
+
+        .phase-number.future {
+            background: var(--success);
+            color: white;
+        }
+
+        .phase-body {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 0.875rem;
+            width: 100%;
+        }
+
+        .phase-heading {
+            font-weight: 700;
+            font-size: 0.9375rem;
+            color: var(--primary);
+            margin-bottom: 0.375rem;
+        }
+
+        .phase-heading.active {
+            color: var(--primary);
+        }
+
+        .phase-heading.future {
+            color: var(--success);
+        }
+
+        .phase-goal-tag {
+            font-size: 0.8125rem;
+            color: var(--text-medium);
+            line-height: 1.4;
+        }
+
+        /* ---- Distributed team practice cards ---- */
+        .practice-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin: 2rem 0;
+        }
+
+        .practice-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem 1.25rem;
+        }
+
+        .practice-card-icon {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .practice-card h4 {
+            margin: 0 0 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .practice-card p {
+            font-size: 0.875rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* ---- Ambiguity process flow ---- */
+        .ambiguity-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 2rem 0;
+        }
+
+        .ambiguity-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .ambiguity-step:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 32px;
+            width: 2px;
+            height: calc(100% - 8px);
+            background: var(--border);
+        }
+
+        .ambiguity-step-num {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8125rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ambiguity-step-body {
+            padding: 0 0 1.75rem;
+            flex: 1;
+        }
+
+        .ambiguity-step-body strong {
+            display: block;
+            font-size: 0.9375rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .ambiguity-step-body p {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        /* ---- Team culture values grid ---- */
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0 1.25rem;
+        }
+
+        .culture-card {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .culture-card svg {
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .culture-card p {
+            font-size: 0.875rem;
+            color: var(--text-dark);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* ---- Quote block ---- */
         .quote-block {
             background: var(--accent-light);
             padding: 1.75rem 2rem;
@@ -93,6 +399,7 @@
             font-weight: 500;
         }
 
+        /* ---- Looking forward ---- */
         .looking-forward {
             background: var(--primary-light);
             padding: 2.5rem;
@@ -105,18 +412,115 @@
             color: var(--primary);
         }
 
+        /* ---- Section h2 with icon ---- */
+        .h2-with-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .h2-with-icon .section-icon-chip {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .h2-with-icon .section-icon-chip svg {
+            color: var(--primary);
+        }
+
+        .h2-with-icon h2 {
+            margin: 0;
+        }
+
+        /* ============================================================
+           Mobile — 768px
+        ============================================================ */
+        @media (max-width: 768px) {
+            .experience-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .principle-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .practice-cards {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .culture-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .phase-track {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+            }
+
+            .phase-track::before {
+                display: none;
+            }
+
+            .phase-card {
+                flex-direction: row;
+                align-items: flex-start;
+                text-align: left;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .phase-number {
+                margin-bottom: 0;
+            }
+
+            .phase-body {
+                width: auto;
+                flex: 1;
+            }
+        }
+
+        /* ============================================================
+           Mobile — 640px
+        ============================================================ */
         @media (max-width: 640px) {
             .leadership-intro {
                 padding: 1.25rem;
             }
+
             .looking-forward {
                 padding: 1.5rem;
             }
-            .principle-grid {
-                gap: 1rem;
-            }
+
             .quote-block {
                 padding: 1.25rem;
+            }
+        }
+
+        /* ============================================================
+           Mobile — 480px
+        ============================================================ */
+        @media (max-width: 480px) {
+            .experience-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .culture-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exp-stat-number {
+                font-size: 1.625rem;
             }
         }
     </style>
@@ -133,20 +537,52 @@
                 <a href="ai-platform.html" class="nav-link">AI Platform</a>
                 <a href="process-manager.html" class="nav-link">Process Manager</a>
                 <a href="leadership.html" class="nav-link active">Leadership</a>
-                <a href="design-coaching.html" class="nav-link">Coaching & Craft</a>
+                <a href="design-coaching.html" class="nav-link">Coaching &amp; Craft</a>
                 <a href="mailto:heidi.lowry@gmail.com" class="nav-link">Contact</a>
             </div>
         </div>
     </nav>
 
     <div class="accent-bar"></div>
-    
+
     <div class="container">
         <!-- Hero Section -->
         <header class="hero">
             <h1>Leadership Approach</h1>
             <p class="tagline">How I build teams, cultivate design excellence, and drive organizational change</p>
         </header>
+
+        <!-- Experience stats strip -->
+        <div class="experience-stats">
+            <div class="exp-stat-card">
+                <div class="exp-stat-icon">
+                    <i data-lucide="calendar" width="24" height="24"></i>
+                </div>
+                <div class="exp-stat-number">10+</div>
+                <div class="exp-stat-label">Years in product design</div>
+            </div>
+            <div class="exp-stat-card">
+                <div class="exp-stat-icon">
+                    <i data-lucide="users" width="24" height="24"></i>
+                </div>
+                <div class="exp-stat-number">3+</div>
+                <div class="exp-stat-label">Years managing teams</div>
+            </div>
+            <div class="exp-stat-card">
+                <div class="exp-stat-icon">
+                    <i data-lucide="globe" width="24" height="24"></i>
+                </div>
+                <div class="exp-stat-number">3</div>
+                <div class="exp-stat-label">Regions managed across</div>
+            </div>
+            <div class="exp-stat-card">
+                <div class="exp-stat-icon">
+                    <i data-lucide="cpu" width="24" height="24"></i>
+                </div>
+                <div class="exp-stat-number">AI</div>
+                <div class="exp-stat-label">Integration in active practice</div>
+            </div>
+        </div>
 
         <div class="leadership-intro">
             <p>Over 10 years in product design and 3+ years managing distributed teams, I've developed a clear philosophy: <strong>great design comes from great teams, and great teams come from leaders who create the conditions for people to do their best work.</strong></p>
@@ -155,35 +591,58 @@
 
         <!-- Core Principles -->
         <section class="section">
-            <h2>Core Leadership Principles</h2>
-            
+            <div class="h2-with-icon">
+                <div class="section-icon-chip">
+                    <i data-lucide="compass" width="22" height="22"></i>
+                </div>
+                <h2>Core Leadership Principles</h2>
+            </div>
+
             <div class="principle-grid">
                 <div class="principle-card">
+                    <div class="principle-card-icon">
+                        <i data-lucide="shield" width="28" height="28"></i>
+                    </div>
                     <h3>Create Space for Excellence</h3>
                     <p>My job as a manager is to remove obstacles, provide context, and create an environment where designers can focus on craft. I establish clear expectations and provide consistent feedback, but trust my team to own their work.</p>
                 </div>
 
                 <div class="principle-card">
+                    <div class="principle-card-icon">
+                        <i data-lucide="heart" width="28" height="28"></i>
+                    </div>
                     <h3>Lead with Empathy</h3>
                     <p>I build relationships with my team members that allow me to understand their career goals, working styles, and challenges. Everyone has different needs—some want more autonomy, others need more guidance. Great management means adapting to each person.</p>
                 </div>
 
                 <div class="principle-card">
+                    <div class="principle-card-icon">
+                        <i data-lucide="award" width="28" height="28"></i>
+                    </div>
                     <h3>Champion Design Quality</h3>
                     <p>I advocate for design excellence through consistent design reviews, constructive feedback, and setting high standards. Quality isn't about perfection—it's about making intentional decisions and understanding the rationale behind every choice.</p>
                 </div>
 
                 <div class="principle-card">
+                    <div class="principle-card-icon">
+                        <i data-lucide="users" width="28" height="28"></i>
+                    </div>
                     <h3>Build Collaborative Culture</h3>
                     <p>The best work happens when design, product, and engineering are true partners. I foster relationships across functions, create shared understanding of goals, and ensure design has a voice in strategic decisions.</p>
                 </div>
 
                 <div class="principle-card">
+                    <div class="principle-card-icon">
+                        <i data-lucide="trending-up" width="28" height="28"></i>
+                    </div>
                     <h3>Grow People Intentionally</h3>
                     <p>Career development isn't just annual reviews—it's ongoing mentorship, stretch assignments, and honest conversations about strengths and growth areas. I invest time in helping designers level up their skills and advance their careers.</p>
                 </div>
 
                 <div class="principle-card">
+                    <div class="principle-card-icon">
+                        <i data-lucide="navigation" width="28" height="28"></i>
+                    </div>
                     <h3>Navigate Ambiguity Together</h3>
                     <p>Complex problems require collaborative problem-solving. I rally teams around a shared vision while leaving space for exploration and team-led innovation. Ambiguity is an opportunity, not a threat.</p>
                 </div>
@@ -192,60 +651,175 @@
 
         <!-- Building Teams -->
         <section class="section">
-            <h2>My Approach to Building Teams</h2>
-            
-            <h3>Hiring for Craft and Character</h3>
+            <div class="h2-with-icon">
+                <div class="section-icon-chip">
+                    <i data-lucide="user-check" width="22" height="22"></i>
+                </div>
+                <h2>My Approach to Building Teams</h2>
+            </div>
+
+            <div class="section-h3-with-icon">
+                <i data-lucide="search" width="20" height="20"></i>
+                <span>Hiring for Craft and Character</span>
+            </div>
             <p>When building my team, I look beyond portfolios and resumes. I'm evaluating:</p>
-            <ul>
-                <li><strong>Design craft and judgment:</strong> Can they make thoughtful decisions about complex problems? Do they understand the 'why' behind their work?</li>
-                <li><strong>Collaboration and communication:</strong> Can they work effectively with people who think differently? Do they explain their rationale clearly?</li>
-                <li><strong>Growth mindset:</strong> Are they curious? Do they seek feedback and act on it?</li>
-                <li><strong>Values alignment:</strong> Do they care about users? Do they approach problems with humility and empathy?</li>
+            <ul class="icon-list">
+                <li>
+                    <i data-lucide="pen-tool" width="16" height="16"></i>
+                    <span><strong>Design craft and judgment:</strong> Can they make thoughtful decisions about complex problems? Do they understand the 'why' behind their work?</span>
+                </li>
+                <li>
+                    <i data-lucide="message-square" width="16" height="16"></i>
+                    <span><strong>Collaboration and communication:</strong> Can they work effectively with people who think differently? Do they explain their rationale clearly?</span>
+                </li>
+                <li>
+                    <i data-lucide="book-open" width="16" height="16"></i>
+                    <span><strong>Growth mindset:</strong> Are they curious? Do they seek feedback and act on it?</span>
+                </li>
+                <li>
+                    <i data-lucide="heart" width="16" height="16"></i>
+                    <span><strong>Values alignment:</strong> Do they care about users? Do they approach problems with humility and empathy?</span>
+                </li>
             </ul>
 
-            <h3>Onboarding and Setting Up for Success</h3>
+            <div class="section-h3-with-icon">
+                <i data-lucide="map" width="20" height="20"></i>
+                <span>Onboarding and Setting Up for Success</span>
+            </div>
             <p>I invest heavily in onboarding. New designers get a clear 30-60-90 day plan, regular check-ins, and explicit context about how the team works, what success looks like, and where they can make the biggest impact. I pair them with mentors and create opportunities for early wins.</p>
 
-            <h3>Creating Psychological Safety</h3>
+            <!-- 30-60-90 phase track -->
+            <div class="design-artifact">
+                <p class="diagram-title">30 / 60 / 90 Day Onboarding Plan</p>
+                <div class="phase-track">
+                    <div class="phase-card">
+                        <div class="phase-number done">30</div>
+                        <div class="phase-body">
+                            <div class="phase-heading">First 30 Days</div>
+                            <div class="phase-goal-tag">Listen, learn, and build relationships across the team and product.</div>
+                        </div>
+                    </div>
+                    <div class="phase-card">
+                        <div class="phase-number active">60</div>
+                        <div class="phase-body">
+                            <div class="phase-heading active">Days 30–60</div>
+                            <div class="phase-goal-tag">Deliver a scoped project. Contribute independently with regular check-ins.</div>
+                        </div>
+                    </div>
+                    <div class="phase-card">
+                        <div class="phase-number future">90</div>
+                        <div class="phase-body">
+                            <div class="phase-heading future">Days 60–90</div>
+                            <div class="phase-goal-tag">Own meaningful work. Begin shaping direction, not just executing it.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-h3-with-icon">
+                <i data-lucide="shield" width="20" height="20"></i>
+                <span>Creating Psychological Safety</span>
+            </div>
             <p>Teams perform best when people feel safe to take risks, admit mistakes, and ask questions. I model vulnerability, celebrate learning from failures, and ensure everyone's voice is heard—regardless of seniority. In design reviews, I focus on understanding intent before offering critique.</p>
         </section>
 
         <!-- Organizational Maturity -->
         <section class="section">
-            <h2>Driving Organizational Design Maturity</h2>
-            
+            <div class="h2-with-icon">
+                <div class="section-icon-chip">
+                    <i data-lucide="bar-chart-2" width="22" height="22"></i>
+                </div>
+                <h2>Driving Organizational Design Maturity</h2>
+            </div>
+
             <p>As a design leader, I don't just manage my team—I work to elevate design's impact across the organization.</p>
 
-            <h3>Establishing Design Systems and Processes</h3>
+            <div class="section-h3-with-icon">
+                <i data-lucide="layout-grid" width="20" height="20"></i>
+                <span>Establishing Design Systems and Processes</span>
+            </div>
             <p>I've driven initiatives to build scalable design systems, establish design review processes, and create frameworks for collaboration. These aren't just about efficiency—they're about creating consistency, enabling autonomy, and ensuring quality at scale.</p>
 
-            <h3>Increasing Strategic Influence</h3>
+            <div class="section-h3-with-icon">
+                <i data-lucide="briefcase" width="20" height="20"></i>
+                <span>Increasing Strategic Influence</span>
+            </div>
             <p>I partner with product and engineering leadership to ensure design has a seat at the table when strategic decisions are made. This means:</p>
-            <ul>
-                <li>Translating business goals into design opportunities</li>
-                <li>Advocating for user needs backed by research and data</li>
-                <li>Building trust through reliable delivery and thoughtful recommendations</li>
-                <li>Framing design work in terms of business value, not just craft</li>
+            <ul class="icon-list">
+                <li>
+                    <i data-lucide="target" width="16" height="16"></i>
+                    <span>Translating business goals into design opportunities</span>
+                </li>
+                <li>
+                    <i data-lucide="users" width="16" height="16"></i>
+                    <span>Advocating for user needs backed by research and data</span>
+                </li>
+                <li>
+                    <i data-lucide="handshake" width="16" height="16"></i>
+                    <span>Building trust through reliable delivery and thoughtful recommendations</span>
+                </li>
+                <li>
+                    <i data-lucide="trending-up" width="16" height="16"></i>
+                    <span>Framing design work in terms of business value, not just craft</span>
+                </li>
             </ul>
 
-            <h3>Championing User-Centered Principles</h3>
+            <div class="section-h3-with-icon">
+                <i data-lucide="focus" width="20" height="20"></i>
+                <span>Championing User-Centered Principles</span>
+            </div>
             <p>I believe great products come from deeply understanding users. I advocate for research, usability testing, and talking to customers—even when timelines are tight. I help teams balance business constraints with user needs, and make the case for investing in design quality.</p>
         </section>
 
         <!-- Navigating Ambiguity -->
         <section class="section">
-            <h2>Navigating Complex, Ambiguous Problems</h2>
-            
+            <div class="h2-with-icon">
+                <div class="section-icon-chip">
+                    <i data-lucide="git-merge" width="22" height="22"></i>
+                </div>
+                <h2>Navigating Complex, Ambiguous Problems</h2>
+            </div>
+
             <p>Enterprise B2B design often means working in spaces where requirements are unclear, stakeholders have competing priorities, and the 'right answer' isn't obvious.</p>
 
-            <h3>My Approach to Ambiguity:</h3>
-            <ul>
-                <li><strong>Start with clarity on the problem:</strong> Before jumping to solutions, I invest time understanding what we're really trying to solve and why it matters.</li>
-                <li><strong>Rally around a vision:</strong> I work with teams to establish a shared picture of success, even if the path to get there is uncertain.</li>
-                <li><strong>Make the implicit explicit:</strong> I name assumptions, surface constraints, and clarify decision-making frameworks so everyone is working from the same foundation.</li>
-                <li><strong>Iterate and validate:</strong> I embrace prototyping, testing, and learning. The best way through ambiguity is to make something real and get feedback.</li>
-                <li><strong>Make decisions with incomplete information:</strong> Waiting for perfect clarity often means missing opportunities. I help teams make informed decisions with the data available, while staying open to new information.</li>
-            </ul>
+            <!-- Vertical numbered process flow -->
+            <div class="ambiguity-flow">
+                <div class="ambiguity-step">
+                    <div class="ambiguity-step-num">1</div>
+                    <div class="ambiguity-step-body">
+                        <strong>Start with clarity on the problem</strong>
+                        <p>Before jumping to solutions, I invest time understanding what we're really trying to solve and why it matters.</p>
+                    </div>
+                </div>
+                <div class="ambiguity-step">
+                    <div class="ambiguity-step-num">2</div>
+                    <div class="ambiguity-step-body">
+                        <strong>Rally around a vision</strong>
+                        <p>I work with teams to establish a shared picture of success, even if the path to get there is uncertain.</p>
+                    </div>
+                </div>
+                <div class="ambiguity-step">
+                    <div class="ambiguity-step-num">3</div>
+                    <div class="ambiguity-step-body">
+                        <strong>Make the implicit explicit</strong>
+                        <p>I name assumptions, surface constraints, and clarify decision-making frameworks so everyone is working from the same foundation.</p>
+                    </div>
+                </div>
+                <div class="ambiguity-step">
+                    <div class="ambiguity-step-num">4</div>
+                    <div class="ambiguity-step-body">
+                        <strong>Iterate and validate</strong>
+                        <p>I embrace prototyping, testing, and learning. The best way through ambiguity is to make something real and get feedback.</p>
+                    </div>
+                </div>
+                <div class="ambiguity-step">
+                    <div class="ambiguity-step-num">5</div>
+                    <div class="ambiguity-step-body">
+                        <strong>Make decisions with incomplete information</strong>
+                        <p>Waiting for perfect clarity often means missing opportunities. I help teams make informed decisions with the data available, while staying open to new information.</p>
+                    </div>
+                </div>
+            </div>
 
             <div class="quote-block">
                 <p>"The goal isn't to eliminate ambiguity—it's to help teams move forward confidently despite it."</p>
@@ -254,47 +828,108 @@
 
         <!-- Distributed Teams -->
         <section class="section">
-            <h2>Working with Distributed Teams</h2>
-            
+            <div class="h2-with-icon">
+                <div class="section-icon-chip">
+                    <i data-lucide="globe" width="22" height="22"></i>
+                </div>
+                <h2>Working with Distributed Teams</h2>
+            </div>
+
             <p>Managing designers across 4 regions has taught me that distributed work requires intentional practices:</p>
-            
-            <h3>Communication Over-Indexing</h3>
-            <p>I document decisions, share context proactively, and create space for async collaboration. Regular 1:1s, team syncs, and design reviews keep everyone aligned and connected.</p>
 
-            <h3>Building Connection Across Timezones</h3>
-            <p>I find creative ways to build team culture despite geography—whether that's virtual design critiques, Slack channels for casual conversation, or occasional in-person gatherings. People need to feel part of a team, not isolated.</p>
-
-            <h3>Respecting Work-Life Balance</h3>
-            <p>Distributed teams can blur boundaries. I'm thoughtful about meeting times, respect people's off-hours, and model healthy work habits. Burnout helps no one.</p>
+            <div class="practice-cards">
+                <div class="practice-card">
+                    <div class="practice-card-icon">
+                        <i data-lucide="message-square" width="28" height="28"></i>
+                    </div>
+                    <h4>Communication Over-Indexing</h4>
+                    <p>I document decisions, share context proactively, and create space for async collaboration. Regular 1:1s, team syncs, and design reviews keep everyone aligned and connected.</p>
+                </div>
+                <div class="practice-card">
+                    <div class="practice-card-icon">
+                        <i data-lucide="link" width="28" height="28"></i>
+                    </div>
+                    <h4>Building Connection Across Timezones</h4>
+                    <p>I find creative ways to build team culture despite geography—virtual design critiques, Slack channels for casual conversation, or occasional in-person gatherings. People need to feel part of a team, not isolated.</p>
+                </div>
+                <div class="practice-card">
+                    <div class="practice-card-icon">
+                        <i data-lucide="battery-charging" width="28" height="28"></i>
+                    </div>
+                    <h4>Respecting Work-Life Balance</h4>
+                    <p>Distributed teams can blur boundaries. I'm thoughtful about meeting times, respect people's off-hours, and model healthy work habits. Burnout helps no one.</p>
+                </div>
+            </div>
         </section>
 
         <!-- AI Philosophy -->
         <section class="section">
-            <h2>My Philosophy on AI and Emerging Technology</h2>
-            
+            <div class="h2-with-icon">
+                <div class="section-icon-chip">
+                    <i data-lucide="cpu" width="22" height="22"></i>
+                </div>
+                <h2>My Philosophy on AI and Emerging Technology</h2>
+            </div>
+
             <p>I'm currently pioneering AI integration in design processes—both for users and for my team's productivity. My approach:</p>
-            
-            <ul>
-                <li><strong>Human-centered AI:</strong> Technology should augment human capability, not replace human judgment. I design AI features that maintain transparency and user control.</li>
-                <li><strong>Ethical considerations first:</strong> I advocate for responsible AI development that considers bias, privacy, and potential harm.</li>
-                <li><strong>Practical experimentation:</strong> I believe in learning by doing. I encourage my team to experiment with AI tools while maintaining healthy skepticism about their limitations.</li>
-                <li><strong>Strategic integration:</strong> AI is a tool, not a silver bullet. I work with leadership to identify where AI genuinely solves problems vs. where it's innovation theater.</li>
+
+            <ul class="icon-list">
+                <li>
+                    <i data-lucide="user-check" width="16" height="16"></i>
+                    <span><strong>Human-centered AI:</strong> Technology should augment human capability, not replace human judgment. I design AI features that maintain transparency and user control.</span>
+                </li>
+                <li>
+                    <i data-lucide="shield" width="16" height="16"></i>
+                    <span><strong>Ethical considerations first:</strong> I advocate for responsible AI development that considers bias, privacy, and potential harm.</span>
+                </li>
+                <li>
+                    <i data-lucide="zap" width="16" height="16"></i>
+                    <span><strong>Practical experimentation:</strong> I believe in learning by doing. I encourage my team to experiment with AI tools while maintaining healthy skepticism about their limitations.</span>
+                </li>
+                <li>
+                    <i data-lucide="navigation" width="16" height="16"></i>
+                    <span><strong>Strategic integration:</strong> AI is a tool, not a silver bullet. I work with leadership to identify where AI genuinely solves problems vs. where it's innovation theater.</span>
+                </li>
             </ul>
         </section>
 
         <!-- Team Culture -->
         <section class="section">
-            <h2>What Designers Say About Working With Me</h2>
-            
+            <div class="h2-with-icon">
+                <div class="section-icon-chip">
+                    <i data-lucide="star" width="22" height="22"></i>
+                </div>
+                <h2>What Designers Say About Working With Me</h2>
+            </div>
+
             <p>I believe in creating environments where:</p>
-            <ul>
-                <li>Designers feel trusted to own their work and make decisions</li>
-                <li>Feedback is specific, actionable, and delivered with empathy</li>
-                <li>Career growth is a partnership, not a checkbox exercise</li>
-                <li>Mistakes are learning opportunities, not failures</li>
-                <li>Everyone's perspective is valued, regardless of title</li>
-                <li>We celebrate wins together and support each other through challenges</li>
-            </ul>
+
+            <div class="culture-grid">
+                <div class="culture-card">
+                    <i data-lucide="key" width="18" height="18"></i>
+                    <p>Designers feel trusted to own their work and make decisions</p>
+                </div>
+                <div class="culture-card">
+                    <i data-lucide="check-circle" width="18" height="18"></i>
+                    <p>Feedback is specific, actionable, and delivered with empathy</p>
+                </div>
+                <div class="culture-card">
+                    <i data-lucide="trending-up" width="18" height="18"></i>
+                    <p>Career growth is a partnership, not a checkbox exercise</p>
+                </div>
+                <div class="culture-card">
+                    <i data-lucide="book-open" width="18" height="18"></i>
+                    <p>Mistakes are learning opportunities, not failures</p>
+                </div>
+                <div class="culture-card">
+                    <i data-lucide="mic" width="18" height="18"></i>
+                    <p>Everyone's perspective is valued, regardless of title</p>
+                </div>
+                <div class="culture-card">
+                    <i data-lucide="users" width="18" height="18"></i>
+                    <p>We celebrate wins together and support each other through challenges</p>
+                </div>
+            </div>
 
             <p>My goal is simple: I want the designers I work with to do the best work of their careers, grow in ways they didn't think possible, and look back on our time together as formative.</p>
         </section>
@@ -302,22 +937,48 @@
         <!-- Looking Forward -->
         <div class="looking-forward">
             <h2>Looking Forward</h2>
-            
+
             <p>I'm excited about opportunities to bring this leadership approach to organizations that:</p>
-            <ul>
-                <li>Value design as a strategic partner, not just execution</li>
-                <li>Embrace complexity and ambiguity as opportunities for innovation</li>
-                <li>Invest in building collaborative, low-ego teams</li>
-                <li>Care deeply about users and building trustworthy, inclusive products</li>
-                <li>Are committed to continuous learning and growth</li>
+            <ul class="icon-list">
+                <li>
+                    <i data-lucide="briefcase" width="16" height="16"></i>
+                    <span>Value design as a strategic partner, not just execution</span>
+                </li>
+                <li>
+                    <i data-lucide="git-merge" width="16" height="16"></i>
+                    <span>Embrace complexity and ambiguity as opportunities for innovation</span>
+                </li>
+                <li>
+                    <i data-lucide="users" width="16" height="16"></i>
+                    <span>Invest in building collaborative, low-ego teams</span>
+                </li>
+                <li>
+                    <i data-lucide="heart" width="16" height="16"></i>
+                    <span>Care deeply about users and building trustworthy, inclusive products</span>
+                </li>
+                <li>
+                    <i data-lucide="book-open" width="16" height="16"></i>
+                    <span>Are committed to continuous learning and growth</span>
+                </li>
             </ul>
 
             <p>If this resonates with how you think about design leadership, I'd love to connect.</p>
-            
+
             <div class="contact-links" style="margin-top: 2rem;">
                 <a href="mailto:heidi.lowry@gmail.com" class="btn btn-primary">Get in touch</a>
             </div>
         </div>
+    </div>
+
+    <div class="container">
+        <section class="case-navigation">
+            <div>
+                <a href="process-manager.html" class="btn btn-secondary">&larr; Previous: Process Manager</a>
+            </div>
+            <div>
+                <a href="design-coaching.html" class="btn btn-primary">Next: Coaching &amp; Craft &rarr;</a>
+            </div>
+        </section>
     </div>
 
     <footer class="footer">
