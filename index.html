@@ -314,15 +314,19 @@
         .work-card-link {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-size: 14px;
             font-weight: 600;
-            color: var(--blue);
+            color: var(--white);
+            background: var(--blue);
             text-decoration: none;
-            letter-spacing: 0.01em;
-            transition: gap 0.2s;
+            letter-spacing: 0.02em;
+            padding: 12px 22px;
+            border-radius: 6px;
+            transition: background 0.18s, gap 0.18s;
+            align-self: flex-start;
         }
-        .work-card-link:hover { gap: 12px; }
+        .work-card-link:hover { background: #1540b8; gap: 14px; }
 
         /* ── ADDITIONAL WORK ── */
         .additional-grid {
