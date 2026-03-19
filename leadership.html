@@ -169,7 +169,10 @@
             .phase-card { flex-direction: row; text-align: left; gap: 12px; padding: 0; }
             .phase-num { margin-bottom: 0; flex-shrink: 0; }
             .phase-body { flex: 1; }
-            .case-nav-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+            .case-nav-inner { flex-direction: column; gap: 0; }
+            .case-nav-link { width: 100%; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+            .case-nav-link:first-child { border-top: 1px solid var(--rule); }
+            .case-nav-link.next { text-align: left; }
             footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
             .looking-forward { padding: 48px 24px; }
         }
