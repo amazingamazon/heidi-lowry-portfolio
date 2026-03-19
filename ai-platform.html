@@ -71,6 +71,18 @@
         .nav-links a:hover,
         .nav-links a.active { color: var(--blue); }
 
+        /* ── HAMBURGER NAV ── */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 22px;
+            color: var(--ink);
+            padding: 4px 8px;
+            line-height: 1;
+        }
+
         /* ── LAYOUT ── */
         .wrap {
             max-width: 1200px;
@@ -829,6 +841,7 @@
             .nav-links { gap: 20px; }
             .case-hero { padding: 120px 24px 60px; }
             .wrap { padding: 0 24px; }
+            .seam-card { padding: 32px 28px; }
             .bva-diagram { grid-template-columns: 1fr; gap: 12px; }
             .bva-arrow { padding: 8px 0; }
             .persona-entry { grid-template-columns: 1fr; gap: 8px; }
@@ -846,6 +859,31 @@
             .seam-grid.cols-2 { grid-template-columns: 1fr; }
             .cap-grid { grid-template-columns: repeat(2, 1fr); }
         }
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                border-bottom: 1px solid var(--rule);
+                flex-direction: column;
+                gap: 0;
+                padding: 8px 0;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            }
+            .nav-links.open { display: flex; }
+            .nav-links li { width: 100%; }
+            .nav-links a {
+                display: block;
+                padding: 14px 24px;
+                font-size: 14px;
+                border-bottom: 1px solid var(--rule);
+            }
+            .nav-links li:last-child a { border-bottom: none; }
+        }
         @media (max-width: 640px) {
             .case-hero { padding: 100px 20px 48px; }
             .wrap { padding: 0 20px; }
@@ -854,6 +892,11 @@
             .metrics-row { grid-template-columns: repeat(2, 1fr); }
             .cap-grid { grid-template-columns: 1fr; }
         }
+        @media (max-width: 480px) {
+            .wrap { padding: 0 16px; }
+            .case-hero { padding: 88px 16px 40px; }
+            body { overflow-x: hidden; }
+        }
     </style>
 </head>
 <body>
@@ -861,6 +904,7 @@
     <!-- NAV -->
     <nav>
         <a href="index.html" class="nav-name">Heidi Lowry</a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
         <ul class="nav-links">
             <li><a href="index.html">About</a></li>
             <li><a href="ai-platform.html" class="active">AI Platform</a></li>
@@ -1299,6 +1343,17 @@
                 if(e.key==='ArrowLeft') goTo(cur-1);
                 if(e.key==='ArrowRight') goTo(cur+1);
             };
+        })();
+
+        // Hamburger nav toggle
+        (function() {
+            var navToggle = document.querySelector('.nav-toggle');
+            var navLinks = document.querySelector('.nav-links');
+            navToggle.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('open');
+                navToggle.setAttribute('aria-expanded', isOpen);
+                navToggle.innerHTML = isOpen ? '&#10005;' : '&#9776;';
+            });
         })();
     </script>
 </body>
