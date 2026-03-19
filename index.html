@@ -3,197 +3,575 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <title>Heidi Lowry | Product Design Leader</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
-        .philosophy-card .card-icon {
-            color: var(--primary);
-            margin-bottom: 1rem;
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --white: #ffffff;
+            --bg: #F9F9F8;
+            --ink: #111111;
+            --mid: #555555;
+            --light: #999999;
+            --rule: #E5E4E0;
+            --blue: #1B4FD8;
+            --blue-light: #EEF3FF;
+            --blue-mid: #C7D7FA;
+            --green: #1A6648;
+            --green-light: #EDFAF3;
+            --amber: #92400E;
+        }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 48px;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--rule);
+        }
+        .nav-name {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            color: var(--ink);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--light);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover,
+        .nav-links a.active { color: var(--blue); }
+
+        /* ── LAYOUT ── */
+        .section-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 48px;
+        }
+        .section-wrap.tight { padding-top: 80px; padding-bottom: 80px; }
+
+        .full-bleed-dark {
+            background: var(--ink);
+            color: var(--white);
+        }
+        .full-bleed-tint {
+            background: var(--bg);
+        }
+
+        /* ── EYEBROW ── */
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 20px;
+        }
+        .eyebrow.light { color: var(--blue-mid); }
+
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 48px 80px;
+        }
+        .hero-title {
+            font-size: clamp(56px, 8vw, 104px);
+            font-weight: 800;
+            line-height: 1.0;
+            letter-spacing: -0.035em;
+            color: var(--ink);
+            max-width: 880px;
+            margin-bottom: 32px;
+        }
+        .hero-tagline {
+            font-size: clamp(18px, 2.2vw, 22px);
+            font-weight: 400;
+            color: var(--mid);
+            max-width: 560px;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+        .hero-bio {
+            font-size: 17px;
+            font-weight: 400;
+            color: var(--mid);
+            max-width: 600px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        .hero-meta {
+            margin-top: 64px;
+            display: flex;
+            gap: 48px;
+            padding-top: 40px;
+            border-top: 1px solid var(--rule);
+        }
+        .hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+        .hero-meta-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--light);
+        }
+        .hero-meta-value {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--ink);
+        }
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 48px;
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.18s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--blue);
+            color: var(--white);
+        }
+        .btn-primary:hover { background: #1540b8; }
+        .btn-ghost {
+            background: transparent;
+            color: var(--ink);
+            border: 1.5px solid var(--rule);
+        }
+        .btn-ghost:hover { border-color: var(--ink); }
+
+        /* ── SECTION HEADING ── */
+        .section-h2 {
+            font-size: clamp(32px, 4vw, 52px);
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+        .section-h2.light { color: var(--white); }
+        .section-lead {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--mid);
+            max-width: 560px;
+            line-height: 1.6;
+            margin-top: 16px;
+        }
+        .section-lead.light { color: rgba(255,255,255,0.6); }
+
+        /* ── HOW I WORK — principle cards ── */
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            margin-top: 56px;
+            background: var(--rule);
+        }
+        .principle-card {
+            background: var(--white);
+            padding: 88px 60px !important;
+        }
+        .principle-icon {
+            color: var(--blue);
+            margin-bottom: 20px;
             display: block;
         }
-        .philosophy-card h3 {
-            font-size: 1.1rem;
+        .principle-title {
+            font-size: 20px;
             font-weight: 700;
-            margin: 0 0 0.75rem;
-            color: var(--text-dark);
+            letter-spacing: -0.01em;
+            color: var(--ink);
+            margin-bottom: 12px;
         }
-        .case-study-preview {
-            padding: 0;
+        .principle-body {
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--mid);
+            line-height: 1.7;
+        }
+
+        /* ── FEATURED WORK ── */
+        .work-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-top: 56px;
+            background: var(--rule);
+        }
+        .work-card {
+            background: var(--white);
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            align-items: stretch;
             overflow: hidden;
         }
-        .case-preview-image {
+        .work-card-content {
+            padding: 56px 52px;
+            display: flex;
+            flex-direction: column;
+        }
+        .work-card-image {
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 28px;
+        }
+        .work-card-image img {
             width: 100%;
-            height: 220px;
+            max-height: 280px;
             object-fit: cover;
             object-position: top left;
             display: block;
-            border-bottom: 1px solid var(--border);
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
         }
-        .case-preview-content {
-            padding: 2.5rem;
+        .work-card-tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 16px;
         }
+        .work-card-title {
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: var(--ink);
+            margin-bottom: 16px;
+        }
+        .work-card-body {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--mid);
+            line-height: 1.75;
+            margin-bottom: 32px;
+        }
+        .work-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+        .tag-pill {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--blue);
+            background: var(--blue-light);
+            padding: 5px 12px;
+            border-radius: 100px;
+        }
+        .work-card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--blue);
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            transition: gap 0.2s;
+        }
+        .work-card-link:hover { gap: 12px; }
+
+        /* ── ADDITIONAL WORK ── */
+        .additional-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            margin-top: 56px;
+            background: var(--rule);
+        }
+        .additional-item {
+            background: var(--bg);
+            padding: 40px 36px;
+        }
+        .additional-company {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--light);
+            margin-bottom: 12px;
+        }
+        .additional-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--ink);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .additional-body {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--mid);
+            line-height: 1.65;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--rule);
+            padding: 40px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+        .footer-copy {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--light);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            nav { padding: 16px 24px; }
+            .nav-links { gap: 20px; }
+            #hero { padding: 120px 24px 60px; }
+            .section-wrap { padding: 80px 24px; }
+            .work-card { grid-template-columns: 1fr; }
+            .work-card-image { display: none; }
+            .work-card-content { padding: 40px 32px; }
+            .principles-grid { grid-template-columns: 1fr; }
+            .additional-grid { grid-template-columns: 1fr; }
+            .hero-meta { gap: 28px; flex-wrap: wrap; }
+            footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
+        }
+
         @media (max-width: 640px) {
-            .case-preview-content {
-                padding: 1.25rem;
-            }
+            nav { padding: 14px 20px; }
+            .nav-links { gap: 16px; }
+            .nav-links a { font-size: 12px; }
+            #hero { padding: 100px 20px 48px; }
+            .section-wrap { padding: 64px 20px; }
+            .hero-actions { flex-direction: column; }
+            .btn { justify-content: center; }
+            .hero-meta { gap: 20px; }
+            .principle-card { padding: 32px 24px; }
+            .work-card-content { padding: 32px 24px; }
+            .additional-item { padding: 28px 24px; }
         }
     </style>
 </head>
 <body>
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="index.html" class="nav-brand">Heidi Lowry</a>
-            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <i data-lucide="menu" width="24" height="24"></i>
-            </button>
-            <div class="nav-links" id="nav-links">
-                <a href="index.html" class="nav-link active">About</a>
-                <a href="ai-platform.html" class="nav-link">AI Platform</a>
-                <a href="process-manager.html" class="nav-link">Process Manager</a>
-                <a href="leadership.html" class="nav-link">Leadership</a>
-                <a href="design-coaching.html" class="nav-link">Coaching & Craft</a>
-                <a href="mailto:heidi.lowry@gmail.com" class="nav-link">Contact</a>
-            </div>
-        </div>
+
+    <!-- NAV -->
+    <nav>
+        <a href="index.html" class="nav-name">Heidi Lowry</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">About</a></li>
+            <li><a href="ai-platform.html">AI Platform</a></li>
+            <li><a href="process-manager.html">Process Manager</a></li>
+            <li><a href="leadership.html">Leadership</a></li>
+            <li><a href="design-coaching.html">Coaching & Craft</a></li>
+            <li><a href="mailto:heidi.lowry@gmail.com">Contact</a></li>
+        </ul>
     </nav>
 
-    <div class="accent-bar"></div>
-    
-    <div class="container">
-        <header class="hero">
-            <h1>Heidi Lowry</h1>
-            <p class="tagline">Strategic product design leader working at the intersection of AI, enterprise complexity, and systems thinking.</p>
-            <p class="bio">
-                I'm drawn to the hard problems — the ones where the domain is messy, the users are experts, and the obvious solution is usually wrong. My work spans AI product design, enterprise platform integration, and complex B2B workflows where getting the interaction model right actually changes how people work.
-            </p>
-            <p class="bio">
-                I take the work seriously. I bring strong opinions, a systems mindset, and a low tolerance for design theater. I take myself a lot less seriously — good work happens when people feel safe to think out loud and push back.
-            </p>
-            <div class="contact-links">
-                <a href="mailto:heidi.lowry@gmail.com" class="btn btn-primary">Get in touch</a>
-                <a href="https://linkedin.com/in/heidilowry" class="btn btn-secondary">LinkedIn</a>
+    <!-- HERO -->
+    <section id="hero">
+        <p class="eyebrow">Product Design Leadership</p>
+        <h1 class="hero-title">Heidi Lowry</h1>
+        <p class="hero-tagline">Strategic product design leader working at the intersection of AI, enterprise complexity, and systems thinking.</p>
+        <p class="hero-bio">
+            I'm drawn to the hard problems — the ones where the domain is messy, the users are experts, and the obvious solution is usually wrong. My work spans AI product design, enterprise platform integration, and complex B2B workflows where getting the interaction model right actually changes how people work.
+        </p>
+        <p class="hero-bio">
+            I take the work seriously. I bring strong opinions, a systems mindset, and a low tolerance for design theater. I take myself a lot less seriously — good work happens when people feel safe to think out loud and push back.
+        </p>
+        <div class="hero-actions">
+            <a href="mailto:heidi.lowry@gmail.com" class="btn btn-primary">Get in touch</a>
+            <a href="https://linkedin.com/in/heidilowry" class="btn btn-ghost">LinkedIn</a>
+        </div>
+        <div class="hero-meta">
+            <div class="hero-meta-item">
+                <span class="hero-meta-label">Focus</span>
+                <span class="hero-meta-value">AI & Enterprise UX</span>
             </div>
-        </header>
+            <div class="hero-meta-item">
+                <span class="hero-meta-label">Specialty</span>
+                <span class="hero-meta-value">Systems Thinking</span>
+            </div>
+            <div class="hero-meta-item">
+                <span class="hero-meta-label">Open to</span>
+                <span class="hero-meta-value">Canada & US</span>
+            </div>
+            <div class="hero-meta-item">
+                <span class="hero-meta-label">Experience</span>
+                <span class="hero-meta-value">10+ Years</span>
+            </div>
+        </div>
+    </section>
 
-        <section class="leadership-philosophy">
-            <h2>How I Work</h2>
-            <div class="philosophy-grid">
-                <div class="philosophy-card">
-                    <i data-lucide="compass" class="card-icon" width="28" height="28"></i>
-                    <h3>I think before I build</h3>
-                    <p>The best design work starts with real problem framing — not jumping to wireframes. I spend time understanding the domain, the constraints, and what's actually being asked before I touch a tool. Design should drive decisions, not execute them.</p>
+    <!-- HOW I WORK -->
+    <div class="full-bleed-tint">
+        <div class="section-wrap">
+            <p class="eyebrow">Approach</p>
+            <h2 class="section-h2">How I Work</h2>
+            <p class="section-lead">Four principles that shape everything I design, facilitate, and build.</p>
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <i data-lucide="compass" class="principle-icon" width="28" height="28"></i>
+                    <h3 class="principle-title">I think before I build</h3>
+                    <p class="principle-body">The best design work starts with real problem framing — not jumping to wireframes. I spend time understanding the domain, the constraints, and what's actually being asked before I touch a tool. Design should drive decisions, not execute them.</p>
                 </div>
-                <div class="philosophy-card">
-                    <i data-lucide="layers" class="card-icon" width="28" height="28"></i>
-                    <h3>I see the whole before the parts</h3>
-                    <p>Enterprise platforms are ecosystems. I approach complex problems by mapping how pieces connect before designing any single one — because a good feature in the wrong system can make things worse. Coherence at scale is the actual design challenge.</p>
+                <div class="principle-card">
+                    <i data-lucide="layers" class="principle-icon" width="28" height="28"></i>
+                    <h3 class="principle-title">I see the whole before the parts</h3>
+                    <p class="principle-body">Enterprise platforms are ecosystems. I approach complex problems by mapping how pieces connect before designing any single one — because a good feature in the wrong system can make things worse. Coherence at scale is the actual design challenge.</p>
                 </div>
-                <div class="philosophy-card">
-                    <i data-lucide="git-branch" class="card-icon" width="28" height="28"></i>
-                    <h3>I work well in the messy middle</h3>
-                    <p>The problems I'm drawn to don't have clean briefs. They involve competing priorities, half-formed requirements, and stakeholders who disagree. I'm comfortable holding ambiguity, aligning across functions, and making directional calls with incomplete information.</p>
+                <div class="principle-card">
+                    <i data-lucide="git-branch" class="principle-icon" width="28" height="28"></i>
+                    <h3 class="principle-title">I work well in the messy middle</h3>
+                    <p class="principle-body">The problems I'm drawn to don't have clean briefs. They involve competing priorities, half-formed requirements, and stakeholders who disagree. I'm comfortable holding ambiguity, aligning across functions, and making directional calls with incomplete information.</p>
                 </div>
-                <div class="philosophy-card">
-                    <i data-lucide="trending-up" class="card-icon" width="28" height="28"></i>
-                    <h3>I make the people around me better</h3>
-                    <p>Whether I'm working alongside other designers or partnering with PMs and engineers, I push for stronger thinking — not just stronger output. I ask the questions that make the work sharper, and I share what I know without making it feel like a lesson.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="featured-work">
-            <h2>Featured Work</h2>
-            
-            <div class="case-study-preview">
-                <img 
-                    src="https://heidilowry.com/images/ai-start.png" 
-                    alt="AI Platform entry point interface" 
-                    class="case-preview-image"
-                >
-                <div class="case-preview-content">
-                    <h3>AI-Powered Solution Development Platform</h3>
-                    <p class="case-subtitle">Strategic design leadership for transforming how businesses build custom AI solutions</p>
-                    <p>Led the design strategy for an AI-powered platform that combines all our capabilities—Processes, Workflows, Apps, Forms, Data, and Document Generation—to give AI the business context it needs. Established human-AI collaboration principles and guided C-suite presentations for this high-visibility platform transformation.</p>
-                    <div class="case-tags">
-                        <span class="tag">AI Design Strategy</span>
-                        <span class="tag">Stakeholder Management</span>
-                        <span class="tag">Team Mentorship</span>
-                    </div>
-                    <a href="ai-platform.html" class="case-link">View Case Study →</a>
+                <div class="principle-card">
+                    <i data-lucide="trending-up" class="principle-icon" width="28" height="28"></i>
+                    <h3 class="principle-title">I make the people around me better</h3>
+                    <p class="principle-body">Whether I'm working alongside other designers or partnering with PMs and engineers, I push for stronger thinking — not just stronger output. I ask the questions that make the work sharper, and I share what I know without making it feel like a lesson.</p>
                 </div>
             </div>
-
-            <div class="case-study-preview">
-                <img 
-                    src="https://heidilowry.com/images/process-solutions.png" 
-                    alt="Process Manager unified platform dashboard" 
-                    class="case-preview-image"
-                >
-                <div class="case-preview-content">
-                    <h3>Process Manager Platform Integration</h3>
-                    <p class="case-subtitle">Leading cross-functional strategy to modernize enterprise process management</p>
-                    <p>Orchestrated 18-month strategic transformation of legacy software into integrated platform capability. Developed phased market approach protecting existing revenue while opening new opportunities. Currently leading implementation with focus on team development and AI integration.</p>
-                    <div class="case-tags">
-                        <span class="tag">Strategic Transformation</span>
-                        <span class="tag">Revenue Protection</span>
-                        <span class="tag">Cross-functional Leadership</span>
-                    </div>
-                    <a href="process-manager.html" class="case-link">View Case Study →</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="additional-work">
-            <h2>Additional Leadership Experience</h2>
-            <div class="work-grid">
-                <div class="work-item">
-                    <h4>Analytics & Recommendations Platform</h4>
-                    <p class="work-company">Nintex • 2025</p>
-                    <p>Led design strategy for unified data visualization across 6+ platform capabilities, enabling AI-powered business intelligence for non-technical users.</p>
-                </div>
-                <div class="work-item">
-                    <h4>Process Intelligence Segment Launch</h4>
-                    <p class="work-company">Nintex • 2023</p>
-                    <p>Lead designer for new product category combining Process Management, Insights, and Discovery. Presented vision to C-suite and established design thinking still in use. Mentored and directed work for two individual contributors.</p>
-                </div>
-                <div class="work-item">
-                    <h4>Construction Management Platform</h4>
-                    <p class="work-company">Viewpoint Construction Software • 2020-2021</p>
-                    <p>Led design for enterprise construction platform serving global firms. Improved Human Resource Employee Portal, helping organizations onboard and orient new workers on construction sites faster and more efficiently.</p>
-                </div>
-                <div class="work-item">
-                    <h4>Enterprise Client Practice</h4>
-                    <p class="work-company">Emerge Interactive • 2018-2019</p>
-                    <p>Led UX practice serving Blue Shield of California, Splunk, and OHSU. Matured the UX practice across the agency, increasing number of design engagements by 40%.</p>
-                </div>
-            </div>
-        </section>
+        </div>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Heidi Lowry. Available for leadership roles in Canada and the US. Made with love ❤️ and AI 🤖</p>
+    <!-- FEATURED WORK -->
+    <div>
+        <div class="section-wrap tight">
+            <p class="eyebrow">Selected Work</p>
+            <h2 class="section-h2">Featured Projects</h2>
+            <p class="section-lead">Strategic design leadership on complex, high-stakes platforms.</p>
+            <div class="work-list">
+            <!-- Case 1 -->
+            <div class="work-card">
+                <div class="work-card-image">
+                    <img src="https://heidilowry.com/images/ai-start.png" alt="AI Platform entry point interface">
+                </div>
+                <div class="work-card-content">
+                    <p class="work-card-tag">AI Design Strategy</p>
+                    <h3 class="work-card-title">AI-Powered Solution Development Platform</h3>
+                    <p class="work-card-body">Led the design strategy for an AI-powered platform that combines all our capabilities—Processes, Workflows, Apps, Forms, Data, and Document Generation—to give AI the business context it needs. Established human-AI collaboration principles and guided C-suite presentations for this high-visibility platform transformation.</p>
+                    <div class="work-card-tags">
+                        <span class="tag-pill">AI Design Strategy</span>
+                        <span class="tag-pill">Stakeholder Management</span>
+                        <span class="tag-pill">Team Mentorship</span>
+                    </div>
+                    <a href="ai-platform.html" class="work-card-link">View Case Study →</a>
+                </div>
+            </div>
+            <!-- Case 2 -->
+            <div class="work-card">
+                <div class="work-card-image">
+                    <img src="https://heidilowry.com/images/process-solutions.png" alt="Process Manager unified platform dashboard">
+                </div>
+                <div class="work-card-content">
+                    <p class="work-card-tag">Strategic Transformation</p>
+                    <h3 class="work-card-title">Process Manager Platform Integration</h3>
+                    <p class="work-card-body">Orchestrated 18-month strategic transformation of legacy software into integrated platform capability. Developed phased market approach protecting existing revenue while opening new opportunities. Currently leading implementation with focus on team development and AI integration.</p>
+                    <div class="work-card-tags">
+                        <span class="tag-pill">Strategic Transformation</span>
+                        <span class="tag-pill">Revenue Protection</span>
+                        <span class="tag-pill">Cross-functional Leadership</span>
+                    </div>
+                    <a href="process-manager.html" class="work-card-link">View Case Study →</a>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <!-- ADDITIONAL WORK -->
+    <div class="full-bleed-tint">
+        <div class="section-wrap">
+            <p class="eyebrow">Experience</p>
+            <h2 class="section-h2">Additional Leadership</h2>
+            <p class="section-lead">More from eight years of leading design at the intersection of complexity and product.</p>
+            <div class="additional-grid">
+                <div class="additional-item">
+                    <p class="additional-company">Nintex &middot; 2025</p>
+                    <h4 class="additional-title">Analytics & Recommendations Platform</h4>
+                    <p class="additional-body">Led design strategy for unified data visualization across 6+ platform capabilities, enabling AI-powered business intelligence for non-technical users.</p>
+                </div>
+                <div class="additional-item">
+                    <p class="additional-company">Nintex &middot; 2023</p>
+                    <h4 class="additional-title">Process Intelligence Segment Launch</h4>
+                    <p class="additional-body">Lead designer for new product category combining Process Management, Insights, and Discovery. Presented vision to C-suite and established design thinking still in use. Mentored and directed work for two individual contributors.</p>
+                </div>
+                <div class="additional-item">
+                    <p class="additional-company">Viewpoint Construction Software &middot; 2020–2021</p>
+                    <h4 class="additional-title">Construction Management Platform</h4>
+                    <p class="additional-body">Led design for enterprise construction platform serving global firms. Improved Human Resource Employee Portal, helping organizations onboard and orient new workers on construction sites faster and more efficiently.</p>
+                </div>
+                <div class="additional-item">
+                    <p class="additional-company">Emerge Interactive &middot; 2018–2019</p>
+                    <h4 class="additional-title">Enterprise Client Practice</h4>
+                    <p class="additional-body">Led UX practice serving Blue Shield of California, Splunk, and OHSU. Matured the UX practice across the agency, increasing number of design engagements by 40%.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <span class="footer-name">Heidi Lowry</span>
+        <span class="footer-copy">&copy; 2026 &middot; Available for leadership roles in Canada and the US</span>
     </footer>
 
     <script>
         lucide.createIcons();
-        (function() {
-            var toggle = document.querySelector('.nav-toggle');
-            var links  = document.getElementById('nav-links');
-            if (!toggle || !links) return;
-            toggle.addEventListener('click', function() {
-                var open = links.classList.toggle('open');
-                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-                var icon = toggle.querySelector('i');
-                if (icon) {
-                    icon.setAttribute('data-lucide', open ? 'x' : 'menu');
-                    lucide.createIcons();
-                }
-            });
-        })();
     </script>
 </body>
 </html>

@@ -3,1453 +3,1302 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Solution Platform - Heidi Lowry</title>
-    <link rel="stylesheet" href="style.css">
+    <title>AI Solution Platform — Heidi Lowry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
-        /* Hero image */
-        .case-hero-image {
-            width: 100%;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            margin: 2rem 0;
-            display: block;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --white: #ffffff;
+            --bg: #F9F9F8;
+            --ink: #111111;
+            --mid: #555555;
+            --light: #999999;
+            --rule: #E5E4E0;
+            --blue: #1B4FD8;
+            --blue-light: #EEF3FF;
+            --blue-mid: #C7D7FA;
+            --green: #1A6648;
+            --green-light: #EDFAF3;
+            --amber: #92400E;
+            --amber-light: #FFFBEB;
         }
 
-        /* Skip to visuals link */
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 48px;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--rule);
+        }
+        .nav-name {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            color: var(--ink);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--light);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover,
+        .nav-links a.active { color: var(--blue); }
+
+        /* ── LAYOUT ── */
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        section.tint { background: var(--bg); }
+
+        /* ── EYEBROW ── */
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* ── PAGE HERO ── */
+        .case-hero {
+            padding: 140px 48px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .case-title {
+            font-size: clamp(40px, 5vw, 72px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            color: var(--ink);
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        .case-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--mid);
+            max-width: 600px;
+            line-height: 1.65;
+            margin-bottom: 40px;
+        }
+
+        /* skip link */
         .skip-link {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
-            font-size: 0.875rem;
-            color: var(--primary);
+            gap: 6px;
+            font-size: 13px;
             font-weight: 500;
+            color: var(--blue);
             text-decoration: none;
-            margin-bottom: 2rem;
+            letter-spacing: 0.02em;
+            transition: gap 0.2s;
         }
-        .skip-link:hover { text-decoration: underline; }
+        .skip-link:hover { gap: 10px; }
+        .skip-link svg { flex-shrink: 0; }
 
-        /* Metadata with icons */
-        .metadata-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
+        /* ── HERO IMAGE ── */
+        .hero-img-wrap {
+            background: var(--bg);
+            border-top: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule);
         }
-        .metadata-label {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            color: var(--text-medium);
-            font-weight: 600;
-            font-size: 0.8125rem;
+        .hero-img-wrap .wrap {
+            padding-top: 48px;
+            padding-bottom: 48px;
+        }
+        .hero-img-wrap img {
+            width: 100%;
+            display: block;
+            border: 1px solid var(--rule);
+            border-radius: 6px;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+        }
+
+        /* ── SECTION PADDING ── */
+        .section-pad {
+            padding: 80px 0;
+        }
+        .section-pad.lg {
+            padding: 100px 0;
+        }
+
+        /* ── SECTION HEADINGS ── */
+        .section-h2 {
+            font-size: clamp(28px, 3.5vw, 44px);
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+        .section-lead {
+            font-size: 17px;
+            color: var(--mid);
+            line-height: 1.65;
+            max-width: 560px;
+            margin-top: 12px;
+        }
+
+        /* ── CHALLENGE CALLOUT ── */
+        .challenge-block {
+            padding: 80px 0;
+        }
+        .challenge-inner {
+            border-left: 3px solid var(--blue);
+            padding-left: 32px;
+        }
+        .challenge-inner h3 {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            color: var(--blue);
+            margin-bottom: 16px;
         }
-        .metadata-label svg { color: var(--primary); flex-shrink: 0; }
+        .challenge-inner p {
+            font-size: 17px;
+            color: var(--mid);
+            line-height: 1.75;
+            max-width: 720px;
+        }
+        .challenge-inner p + p { margin-top: 12px; }
 
-        /* Strategy cards */
-        .strategy-cards {
+        /* ── METADATA STRIP ── */
+        .meta-strip {
             display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin: 1.5rem 0 2.5rem;
+            gap: 48px;
+            padding: 40px 0;
+            border-top: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule);
+            flex-wrap: wrap;
         }
-        .strategy-card {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--primary);
-            border-radius: 8px;
-            padding: 1.75rem;
-        }
-        .strategy-card-header {
+        .meta-item { display: flex; flex-direction: column; gap: 6px; }
+        .meta-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--light);
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
+            gap: 6px;
         }
-        .strategy-card-header svg { color: var(--primary); flex-shrink: 0; }
-        .strategy-card-header h4 {
-            margin: 0;
-            font-size: 1.05rem;
-            color: var(--text-dark);
+        .meta-label svg { color: var(--blue); }
+        .meta-value {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--ink);
+            line-height: 1.5;
+            max-width: 320px;
         }
-        .strategy-card ul {
-            margin: 0;
-            padding-left: 1.25rem;
-        }
-        .strategy-card li { margin-bottom: 0.5rem; font-size: 0.95rem; }
 
-        /* Icon list */
+        /* ── SEAM-GAP GRID (strategy cards) ── */
+        .seam-grid {
+            display: grid;
+            gap: 2px;
+            background: var(--rule);
+            margin-top: 40px;
+        }
+        .seam-grid.cols-1 { grid-template-columns: 1fr; }
+        .seam-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+        .seam-card {
+            background: var(--white);
+            padding: 48px 44px;
+        }
+        .seam-card.tint { background: var(--bg); }
+
+        .card-icon {
+            color: var(--blue);
+            margin-bottom: 16px;
+            display: block;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+        .card-body {
+            font-size: 15px;
+            color: var(--mid);
+            line-height: 1.7;
+        }
+        .card-body ul {
+            padding-left: 18px;
+            margin-top: 8px;
+        }
+        .card-body li {
+            margin-bottom: 6px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--mid);
+        }
+        .card-body strong { color: var(--ink); }
+
+        /* ── ICON LIST ── */
         .icon-list {
             list-style: none;
-            padding-left: 0;
-            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
         }
         .icon-list li {
             display: flex;
             align-items: flex-start;
-            gap: 0.75rem;
-            margin-bottom: 0.65rem;
-            line-height: 1.6;
-            font-size: 0.95rem;
+            gap: 10px;
+            font-size: 15px;
+            line-height: 1.65;
+            color: var(--mid);
         }
         .icon-list li svg {
-            color: var(--primary);
+            color: var(--blue);
             flex-shrink: 0;
-            margin-top: 0.2rem;
+            margin-top: 2px;
         }
+        .icon-list li strong { color: var(--ink); }
 
-        /* Impact section background */
-        .impact-section {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 2rem;
-            margin: 1.5rem 0;
+        /* ── CALLOUT / KEY INSIGHT ── */
+        .callout {
+            background: var(--blue-light);
+            border-left: 3px solid var(--blue);
+            padding: 20px 24px;
+            border-radius: 0 4px 4px 0;
+            margin: 20px 0;
         }
-        .impact-section h3 {
-            margin-top: 0;
-        }
-        .impact-section .impact-grid {
+        .callout p {
+            font-size: 15px;
+            font-style: italic;
+            color: var(--ink);
+            line-height: 1.65;
             margin: 0;
         }
-        .impact-section .impact-item {
-            background: white;
-        }
 
-        /* Visual design section */
-        .visual-section-intro {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .visual-section-intro svg { color: var(--primary); }
+        /* ── INLINE DIAGRAMS ── */
 
-        /* ============================================================
-           DIAGRAM 1: Before vs. After — Platform Fragmentation
-           Sits between the challenge prose and the metadata strip.
-           Shows six isolated capabilities vs. unified AI context layer.
-        ============================================================ */
+        /* BvA diagram */
         .bva-diagram {
-            margin: 2rem 0;
             display: grid;
             grid-template-columns: 1fr auto 1fr;
             gap: 0;
             align-items: stretch;
+            margin: 32px 0;
         }
         .bva-panel {
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.5rem;
-            background: white;
-        }
-        .bva-panel-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-        .bva-panel-label.before { color: var(--text-medium); }
-        .bva-panel-label.after  { color: var(--success); }
-
-        /* before panel: isolated capability boxes */
-        .bva-silo-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-        .bva-silo {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
+            background: var(--bg);
+            border: 1px solid var(--rule);
             border-radius: 6px;
-            padding: 0.6rem 0.9rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-medium);
+            padding: 24px;
+        }
+        .bva-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 6px;
         }
-        .bva-silo svg { color: var(--border); flex-shrink: 0; }
-        .bva-silo-note {
-            margin-top: 0.75rem;
-            font-size: 0.78rem;
-            color: var(--text-light);
+        .bva-label.before { color: var(--mid); }
+        .bva-label.after { color: var(--green); }
+        .bva-silo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--white);
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--mid);
+            margin-bottom: 6px;
+        }
+        .bva-silo svg { color: var(--rule); flex-shrink: 0; }
+        .bva-note {
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--light);
             font-style: italic;
             line-height: 1.5;
         }
-
-        /* after panel: hub model */
-        .bva-platform-hub {
-            background: var(--primary);
-            color: white;
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
+        .bva-hub {
+            background: var(--blue);
+            color: var(--white);
+            border-radius: 6px;
+            padding: 12px 16px;
             text-align: center;
             font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.75rem;
+            font-size: 14px;
+            margin-bottom: 12px;
         }
-        .bva-platform-hub small {
+        .bva-hub small {
             display: block;
             font-weight: 400;
-            font-size: 0.75rem;
-            opacity: 0.85;
-            margin-top: 0.2rem;
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 2px;
         }
-        .bva-spokes {
+        .bva-pills {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 6px;
             justify-content: center;
         }
-        .bva-spoke {
-            background: var(--primary-light);
-            color: var(--primary);
-            border: 1px solid rgba(0,85,184,0.2);
-            border-radius: 20px;
-            padding: 0.3rem 0.75rem;
-            font-size: 0.78rem;
+        .bva-pill {
+            background: var(--blue-light);
+            color: var(--blue);
+            border: 1px solid var(--blue-mid);
+            border-radius: 100px;
+            padding: 4px 12px;
+            font-size: 12px;
             font-weight: 500;
         }
         .bva-after-note {
-            margin-top: 0.75rem;
-            font-size: 0.78rem;
-            color: var(--success);
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--green);
             font-style: italic;
             line-height: 1.5;
         }
-
-        /* middle arrow column */
-        .bva-arrow-col {
+        .bva-arrow {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 1rem;
-        }
-        .bva-arrow-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        .bva-arrow-line {
-            width: 2px;
-            flex: 1;
-            background: var(--border);
-            min-height: 24px;
+            padding: 0 16px;
         }
         .bva-arrow-badge {
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
+            background: var(--blue);
+            color: var(--white);
             width: 36px;
             height: 36px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
         }
+        .diagram-caption {
+            font-size: 13px;
+            color: var(--light);
+            font-style: italic;
+            line-height: 1.5;
+            text-align: center;
+            margin-top: 12px;
+        }
 
-        /* ============================================================
-           DIAGRAM 2: Persona Entry Points
-           Sits inside Strategy Card 2 (Human-AI Partnership Principles).
-           Shows how technical vs. non-technical users engage differently
-           with the AI generation layer.
-        ============================================================ */
+        /* Cap architecture */
+        .cap-architecture {
+            margin: 24px 0 8px;
+        }
+        .cap-hub {
+            background: var(--blue);
+            color: var(--white);
+            border-radius: 6px;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .cap-hub svg { color: var(--white); flex-shrink: 0; }
+        .cap-hub small { display: block; font-weight: 400; font-size: 12px; opacity: 0.8; margin-top: 2px; }
+        .cap-connectors {
+            display: flex;
+            justify-content: space-around;
+            padding: 0 2rem;
+        }
+        .cap-line {
+            width: 2px;
+            height: 16px;
+            background: linear-gradient(180deg, var(--blue) 0%, var(--rule) 100%);
+        }
+        .cap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-top: 0;
+        }
+        .cap-item {
+            background: var(--white);
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            padding: 8px 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--mid);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .cap-item svg { color: var(--blue); flex-shrink: 0; }
+        .cap-note {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--mid);
+            font-style: italic;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* Persona entry */
         .persona-entry {
-            margin: 1.25rem 0 0;
             display: grid;
             grid-template-columns: 1fr auto 1fr auto 1fr;
             align-items: center;
             gap: 0;
+            margin: 20px 0;
         }
         .pe-node {
-            border-radius: 10px;
-            padding: 1rem;
+            border-radius: 8px;
+            padding: 16px;
             text-align: center;
         }
-        .pe-node.nontechnical {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
+        .pe-node.side {
+            background: var(--bg);
+            border: 1px solid var(--rule);
         }
-        .pe-node.ai-layer {
-            background: var(--primary);
-            color: white;
-            border: none;
-            box-shadow: 0 4px 14px rgba(0,85,184,0.22);
-        }
-        .pe-node.technical {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
+        .pe-node.center {
+            background: var(--blue);
+            color: var(--white);
         }
         .pe-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+        }
+        .pe-node.side .pe-icon { background: var(--white); color: var(--blue); }
+        .pe-node.center .pe-icon { background: rgba(255,255,255,0.15); color: var(--white); }
+        .pe-name {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .pe-detail { font-size: 12px; line-height: 1.5; opacity: 0.85; }
+        .pe-connect {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 0 8px;
+        }
+        .pe-line {
+            width: 2px;
+            height: 24px;
+            background: var(--rule);
+        }
+        .pe-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--light);
+            text-align: center;
+            white-space: nowrap;
+        }
+        .pe-insight {
+            background: var(--green-light);
+            border-left: 3px solid var(--green);
+            padding: 14px 18px;
+            border-radius: 0 4px 4px 0;
+            font-size: 14px;
+            font-style: italic;
+            color: var(--ink);
+            margin-top: 12px;
+            line-height: 1.6;
+        }
+
+        /* Phase track */
+        .phase-track {
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+            position: relative;
+            margin: 24px 0;
+        }
+        .phase-track::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--blue) 0%, var(--green) 100%);
+            z-index: 0;
+        }
+        .phase-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 0 8px;
+        }
+        .phase-num {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 0.6rem;
-        }
-        .pe-node.nontechnical .pe-icon,
-        .pe-node.technical .pe-icon {
-            background: var(--primary-light);
-        }
-        .pe-node.ai-layer .pe-icon {
-            background: rgba(255,255,255,0.2);
-        }
-        .pe-node.nontechnical svg,
-        .pe-node.technical svg { color: var(--primary); }
-        .pe-node.ai-layer svg { color: white; }
-
-        .pe-name {
             font-weight: 700;
-            font-size: 0.9rem;
-            margin-bottom: 0.25rem;
-        }
-        .pe-node.nontechnical .pe-name,
-        .pe-node.technical .pe-name { color: var(--text-dark); }
-        .pe-node.ai-layer .pe-name { color: white; }
-
-        .pe-detail {
-            font-size: 0.75rem;
-            line-height: 1.4;
-        }
-        .pe-node.nontechnical .pe-detail,
-        .pe-node.technical .pe-detail { color: var(--text-medium); }
-        .pe-node.ai-layer .pe-detail { color: rgba(255,255,255,0.85); }
-
-        .pe-connect {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 0.5rem;
-            gap: 0.2rem;
-        }
-        .pe-line {
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--border), var(--primary));
-        }
-        .pe-line.right {
-            background: linear-gradient(90deg, var(--primary), var(--border));
-        }
-        .pe-label {
-            font-size: 0.68rem;
-            color: var(--text-light);
-            white-space: nowrap;
-        }
-        .pe-insight {
-            margin-top: 1rem;
-            background: var(--success-light);
-            border-left: 4px solid var(--success);
-            border-radius: 4px;
-            padding: 0.75rem 1rem;
-            font-size: 0.85rem;
-            color: var(--text-dark);
-            line-height: 1.5;
-        }
-
-        /* ============================================================
-           DIAGRAM 3: Adaptive Interaction Mode Phase Track
-           Replaces the old emoji-based .interaction-flow diagram.
-           Sits after the Key Design Decisions bullet list.
-           Shows the three interaction modes as a progressive phase track.
-        ============================================================ */
-        .phase-track {
-            position: relative;
-            margin: 1.25rem 0 0.5rem;
-            display: flex;
-            align-items: stretch;
-            gap: 0;
-        }
-        .phase-track::before {
-            content: "";
-            position: absolute;
-            top: 28px;
-            left: 28px;
-            right: 28px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-light) 0%, var(--primary) 50%, var(--success) 100%);
-            border-radius: 2px;
-            z-index: 0;
-        }
-        .phase-card {
-            position: relative;
-            z-index: 1;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-            padding: 0 0.5rem;
-        }
-        .phase-number {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            border: 3px solid var(--border);
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 14px;
+            margin-bottom: 12px;
             flex-shrink: 0;
-            transition: all 0.2s ease;
+            background: var(--bg);
+            border: 2px solid var(--rule);
+            color: var(--mid);
         }
-        .phase-card.active .phase-number {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-            box-shadow: 0 4px 14px rgba(0,85,184,0.3);
-        }
-        .phase-card.active .phase-number svg { color: white; }
-        .phase-card .phase-number svg { color: var(--text-medium); }
-        .phase-card.future .phase-number {
-            background: var(--success-light);
-            border-color: var(--success);
-        }
-        .phase-card.future .phase-number svg { color: var(--success); }
+        .phase-num.done { background: var(--blue); border-color: var(--blue); color: var(--white); }
+        .phase-num.active { background: var(--blue); border-color: var(--blue); color: var(--white); box-shadow: 0 0 0 4px var(--blue-light); }
+        .phase-num.future { background: var(--green); border-color: var(--green); color: var(--white); }
+        .phase-num svg { color: inherit; }
         .phase-body {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem 0.9rem;
-            margin-top: 0.75rem;
-            text-align: center;
+            background: var(--white);
+            border: 1px solid var(--rule);
+            border-radius: 6px;
+            padding: 12px;
             width: 100%;
-            transition: border-color 0.2s ease;
-        }
-        .phase-card.active .phase-body {
-            border-color: var(--primary);
-            box-shadow: 0 2px 10px rgba(0,85,184,0.1);
-        }
-        .phase-card.future .phase-body {
-            border-color: rgba(5,150,105,0.35);
         }
         .phase-heading {
             font-weight: 700;
-            font-size: 0.85rem;
-            color: var(--text-dark);
-            margin-bottom: 0.4rem;
+            font-size: 14px;
+            color: var(--blue);
+            margin-bottom: 4px;
         }
-        .phase-audience {
-            font-size: 0.78rem;
-            color: var(--text-medium);
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
+        .phase-heading.future { color: var(--green); }
+        .phase-sub {
+            font-size: 12px;
+            color: var(--mid);
+            line-height: 1.45;
+            margin-bottom: 6px;
         }
-        .phase-goal-tag {
+        .phase-tag {
             display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 0.2rem 0.55rem;
-            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
+            background: var(--blue-light);
+            color: var(--blue);
+            padding: 2px 8px;
+            border-radius: 100px;
         }
-        .phase-card .phase-goal-tag {
-            background: var(--bg-light);
-            color: var(--text-medium);
-            border: 1px solid var(--border);
-        }
-        .phase-card.active .phase-goal-tag {
-            background: var(--primary-light);
-            color: var(--primary);
-            border-color: rgba(0,85,184,0.2);
-        }
-        .phase-card.future .phase-goal-tag {
-            background: var(--success-light);
-            color: var(--success);
-            border-color: rgba(5,150,105,0.25);
-        }
+        .phase-tag.future { background: var(--green-light); color: var(--green); }
 
-        /* ============================================================
-           DIAGRAM 4: Impact Metrics Callout Row
-           Four large-number cards at the top of the impact section.
-        ============================================================ */
-        .impact-metrics-row {
+        /* ── IMPACT METRICS ROW ── */
+        .metrics-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 2px;
+            background: var(--rule);
+            margin-bottom: 40px;
         }
-        .impact-metric-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.25rem 1rem;
+        .metric-card {
+            background: var(--white);
+            padding: 32px 24px;
             text-align: center;
-            transition: box-shadow 0.2s ease, border-color 0.2s ease;
         }
-        .impact-metric-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(0,85,184,0.1);
-        }
-        .imc-stat {
-            font-size: 2rem;
+        .metric-stat {
+            font-size: clamp(32px, 4vw, 52px);
             font-weight: 800;
-            color: var(--primary);
+            letter-spacing: -0.03em;
+            color: var(--blue);
             line-height: 1;
-            margin-bottom: 0.4rem;
+            margin-bottom: 8px;
         }
-        .imc-label {
-            font-size: 0.8rem;
+        .metric-stat.green { color: var(--green); }
+        .metric-label {
+            font-size: 12px;
             font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 0.3rem;
-            line-height: 1.3;
-        }
-        .imc-desc {
-            font-size: 0.72rem;
-            color: var(--text-medium);
-            line-height: 1.4;
-        }
-        .impact-divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 0 0 1.75rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--light);
         }
 
-        /* ============================================================
-           DIAGRAM 5: Platform Capabilities Architecture
-           Sits inside Strategy Card 1.
-           Shows six capabilities feeding upward into the AI context layer.
-        ============================================================ */
-        .cap-architecture {
-            margin: 1.25rem 0 0;
-        }
-        .cap-ai-hub {
-            background: var(--primary);
-            color: white;
-            border-radius: 8px;
-            padding: 0.9rem 1.25rem;
-            text-align: center;
-            font-weight: 700;
-            font-size: 0.95rem;
-            margin-bottom: 0;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        .cap-ai-hub svg { color: white; flex-shrink: 0; }
-        .cap-ai-hub small {
-            display: block;
-            font-weight: 400;
-            font-size: 0.75rem;
-            opacity: 0.85;
-            margin-top: 0.15rem;
-        }
-        .cap-connector-row {
-            display: flex;
-            justify-content: space-around;
-            padding: 0 2rem;
-            margin: 0;
-        }
-        .cap-connector-line {
-            width: 2px;
-            height: 20px;
-            background: linear-gradient(180deg, var(--primary) 0%, var(--border) 100%);
-        }
-        .cap-grid {
+        /* ── IMPACT GRID ── */
+        .impact-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            background: var(--rule);
         }
-        .cap-item {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 0.65rem 0.75rem;
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--text-medium);
+        .impact-item {
+            background: var(--white);
+            padding: 32px 28px;
+        }
+        .impact-item h4 {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: var(--ink);
+            margin-bottom: 16px;
+        }
+        .impact-item ul {
+            list-style: none;
+            padding: 0;
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: border-color 0.2s ease;
+            flex-direction: column;
+            gap: 8px;
         }
-        .cap-item:hover {
-            border-color: var(--primary);
-            color: var(--text-dark);
+        .impact-item li {
+            font-size: 14px;
+            color: var(--mid);
+            line-height: 1.6;
+            padding-left: 16px;
+            position: relative;
         }
-        .cap-item svg { color: var(--primary); flex-shrink: 0; }
-        .cap-note {
-            margin-top: 0.75rem;
-            font-size: 0.78rem;
-            color: var(--text-medium);
-            font-style: italic;
-            line-height: 1.5;
-            text-align: center;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .strategy-cards { gap: 1rem; }
-
-            .strategy-card {
-                padding: 1.25rem;
-            }
-
-            .impact-section {
-                padding: 1.25rem;
-            }
-
-            /* BvA diagram */
-            .bva-diagram {
-                grid-template-columns: 1fr;
-                gap: 0.75rem;
-            }
-            .bva-arrow-col {
-                flex-direction: row;
-                padding: 0;
-                justify-content: center;
-            }
-            .bva-arrow-wrap {
-                flex-direction: row;
-            }
-            .bva-arrow-line {
-                width: 24px;
-                height: 2px;
-                min-height: unset;
-            }
-
-            /* Persona entry */
-            .persona-entry {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-            .pe-connect {
-                flex-direction: row;
-                padding: 0.25rem 0;
-                justify-content: center;
-            }
-            .pe-line, .pe-line.right {
-                width: 24px;
-                height: 2px;
-                background: var(--border);
-            }
-
-            /* Phase track */
-            .phase-track {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0.75rem;
-            }
-            .phase-track::before { display: none; }
-            .phase-card {
-                flex-direction: row;
-                align-items: flex-start;
-                gap: 0.75rem;
-                padding: 0;
-            }
-            .phase-body {
-                margin-top: 0;
-                text-align: left;
-                flex: 1;
-            }
-            .phase-number {
-                flex-shrink: 0;
-                margin-top: 0.1rem;
-            }
-
-            /* Impact metrics */
-            .impact-metrics-row {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            /* Capabilities architecture */
-            .cap-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .cap-connector-row {
-                padding: 0 1rem;
-            }
+        .impact-item li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--rule);
         }
 
-        @media (max-width: 480px) {
-            .impact-metrics-row {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .strategy-card {
-                padding: 1rem;
-            }
-
-            .impact-section {
-                padding: 1rem;
-            }
-
-            .cap-grid {
-                grid-template-columns: 1fr;
-            }
+        /* ── REFLECTION ── */
+        .reflection {
+            padding: 48px 0;
+            border-top: 1px solid var(--rule);
+            margin-top: 48px;
         }
+        .reflection .eyebrow { margin-bottom: 16px; }
+        .reflection-body { max-width: 720px; }
+        .reflection-body p {
+            font-size: 16px;
+            color: var(--mid);
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+        .reflection-body p:last-child { margin-bottom: 0; }
+        .reflection-body strong { color: var(--ink); }
 
-        /* ============================================================
-           LIGHTBOX — full-screen image viewer
-        ============================================================ */
-
-        /* Clickable image affordance */
-        .design-artifact img {
+        /* ── VISUAL DESIGN SECTION ── */
+        .visual-section {
+            padding: 80px 0;
+            background: var(--bg);
+            border-top: 1px solid var(--rule);
+        }
+        .visual-section .section-lead { margin-bottom: 40px; }
+        .visual-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            background: var(--rule);
+        }
+        .visual-item {
+            background: var(--white);
+            padding: 32px;
+        }
+        .visual-item img {
+            width: 100%;
+            display: block;
+            border: 1px solid var(--rule);
+            border-radius: 4px;
             cursor: pointer;
-            transition: filter 0.2s ease, transform 0.2s ease;
+            transition: filter 0.2s, transform 0.2s;
         }
-        .design-artifact img:hover {
-            filter: brightness(1.05);
-            transform: scale(1.01);
+        .visual-item img:hover { filter: brightness(1.03); transform: scale(1.005); }
+        .visual-caption {
+            font-size: 13px;
+            color: var(--light);
+            font-style: italic;
+            margin-top: 12px;
+            line-height: 1.5;
         }
 
-        /* Overlay */
+        /* ── CASE NAVIGATION ── */
+        .case-nav {
+            padding: 60px 0;
+            border-top: 1px solid var(--rule);
+        }
+        .case-nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .case-nav-link {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-decoration: none;
+        }
+        .case-nav-link.next { text-align: right; }
+        .case-nav-dir {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--light);
+        }
+        .case-nav-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--ink);
+            transition: color 0.2s;
+        }
+        .case-nav-link:hover .case-nav-title { color: var(--blue); }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--rule);
+            padding: 40px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+        .footer-copy { font-size: 13px; color: var(--light); }
+
+        /* ── LIGHTBOX ── */
         .lightbox {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.92);
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.92);
             z-index: 1000;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             overflow-y: auto;
-            scroll-behavior: smooth;
-            padding: 3rem 1rem 120px;
+            padding: 48px 24px 120px;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.25s ease;
+            transition: opacity 0.2s;
         }
-        .lightbox.is-open {
-            opacity: 1;
-            pointer-events: all;
-        }
+        .lightbox.open { opacity: 1; pointer-events: all; }
+        .lb-main { max-width: 96vw; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+        #lb-img { max-width: 96vw; width: 100%; object-fit: contain; border-radius: 4px; box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
+        #lb-cap { color: rgba(255,255,255,0.7); font-size: 14px; text-align: center; max-width: 640px; line-height: 1.5; }
+        .lb-close { position: fixed; top: 20px; right: 24px; background: rgba(255,255,255,0.95); border: none; color: #111; width: 44px; height: 44px; border-radius: 50%; font-size: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1001; }
+        .lb-prev, .lb-next { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.95); border: none; color: #111; width: 48px; height: 64px; border-radius: 6px; font-size: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1001; }
+        .lb-prev { left: 16px; }
+        .lb-next { right: 16px; }
+        .lb-strip { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); padding: 12px 16px; overflow-x: auto; }
+        .lb-thumbs { display: flex; gap: 8px; justify-content: center; }
+        .lb-thumb { width: 80px; height: 60px; object-fit: cover; object-position: top left; border-radius: 3px; border: 2px solid transparent; opacity: 0.55; cursor: pointer; flex-shrink: 0; transition: opacity 0.2s, border-color 0.2s; }
+        .lb-thumb.active { border-color: var(--blue); opacity: 1; }
 
-        /* Main image area */
-        .lightbox-main {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.75rem;
-            max-width: 96vw;
-            width: 100%;
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            nav { padding: 16px 24px; }
+            .nav-links { gap: 20px; }
+            .case-hero { padding: 120px 24px 60px; }
+            .wrap { padding: 0 24px; }
+            .bva-diagram { grid-template-columns: 1fr; gap: 12px; }
+            .bva-arrow { padding: 8px 0; }
+            .persona-entry { grid-template-columns: 1fr; gap: 8px; }
+            .pe-connect { flex-direction: row; padding: 4px 0; justify-content: center; }
+            .pe-line { width: 24px; height: 2px; }
+            .phase-track { flex-direction: column; align-items: stretch; gap: 12px; }
+            .phase-track::before { display: none; }
+            .phase-card { flex-direction: row; text-align: left; gap: 12px; padding: 0; }
+            .phase-num { margin-bottom: 0; flex-shrink: 0; }
+            .phase-body { flex: 1; }
+            .metrics-row { grid-template-columns: repeat(2, 1fr); }
+            .impact-grid { grid-template-columns: 1fr; }
+            .case-nav-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+            footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
+            .seam-grid.cols-2 { grid-template-columns: 1fr; }
+            .cap-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        #lightbox-img {
-            max-height: none;
-            max-width: 96vw;
-            width: 100%;
-            object-fit: contain;
-            border-radius: 6px;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
-            display: block;
-        }
-        .lightbox-caption {
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 0.875rem;
-            text-align: center;
-            line-height: 1.5;
-            max-width: 680px;
-            margin: 0;
-        }
-
-        /* Close button */
-        .lightbox-close {
-            position: fixed;
-            top: 1.25rem;
-            right: 1.5rem;
-            background: rgba(255, 255, 255, 0.95);
-            border: none;
-            color: #111;
-            font-size: 1.5rem;
-            line-height: 1;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background 0.15s ease, transform 0.15s ease;
-            z-index: 1001;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-        }
-        .lightbox-close:hover {
-            background: white;
-            transform: scale(1.1);
-        }
-
-        /* Prev / next buttons */
-        .lightbox-prev,
-        .lightbox-next {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            border: none;
-            color: #111;
-            font-size: 2rem;
-            line-height: 1;
-            width: 52px;
-            height: 72px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background 0.15s ease, transform 0.15s ease;
-            z-index: 1001;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-        }
-        .lightbox-prev { left: 1rem; }
-        .lightbox-next { right: 1rem; }
-        .lightbox-prev:hover { transform: translateY(-50%) scale(1.05); background: white; }
-        .lightbox-next:hover { transform: translateY(-50%) scale(1.05); background: white; }
-
-        /* Thumbnail strip */
-        .lightbox-strip {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0.75rem 1rem;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        .lightbox-thumbs {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: center;
-            min-width: max-content;
-            margin: 0 auto;
-        }
-        .lightbox-thumb {
-            width: 80px;
-            height: 60px;
-            object-fit: cover;
-            object-position: top left;
-            border-radius: 4px;
-            border: 2px solid transparent;
-            cursor: pointer;
-            opacity: 0.55;
-            transition: opacity 0.2s ease, border-color 0.2s ease;
-            flex-shrink: 0;
-        }
-        .lightbox-thumb:hover {
-            opacity: 0.85;
-        }
-        .lightbox-thumb.is-active {
-            border-color: var(--primary);
-            opacity: 1;
-        }
-
-        @media (max-width: 768px) {
-            .lightbox-prev { left: 0.25rem; }
-            .lightbox-next { right: 0.25rem; }
-            .lightbox-prev,
-            .lightbox-next {
-                width: 36px;
-                height: 52px;
-                font-size: 1.5rem;
-            }
-            .lightbox-thumb {
-                width: 60px;
-                height: 46px;
-            }
+        @media (max-width: 640px) {
+            .case-hero { padding: 100px 20px 48px; }
+            .wrap { padding: 0 20px; }
+            .meta-strip { gap: 24px; }
+            .seam-card { padding: 32px 24px; }
+            .metrics-row { grid-template-columns: repeat(2, 1fr); }
+            .cap-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="index.html" class="nav-brand">Heidi Lowry</a>
-            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <i data-lucide="menu" width="24" height="24"></i>
-            </button>
-            <div class="nav-links" id="nav-links">
-                <a href="index.html" class="nav-link">About</a>
-                <a href="ai-platform.html" class="nav-link active">AI Platform</a>
-                <a href="process-manager.html" class="nav-link">Process Manager</a>
-                <a href="leadership.html" class="nav-link">Leadership</a>
-                <a href="design-coaching.html" class="nav-link">Coaching &amp; Craft</a>
-                <a href="mailto:heidi.lowry@gmail.com" class="nav-link">Contact</a>
-            </div>
-        </div>
+
+    <!-- NAV -->
+    <nav>
+        <a href="index.html" class="nav-name">Heidi Lowry</a>
+        <ul class="nav-links">
+            <li><a href="index.html">About</a></li>
+            <li><a href="ai-platform.html" class="active">AI Platform</a></li>
+            <li><a href="process-manager.html">Process Manager</a></li>
+            <li><a href="leadership.html">Leadership</a></li>
+            <li><a href="design-coaching.html">Coaching &amp; Craft</a></li>
+            <li><a href="mailto:heidi.lowry@gmail.com">Contact</a></li>
+        </ul>
     </nav>
 
-    <div class="accent-bar"></div>
+    <!-- PAGE HERO -->
+    <div class="case-hero">
+        <span class="eyebrow">AI Design Strategy</span>
+        <h1 class="case-title">AI-Powered Solution Development Platform</h1>
+        <p class="case-subtitle">Transforming how businesses build custom AI solutions through strategic design leadership</p>
+        <a href="#visuals" class="skip-link">
+            <i data-lucide="image" width="14" height="14"></i>
+            Skip to all visuals
+        </a>
+    </div>
 
-    <div class="container">
-        <section class="case-study">
-            <h2>AI-Powered Solution Development Platform</h2>
-            <p class="subtitle">Transforming how businesses build custom AI solutions through strategic design leadership</p>
+    <!-- HERO IMAGE -->
+    <div class="hero-img-wrap">
+        <div class="wrap">
+            <img src="images/ai-start.png" alt="AI platform entry point — users describe their business problem in natural language">
+        </div>
+    </div>
 
-            <!-- Hero image -->
-            <img
-                src="images/ai-start.png"
-                alt="AI platform entry point — users describe their business problem in natural language"
-                class="case-hero-image"
-            >
-
-            <a href="#visuals" class="skip-link">
-                <i data-lucide="image" width="14" height="14"></i>
-                Skip to all visuals
-            </a>
-
-            <div class="challenge">
+    <!-- CHALLENGE -->
+    <div class="challenge-block">
+        <div class="wrap">
+            <div class="challenge-inner">
                 <h3>The Challenge</h3>
-                <p>Businesses were forcing SaaS products to fit their needs instead of getting custom AI solutions. Our platform had all the pieces – Processes, Workflows, Apps, Forms, Data, and Document Generation – but they weren't working together to give AI the business context it needed.</p>
+                <p>Businesses were forcing SaaS products to fit their needs instead of getting custom AI solutions. Our platform had all the pieces — Processes, Workflows, Apps, Forms, Data, and Document Generation — but they weren't working together to give AI the business context it needed.</p>
             </div>
+        </div>
+    </div>
 
+    <!-- METADATA -->
+    <div class="wrap">
+        <div class="meta-strip">
+            <div class="meta-item">
+                <span class="meta-label"><i data-lucide="user" width="12" height="12"></i> Role</span>
+                <span class="meta-value">Product Design Manager</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label"><i data-lucide="calendar" width="12" height="12"></i> Timeline</span>
+                <span class="meta-value">2025 to present</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label"><i data-lucide="users" width="12" height="12"></i> Team</span>
+                <span class="meta-value">1 lead designer, 6 engineers, 1 PM, multiple senior leadership and C-suite stakeholders</span>
+            </div>
+        </div>
+    </div>
 
-            <!-- Metadata with icons -->
-            <div class="metadata">
-                <div class="metadata-item">
-                    <div class="metadata-label">
-                        <i data-lucide="user" width="14" height="14"></i>
-                        Role
+    <!-- PLATFORM DIAGRAM -->
+    <div class="section-pad">
+        <div class="wrap">
+            <div class="bva-diagram">
+                <div class="bva-panel">
+                    <div class="bva-label before">
+                        <i data-lucide="x-circle" width="12" height="12"></i>
+                        Before — Fragmented
                     </div>
-                    <span>Product Design Manager</span>
+                    <div class="bva-silo"><i data-lucide="book-open" width="13" height="13"></i> Processes</div>
+                    <div class="bva-silo"><i data-lucide="zap" width="13" height="13"></i> Workflows</div>
+                    <div class="bva-silo"><i data-lucide="layout" width="13" height="13"></i> Apps &amp; Forms</div>
+                    <div class="bva-silo"><i data-lucide="database" width="13" height="13"></i> Data</div>
+                    <div class="bva-silo"><i data-lucide="file-text" width="13" height="13"></i> Document Generation</div>
+                    <p class="bva-note">Five capabilities, no shared context. AI has no business intelligence to draw from.</p>
                 </div>
-                <div class="metadata-item">
-                    <div class="metadata-label">
-                        <i data-lucide="calendar" width="14" height="14"></i>
-                        Timeline
+                <div class="bva-arrow">
+                    <div class="bva-arrow-badge">
+                        <i data-lucide="arrow-right" width="16" height="16"></i>
                     </div>
-                    <span>2025 to present</span>
                 </div>
-                <div class="metadata-item">
-                    <div class="metadata-label">
-                        <i data-lucide="users" width="14" height="14"></i>
-                        Team
+                <div class="bva-panel">
+                    <div class="bva-label after">
+                        <i data-lucide="check-circle" width="12" height="12"></i>
+                        After — Unified Platform
                     </div>
-                    <span>1 lead designer (direct report), 6 engineers, 1 PM, multiple senior leadership and C-suite stakeholders</span>
+                    <div class="bva-hub">AI Solution Layer<small>Context-aware across all capabilities</small></div>
+                    <div class="bva-pills">
+                        <span class="bva-pill">Processes</span>
+                        <span class="bva-pill">Workflows</span>
+                        <span class="bva-pill">Apps</span>
+                        <span class="bva-pill">Forms</span>
+                        <span class="bva-pill">Data</span>
+                        <span class="bva-pill">Docs</span>
+                    </div>
+                    <p class="bva-after-note">All capabilities feed business context upward — AI can now generate genuinely custom solutions.</p>
                 </div>
             </div>
+            <p class="diagram-caption">The strategic opportunity: unify six platform capabilities so AI has the business context to build solutions that actually fit</p>
+        </div>
+    </div>
 
-            <!-- DIAGRAM 1: Before vs. After — Platform Fragmentation -->
-            <div class="design-artifact">
-                <div class="diagram-title">The Core Problem: Disconnected Capabilities</div>
-                <div class="bva-diagram">
-                    <!-- Before panel -->
-                    <div class="bva-panel">
-                        <div class="bva-panel-label before">
-                            <i data-lucide="x-circle" width="13" height="13"></i>
-                            Before — Fragmented
-                        </div>
-                        <div class="bva-silo-group">
-                            <div class="bva-silo">
-                                <i data-lucide="book-open" width="14" height="14"></i>
-                                Processes
-                            </div>
-                            <div class="bva-silo">
-                                <i data-lucide="zap" width="14" height="14"></i>
-                                Workflows
-                            </div>
-                            <div class="bva-silo">
-                                <i data-lucide="layout" width="14" height="14"></i>
-                                Apps &amp; Forms
-                            </div>
-                            <div class="bva-silo">
-                                <i data-lucide="database" width="14" height="14"></i>
-                                Data
-                            </div>
-                            <div class="bva-silo">
-                                <i data-lucide="file-text" width="14" height="14"></i>
-                                Document Generation
-                            </div>
-                        </div>
-                        <div class="bva-silo-note">Five capabilities, no shared context. AI has no business intelligence to draw from — it can't build anything meaningful.</div>
-                    </div>
+    <!-- STRATEGIC APPROACH -->
+    <div class="full-bleed-tint" style="background: var(--bg); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);">
+        <div class="wrap" style="padding-top: 80px; padding-bottom: 80px;">
+            <span class="eyebrow">Strategic Approach</span>
+            <h2 class="section-h2">How I led this</h2>
+            <div class="seam-grid cols-1">
 
-                    <!-- Arrow column -->
-                    <div class="bva-arrow-col">
-                        <div class="bva-arrow-wrap">
-                            <div class="bva-arrow-line"></div>
-                            <div class="bva-arrow-badge">
-                                <i data-lucide="arrow-right" width="16" height="16"></i>
-                            </div>
-                            <div class="bva-arrow-line"></div>
-                        </div>
-                    </div>
-
-                    <!-- After panel -->
-                    <div class="bva-panel">
-                        <div class="bva-panel-label after">
-                            <i data-lucide="check-circle" width="13" height="13"></i>
-                            After — Unified Platform
-                        </div>
-                        <div class="bva-platform-hub">
-                            AI Solution Layer
-                            <small>Context-aware across all capabilities</small>
-                        </div>
-                        <div class="bva-spokes">
-                            <span class="bva-spoke">Processes</span>
-                            <span class="bva-spoke">Workflows</span>
-                            <span class="bva-spoke">Apps</span>
-                            <span class="bva-spoke">Forms</span>
-                            <span class="bva-spoke">Data</span>
-                            <span class="bva-spoke">Docs</span>
-                        </div>
-                        <div class="bva-after-note">All capabilities feed business context upward. AI can now generate genuinely custom solutions instead of generic outputs.</div>
-                    </div>
-                </div>
-                <p class="caption">The strategic opportunity: unify six platform capabilities so AI has the business context to build solutions that actually fit</p>
-            </div>
-
-
-            <h3>Strategic Approach</h3>
-
-            <div class="strategy-cards">
                 <!-- Card 1 -->
-                <div class="strategy-card">
-                    <div class="strategy-card-header">
-                        <i data-lucide="search" width="20" height="20"></i>
-                        <h4>1. Identifying the Market Opportunity</h4>
-                    </div>
-                    <ul>
-                        <li>Understood gap where businesses needed custom AI solutions</li>
-                        <li>Leveraged our platform's unique advantage: combining all capabilities to provide AI with rich business context</li>
-                        <li>Positioned us for competitive differentiation in AI-powered business solutions</li>
-                    </ul>
-
-                    <!-- DIAGRAM 5: Platform Capabilities Architecture -->
-                    <div class="cap-architecture">
-                        <div class="cap-ai-hub">
-                            <i data-lucide="cpu" width="18" height="18"></i>
-                            <div>
-                                AI Solution Engine
-                                <small>Rich business context from all platform layers</small>
+                <div class="seam-card">
+                    <i data-lucide="search" class="card-icon" width="24" height="24"></i>
+                    <h3 class="card-title">1. Identifying the Market Opportunity</h3>
+                    <div class="card-body">
+                        <ul>
+                            <li>Understood gap where businesses needed custom AI solutions</li>
+                            <li>Leveraged our platform's unique advantage: combining all capabilities to provide AI with rich business context</li>
+                            <li>Positioned us for competitive differentiation in AI-powered business solutions</li>
+                        </ul>
+                        <div class="cap-architecture" style="margin-top: 24px;">
+                            <div class="cap-hub">
+                                <i data-lucide="cpu" width="18" height="18"></i>
+                                <div>AI Solution Engine<small>Rich business context from all platform layers</small></div>
                             </div>
+                            <div class="cap-connectors">
+                                <div class="cap-line"></div><div class="cap-line"></div><div class="cap-line"></div>
+                                <div class="cap-line"></div><div class="cap-line"></div><div class="cap-line"></div>
+                            </div>
+                            <div class="cap-grid">
+                                <div class="cap-item"><i data-lucide="book-open" width="13" height="13"></i> Processes</div>
+                                <div class="cap-item"><i data-lucide="zap" width="13" height="13"></i> Workflows</div>
+                                <div class="cap-item"><i data-lucide="layout" width="13" height="13"></i> Apps</div>
+                                <div class="cap-item"><i data-lucide="file-text" width="13" height="13"></i> Forms</div>
+                                <div class="cap-item"><i data-lucide="database" width="13" height="13"></i> Data</div>
+                                <div class="cap-item"><i data-lucide="file-up" width="13" height="13"></i> Doc Generation</div>
+                            </div>
+                            <p class="cap-note">Our competitive advantage: no other platform combines all six. Together they give AI the business context to build solutions that actually fit.</p>
                         </div>
-                        <div class="cap-connector-row">
-                            <div class="cap-connector-line"></div>
-                            <div class="cap-connector-line"></div>
-                            <div class="cap-connector-line"></div>
-                            <div class="cap-connector-line"></div>
-                            <div class="cap-connector-line"></div>
-                            <div class="cap-connector-line"></div>
-                        </div>
-                        <div class="cap-grid">
-                            <div class="cap-item">
-                                <i data-lucide="book-open" width="14" height="14"></i>
-                                Processes
-                            </div>
-                            <div class="cap-item">
-                                <i data-lucide="zap" width="14" height="14"></i>
-                                Workflows
-                            </div>
-                            <div class="cap-item">
-                                <i data-lucide="layout" width="14" height="14"></i>
-                                Apps
-                            </div>
-                            <div class="cap-item">
-                                <i data-lucide="file-text" width="14" height="14"></i>
-                                Forms
-                            </div>
-                            <div class="cap-item">
-                                <i data-lucide="database" width="14" height="14"></i>
-                                Data
-                            </div>
-                            <div class="cap-item">
-                                <i data-lucide="file-up" width="14" height="14"></i>
-                                Doc Generation
-                            </div>
-                        </div>
-                        <div class="cap-note">Our competitive advantage: no other platform combines all six. Together they give AI the business context to build solutions that actually fit.</div>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="strategy-card">
-                    <div class="strategy-card-header">
-                        <i data-lucide="git-merge" width="20" height="20"></i>
-                        <h4>2. Establishing Human-AI Partnership Principles</h4>
+                <div class="seam-card tint">
+                    <i data-lucide="git-merge" class="card-icon" width="24" height="24"></i>
+                    <h3 class="card-title">2. Establishing Human-AI Partnership Principles</h3>
+                    <div class="callout" style="margin-bottom: 16px;">
+                        <p>"The hardest part isn't the AI generation — it's designing the right amount of AI output that humans can meaningfully review and act on."</p>
                     </div>
-                    <div class="key-insight" style="margin-top: 0; margin-bottom: 1rem;">
-                        "The hardest part isn't the AI generation—it's designing the right amount of AI output that humans can meaningfully review and act on."
-                    </div>
-                    <ul>
-                        <li>Challenged industry assumption that "AI should do everything"</li>
-                        <li>Established principle: AI generates, humans guide</li>
-                        <li>Designed granular interaction patterns for different personas without cognitive overload</li>
-                    </ul>
-
-                    <!-- DIAGRAM 2: Persona Entry Points -->
-                    <div class="persona-entry">
-                        <!-- Left node: Non-Technical -->
-                        <div class="pe-node nontechnical">
-                            <div class="pe-icon">
-                                <i data-lucide="briefcase" width="18" height="18"></i>
+                    <div class="card-body">
+                        <ul>
+                            <li>Challenged industry assumption that "AI should do everything"</li>
+                            <li>Established principle: AI generates, humans guide</li>
+                            <li>Designed granular interaction patterns for different personas without cognitive overload</li>
+                        </ul>
+                        <div class="persona-entry">
+                            <div class="pe-node side">
+                                <div class="pe-icon"><i data-lucide="briefcase" width="16" height="16"></i></div>
+                                <div class="pe-name">Business User</div>
+                                <div class="pe-detail">Describes problem in plain language, reviews AI-generated solution as a whole</div>
                             </div>
-                            <div class="pe-name">Business User</div>
-                            <div class="pe-detail">Describes problem in plain language, reviews AI-generated solution as a whole</div>
-                        </div>
-
-                        <!-- Arrow left to center -->
-                        <div class="pe-connect">
-                            <div class="pe-line"></div>
-                            <div class="pe-label">natural language</div>
-                        </div>
-
-                        <!-- Center node: AI Layer -->
-                        <div class="pe-node ai-layer">
-                            <div class="pe-icon">
-                                <i data-lucide="cpu" width="18" height="18"></i>
+                            <div class="pe-connect">
+                                <div class="pe-line"></div>
+                                <div class="pe-label">natural language</div>
+                                <div class="pe-line"></div>
                             </div>
-                            <div class="pe-name">AI Generation Layer</div>
-                            <div class="pe-detail">Generates assets, workflows, and data structures from business context</div>
-                        </div>
-
-                        <!-- Arrow center to right -->
-                        <div class="pe-connect">
-                            <div class="pe-line right"></div>
-                            <div class="pe-label">structured output</div>
-                        </div>
-
-                        <!-- Right node: Technical -->
-                        <div class="pe-node technical">
-                            <div class="pe-icon">
-                                <i data-lucide="terminal" width="18" height="18"></i>
+                            <div class="pe-node center">
+                                <div class="pe-icon"><i data-lucide="cpu" width="16" height="16"></i></div>
+                                <div class="pe-name">AI Generation Layer</div>
+                                <div class="pe-detail">Generates assets, workflows, and data structures from business context</div>
                             </div>
-                            <div class="pe-name">Technical User</div>
-                            <div class="pe-detail">Validates and refines at the component level, customizes generated assets</div>
+                            <div class="pe-connect">
+                                <div class="pe-line"></div>
+                                <div class="pe-label">structured output</div>
+                                <div class="pe-line"></div>
+                            </div>
+                            <div class="pe-node side">
+                                <div class="pe-icon"><i data-lucide="terminal" width="16" height="16"></i></div>
+                                <div class="pe-name">Technical User</div>
+                                <div class="pe-detail">Validates and refines at the component level, customizes generated assets</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="pe-insight">
-                        Same AI output, different entry points. The design challenge was ensuring neither user had to work at the wrong level of granularity.
+                        <div class="pe-insight">Same AI output, different entry points. The design challenge was ensuring neither user had to work at the wrong level of granularity.</div>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="strategy-card">
-                    <div class="strategy-card-header">
-                        <i data-lucide="navigation" width="20" height="20"></i>
-                        <h4>3. Leading Through Complexity</h4>
-                    </div>
+                <div class="seam-card">
+                    <i data-lucide="navigation" class="card-icon" width="24" height="24"></i>
+                    <h3 class="card-title">3. Leading Through Complexity</h3>
                     <ul class="icon-list">
-                        <li>
-                            <i data-lucide="users" width="15" height="15"></i>
-                            <span><strong>Stakeholder Management:</strong> Guided C-suite presentations and provided real-time meeting direction</span>
-                        </li>
-                        <li>
-                            <i data-lucide="shield" width="15" height="15"></i>
-                            <span><strong>Team Protection:</strong> Defended small, empowered teams to ensure streamlined leadership understanding and prevent scope creep</span>
-                        </li>
-                        <li>
-                            <i data-lucide="code-2" width="15" height="15"></i>
-                            <span><strong>Technical Partnership:</strong> Collaborated with engineering to ensure designs matched AI capabilities possible to deliver</span>
-                        </li>
-                        <li>
-                            <i data-lucide="focus" width="15" height="15"></i>
-                            <span><strong>User Focus:</strong> Maintained continuous learning loop despite rapid AI technology changes</span>
-                        </li>
+                        <li><i data-lucide="users" width="15" height="15"></i><span><strong>Stakeholder Management:</strong> Guided C-suite presentations and provided real-time meeting direction</span></li>
+                        <li><i data-lucide="shield" width="15" height="15"></i><span><strong>Team Protection:</strong> Defended small, empowered teams to ensure streamlined leadership understanding and prevent scope creep</span></li>
+                        <li><i data-lucide="code-2" width="15" height="15"></i><span><strong>Technical Partnership:</strong> Collaborated with engineering to ensure designs matched AI capabilities possible to deliver</span></li>
+                        <li><i data-lucide="focus" width="15" height="15"></i><span><strong>User Focus:</strong> Maintained continuous learning loop despite rapid AI technology changes</span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- DESIGN PROCESS -->
+    <div class="section-pad">
+        <div class="wrap">
+            <span class="eyebrow">Design Process</span>
+            <h2 class="section-h2">From strategy to execution</h2>
+
+            <div class="seam-grid cols-1" style="margin-top: 40px;">
+                <div class="seam-card">
+                    <h3 class="card-title" style="font-size: 16px; margin-bottom: 8px;">Discovery &amp; Alignment</h3>
+                    <div class="card-body">
+                        <ul>
+                            <li>Built continuous feedback loop with internal and external users</li>
+                            <li>Balanced quick ideation for stakeholder alignment with engineering feasibility</li>
+                            <li>Created shared vision across multiple senior stakeholders</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="seam-card tint">
+                    <h3 class="card-title" style="font-size: 16px; margin-bottom: 8px;">Strategy to Execution</h3>
+                    <div class="card-body">
+                        <ul>
+                            <li>Elevated established senior designer to higher-visibility role, coaching them through executive presentations</li>
+                            <li>Championed designer's ideas and created space for them to focus wholly on AI exploration</li>
+                            <li>Mentored designer through executive stakeholder management, positioning them for promotion</li>
+                            <li>Set team workloads and negotiated scope with PM to shape realistic roadmaps</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="seam-card">
+                    <h3 class="card-title" style="font-size: 16px; margin-bottom: 8px;">Key Design Decisions</h3>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Adaptive AI interaction modes:</strong> Combined chat-style AI for open-ended exploration, inline AI for contextual assistance, and quick manual edits for finishing touches — matching users' mental models as projects evolve from ambiguous to refined</li>
+                            <li><strong>Progressive personalization strategy:</strong> Created different entry points for technical vs. non-technical users, with plans for role-based prompts and customizable AI behavior to meet each persona where they are</li>
+                            <li><strong>Human-in-the-loop validation:</strong> Designed preview and validation steps that mimic peer collaboration, allowing early error detection and correction to prevent hallucination cascades and maintain user confidence</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase Track Diagram -->
+            <div style="margin-top: 40px; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 32px;">
+                <p style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); margin-bottom: 24px;">Adaptive AI Interaction Model</p>
+                <div class="phase-track">
+                    <div class="phase-card">
+                        <div class="phase-num done"><i data-lucide="message-square" width="20" height="20"></i></div>
+                        <div class="phase-body">
+                            <div class="phase-heading">Exploration</div>
+                            <div class="phase-sub">Open-ended problem framing — users describe in natural language</div>
+                            <span class="phase-tag">Chat-style AI</span>
+                        </div>
+                    </div>
+                    <div class="phase-card">
+                        <div class="phase-num active"><i data-lucide="edit-3" width="20" height="20"></i></div>
+                        <div class="phase-body">
+                            <div class="phase-heading">Refinement</div>
+                            <div class="phase-sub">AI assists in context — suggestions appear where the user is already working</div>
+                            <span class="phase-tag">Inline AI</span>
+                        </div>
+                    </div>
+                    <div class="phase-card">
+                        <div class="phase-num future"><i data-lucide="check-square" width="20" height="20"></i></div>
+                        <div class="phase-body">
+                            <div class="phase-heading future">Finalization</div>
+                            <div class="phase-sub">Precise manual control — user makes targeted edits before committing</div>
+                            <span class="phase-tag future">Manual Edit</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="diagram-caption">Each mode matches the user's mental state as projects evolve from ambiguous to refined — AI steps back as clarity increases</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- IMPACT -->
+    <div style="background: var(--bg); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);">
+        <div class="wrap" style="padding-top: 80px; padding-bottom: 80px;">
+            <span class="eyebrow">Impact &amp; Outcomes</span>
+            <h2 class="section-h2">What we shipped and what changed</h2>
+
+            <div class="metrics-row" style="margin-top: 40px;">
+                <div class="metric-card">
+                    <div class="metric-stat">1</div>
+                    <div class="metric-label">Designer Promoted</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-stat">3</div>
+                    <div class="metric-label">Interaction Modes</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-stat green">&#10003;</div>
+                    <div class="metric-label">Patterns Adopted</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-stat" style="font-size: 2rem;">6→1</div>
+                    <div class="metric-label">Capabilities Unified</div>
+                </div>
+            </div>
+
+            <div class="impact-grid">
+                <div class="impact-item">
+                    <h4>Business Impact</h4>
+                    <ul>
+                        <li>Will shape platform product cohesion across all capabilities</li>
+                        <li>Informs AI asset generation strategy company-wide</li>
+                        <li>Fundamentally evolves how we communicate as an integrated platform</li>
+                    </ul>
+                </div>
+                <div class="impact-item">
+                    <h4>Team Development</h4>
+                    <ul>
+                        <li>Elevated senior designer to executive-facing role, resulting in promotion trajectory</li>
+                        <li>Established design patterns now used across multiple teams</li>
+                        <li>Created framework for future AI feature development</li>
+                        <li>Built team capability in AI design through focused mentorship</li>
                     </ul>
                 </div>
             </div>
 
-            <h3>Design Process</h3>
-
-            <h4>Discovery &amp; Alignment</h4>
-            <ul>
-                <li>Built continuous feedback loop with internal and external users</li>
-                <li>Balanced quick ideation for stakeholder alignment with engineering feasibility</li>
-                <li>Created shared vision across multiple senior stakeholders</li>
-            </ul>
-
-            <h4>Strategy to Execution</h4>
-            <ul>
-                <li>Elevated established senior designer to higher-visibility role, coaching them through executive presentations</li>
-                <li>Championed designer's ideas and created space for them to focus wholly on AI exploration</li>
-                <li>Mentored designer through executive stakeholder management, positioning them for promotion</li>
-                <li>Set team workloads and negotiated scope with PM to shape realistic roadmaps</li>
-            </ul>
-
-            <h4>Key Design Decisions</h4>
-            <ul>
-                <li><strong>Adaptive AI interaction modes:</strong> Combined chat-style AI for open-ended exploration, inline AI for contextual assistance, and quick manual edits for finishing touches – matching users' mental models as projects evolve from ambiguous to refined</li>
-                <li><strong>Progressive personalization strategy:</strong> Created different entry points for technical vs. non-technical users, with plans for role-based prompts and customizable AI behavior to meet each persona where they are</li>
-                <li><strong>Human-in-the-loop validation:</strong> Designed preview and validation steps that mimic peer collaboration, allowing early error detection and correction to prevent hallucination cascades and maintain user confidence</li>
-            </ul>
-
-            <!-- DIAGRAM 3: Adaptive Interaction Mode Phase Track -->
-            <div class="design-artifact">
-                <div class="diagram-title">Adaptive AI Interaction Model</div>
-                <div class="phase-track">
-                    <!-- Mode 1 -->
-                    <div class="phase-card">
-                        <div class="phase-number">
-                            <i data-lucide="message-square" width="22" height="22"></i>
-                        </div>
-                        <div class="phase-body">
-                            <div class="phase-heading">Exploration</div>
-                            <div class="phase-audience">Open-ended problem framing — users describe in natural language</div>
-                            <span class="phase-goal-tag">Chat-style AI</span>
-                        </div>
-                    </div>
-
-                    <!-- Mode 2 (active) -->
-                    <div class="phase-card active">
-                        <div class="phase-number">
-                            <i data-lucide="edit-3" width="22" height="22"></i>
-                        </div>
-                        <div class="phase-body">
-                            <div class="phase-heading">Refinement</div>
-                            <div class="phase-audience">AI assists in context — suggestions appear where the user is already working</div>
-                            <span class="phase-goal-tag">Inline AI</span>
-                        </div>
-                    </div>
-
-                    <!-- Mode 3 -->
-                    <div class="phase-card future">
-                        <div class="phase-number">
-                            <i data-lucide="check-square" width="22" height="22"></i>
-                        </div>
-                        <div class="phase-body">
-                            <div class="phase-heading">Finalization</div>
-                            <div class="phase-audience">Precise manual control — user makes targeted edits before committing</div>
-                            <span class="phase-goal-tag">Manual Edit</span>
-                        </div>
-                    </div>
-                </div>
-                <p class="caption">Each mode matches the user's mental state as projects evolve from ambiguous to refined — AI steps back as clarity increases</p>
-            </div>
-
-            <!-- Impact section with background -->
-            <div class="impact-section">
-                <h3>Impact &amp; Outcomes</h3>
-
-                <!-- DIAGRAM 4: Impact Metrics Callout Row -->
-                <div class="impact-metrics-row">
-                    <div class="impact-metric-card">
-                        <div class="imc-stat">1</div>
-                        <div class="imc-label">Designer Promoted</div>
-                    </div>
-                    <div class="impact-metric-card">
-                        <div class="imc-stat">3</div>
-                        <div class="imc-label">New Interaction Modes</div>
-                    </div>
-                    <div class="impact-metric-card">
-                        <div class="imc-stat" style="color: var(--success);">&#10003;</div>
-                        <div class="imc-label">Patterns Adopted</div>
-                    </div>
-                    <div class="impact-metric-card">
-                        <div class="imc-stat" style="font-size: 1.5rem;">6&rarr;1</div>
-                        <div class="imc-label">Capabilities Unified</div>
-                    </div>
-                </div>
-                <hr class="impact-divider">
-
-                <div class="impact-grid">
-                    <div class="impact-item">
-                        <h4>Business Impact</h4>
-                        <ul>
-                            <li>Will shape platform product cohesion across all capabilities</li>
-                            <li>Informs AI asset generation strategy company-wide</li>
-                            <li>Fundamentally evolves how we communicate as an integrated platform</li>
-                        </ul>
-                    </div>
-                    <div class="impact-item">
-                        <h4>Team Development</h4>
-                        <ul>
-                            <li>Elevated senior designer to executive-facing role, resulting in promotion trajectory</li>
-                            <li>Established design patterns now used across multiple teams</li>
-                            <li>Created framework for future AI feature development</li>
-                            <li>Built team capability in AI design through focused mentorship</li>
-                        </ul>
-                    </div>
+            <!-- Reflection -->
+            <div class="reflection">
+                <span class="eyebrow">Reflection</span>
+                <div class="reflection-body">
+                    <p><strong>What I learned about leading AI design:</strong> The intersection of AI capabilities and human needs requires constant recalibration. Success came from protecting the team's focus while managing upward to keep stakeholders aligned.</p>
+                    <p><strong>What I'd do differently:</strong> Keep the team smaller and more focused from the start. Too many stakeholders got involved too early, making it hard to narrow scope and costing us valuable learning time through mid-development changes. Small, empowered teams with clear decision rights actually move faster.</p>
                 </div>
             </div>
-
-            <div class="reflection-section">
-                <h3>Reflection</h3>
-                <p><strong>What I learned about leading AI design:</strong> The intersection of AI capabilities and human needs requires constant recalibration. Success came from protecting the team's focus while managing upward to keep stakeholders aligned.</p>
-                <p><strong>What I'd do differently:</strong> Keep the team smaller and more focused from the start. Too many stakeholders got involved too early, making it hard to narrow scope and costing us valuable learning time through mid-development changes. Small, empowered teams with clear decision rights actually move faster.</p>
-            </div>
-        </section>
-
-        <!-- Visual Design -->
-        <section id="visuals" class="visual-examples">
-            <h3>Visual Design</h3>
-            <p>Design completed under my coaching and direction by a Senior Designer who was promoted to Staff Designer.</p>
-
-            <div class="design-artifact">
-                <img src="images/ai-start.png" alt="AI solution generator start screen" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-                <p class="caption">AI-powered solution entry point: users describe their business problem in natural language</p>
-            </div>
-            <div class="design-artifact">
-                <img src="images/ai-stories.png" alt="Generated user personas and stories" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-                <p class="caption">AI-generated personas and user stories based on business context</p>
-            </div>
-            <div class="design-artifact">
-                <img src="images/ai-generator.png" alt="Solution generation progress view" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-                <p class="caption">Progressive disclosure: showing users where they are in the AI generation process</p>
-            </div>
-            <div class="design-artifact">
-                <img src="images/ai-connections.png" alt="External system connections interface" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-                <p class="caption">Platform integration: connecting generated solutions to external systems for real-world implementation</p>
-            </div>
-            <div class="design-artifact">
-                <img src="images/ai-in-process.png" alt="Asset outline generation" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;">
-                <p class="caption">Human-in-the-loop validation: reviewing AI-generated asset outlines before final generation</p>
-            </div>
-        </section>
-
-        <section class="case-navigation">
-            <div>
-                <a href="index.html" class="btn btn-secondary">&larr; Previous: Overview</a>
-            </div>
-            <div>
-                <a href="process-manager.html" class="btn btn-primary">Next: Process Manager &rarr;</a>
-            </div>
-        </section>
+        </div>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Heidi Lowry. Available for leadership roles in Canada and the US. Made with love ❤️ and AI 🤖</p>
+    <!-- VISUAL DESIGN -->
+    <div id="visuals" class="visual-section">
+        <div class="wrap">
+            <span class="eyebrow">Visual Design</span>
+            <h2 class="section-h2">What we built</h2>
+            <p class="section-lead">Design completed under my coaching and direction by a Senior Designer who was promoted to Staff Designer.</p>
+            <div class="visual-stack">
+                <div class="visual-item">
+                    <img src="images/ai-start.png" alt="AI solution generator start screen">
+                    <p class="visual-caption">AI-powered solution entry point: users describe their business problem in natural language</p>
+                </div>
+                <div class="visual-item">
+                    <img src="images/ai-stories.png" alt="Generated user personas and stories">
+                    <p class="visual-caption">AI-generated personas and user stories based on business context</p>
+                </div>
+                <div class="visual-item">
+                    <img src="images/ai-generator.png" alt="Solution generation progress view">
+                    <p class="visual-caption">Progressive disclosure: showing users where they are in the AI generation process</p>
+                </div>
+                <div class="visual-item">
+                    <img src="images/ai-connections.png" alt="External system connections interface">
+                    <p class="visual-caption">Platform integration: connecting generated solutions to external systems for real-world implementation</p>
+                </div>
+                <div class="visual-item">
+                    <img src="images/ai-in-process.png" alt="Asset outline generation">
+                    <p class="visual-caption">Human-in-the-loop validation: reviewing AI-generated asset outlines before final generation</p>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <!-- CASE NAVIGATION -->
+    <div class="wrap">
+        <div class="case-nav">
+            <div class="case-nav-inner">
+                <a href="index.html" class="case-nav-link">
+                    <span class="case-nav-dir">← Previous</span>
+                    <span class="case-nav-title">Overview</span>
+                </a>
+                <a href="process-manager.html" class="case-nav-link next">
+                    <span class="case-nav-dir">Next →</span>
+                    <span class="case-nav-title">Process Manager</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <span class="footer-name">Heidi Lowry</span>
+        <span class="footer-copy">&copy; 2026 &middot; Available for leadership roles in Canada and the US</span>
     </footer>
 
-    <!-- Lightbox modal -->
-    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image viewer">
-        <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
-        <button class="lightbox-prev" aria-label="Previous image">&#8249;</button>
-        <button class="lightbox-next" aria-label="Next image">&#8250;</button>
-        <div class="lightbox-main">
-            <img id="lightbox-img" src="" alt="">
-            <p id="lightbox-caption" class="lightbox-caption"></p>
+    <!-- LIGHTBOX -->
+    <div id="lb" class="lightbox" aria-hidden="true">
+        <button class="lb-close">&times;</button>
+        <button class="lb-prev">&#8249;</button>
+        <button class="lb-next">&#8250;</button>
+        <div class="lb-main">
+            <img id="lb-img" src="" alt="">
+            <p id="lb-cap"></p>
         </div>
-        <div class="lightbox-strip">
-            <div id="lightbox-thumbs" class="lightbox-thumbs"></div>
-        </div>
+        <div class="lb-strip"><div id="lb-thumbs" class="lb-thumbs"></div></div>
     </div>
 
     <script>
         lucide.createIcons();
-        (function() {
-            var toggle = document.querySelector('.nav-toggle');
-            var links  = document.getElementById('nav-links');
-            if (!toggle || !links) return;
-            toggle.addEventListener('click', function() {
-                var open = links.classList.toggle('open');
-                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-                var icon = toggle.querySelector('i');
-                if (icon) {
-                    icon.setAttribute('data-lucide', open ? 'x' : 'menu');
-                    lucide.createIcons();
-                }
+
+        // Lightbox
+        (function(){
+            var imgs = Array.from(document.querySelectorAll('.visual-item img'));
+            if(!imgs.length) return;
+            var data = imgs.map(function(el){
+                var cap = el.nextElementSibling;
+                return { src: el.src, alt: el.alt, cap: cap ? cap.textContent : el.alt };
             });
-        })();
+            var lb = document.getElementById('lb');
+            var lbImg = document.getElementById('lb-img');
+            var lbCap = document.getElementById('lb-cap');
+            var thumbsEl = document.getElementById('lb-thumbs');
+            var thumbEls = [];
+            var cur = 0;
 
-        // ============================================================
-        // LIGHTBOX
-        // ============================================================
-        (function () {
-            // Collect all content images: the hero + all imgs inside .design-artifact
-            // This naturally excludes nav logos and any icon SVGs.
-            var imgEls = Array.from(
-                document.querySelectorAll('.design-artifact img')
-            );
-
-            if (imgEls.length === 0) return;
-
-            // Build the data array
-            var images = imgEls.map(function (el) {
-                var caption = el.getAttribute('alt') || '';
-                var next = el.nextElementSibling;
-                if (next && next.classList.contains('caption')) {
-                    caption = next.textContent.trim();
-                }
-                return { src: el.getAttribute('src'), alt: el.getAttribute('alt') || '', caption: caption };
+            data.forEach(function(d,i){
+                var t = document.createElement('img');
+                t.src = d.src; t.alt = d.alt; t.className = 'lb-thumb';
+                t.onclick = function(e){ e.stopPropagation(); goTo(i); };
+                thumbsEl.appendChild(t); thumbEls.push(t);
             });
 
-            // DOM refs
-            var lightbox     = document.getElementById('lightbox');
-            var lightboxImg  = document.getElementById('lightbox-img');
-            var lightboxCap  = document.getElementById('lightbox-caption');
-            var thumbsEl     = document.getElementById('lightbox-thumbs');
-            var btnClose     = lightbox.querySelector('.lightbox-close');
-            var btnPrev      = lightbox.querySelector('.lightbox-prev');
-            var btnNext      = lightbox.querySelector('.lightbox-next');
-
-            var currentIndex = 0;
-            var thumbEls     = [];
-
-            // Build thumbnail strip
-            images.forEach(function (img, i) {
-                var thumb = document.createElement('img');
-                thumb.src = img.src;
-                thumb.alt = img.alt;
-                thumb.className = 'lightbox-thumb';
-                thumb.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    goTo(i);
-                });
-                thumbsEl.appendChild(thumb);
-                thumbEls.push(thumb);
-            });
-
-            function goTo(index) {
-                currentIndex = (index + images.length) % images.length;
-                var img = images[currentIndex];
-                lightboxImg.src = img.src;
-                lightboxImg.alt = img.alt;
-                lightboxCap.textContent = img.caption;
-
-                // Update thumbnail active state and scroll active thumb into view
-                thumbEls.forEach(function (t, i) {
-                    t.classList.toggle('is-active', i === currentIndex);
-                });
-                var activeThumb = thumbEls[currentIndex];
-                if (activeThumb) {
-                    activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                }
+            function goTo(i){
+                cur = (i + data.length) % data.length;
+                lbImg.src = data[cur].src; lbImg.alt = data[cur].alt;
+                lbCap.textContent = data[cur].cap;
+                thumbEls.forEach(function(t,j){ t.classList.toggle('active', j===cur); });
+                if(thumbEls[cur]) thumbEls[cur].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
             }
+            function open(i){ goTo(i); lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+            function close(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
 
-            function openLightbox(index) {
-                goTo(index);
-                lightbox.classList.add('is-open');
-                lightbox.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
-                btnClose.focus();
-            }
-
-            function closeLightbox() {
-                lightbox.classList.remove('is-open');
-                lightbox.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
-            }
-
-            // Wire up click on each source image
-            imgEls.forEach(function (el, i) {
-                el.addEventListener('click', function () {
-                    openLightbox(i);
-                });
-            });
-
-            // Controls
-            btnClose.addEventListener('click', closeLightbox);
-            btnPrev.addEventListener('click', function (e) { e.stopPropagation(); goTo(currentIndex - 1); });
-            btnNext.addEventListener('click', function (e) { e.stopPropagation(); goTo(currentIndex + 1); });
-
-            // Click outside main image to close (click on dark overlay)
-            lightbox.addEventListener('click', function (e) {
-                if (e.target === lightbox) closeLightbox();
-            });
-
-            // Keyboard support
-            document.addEventListener('keydown', function (e) {
-                if (!lightbox.classList.contains('is-open')) return;
-                if (e.key === 'Escape')      closeLightbox();
-                if (e.key === 'ArrowLeft')   goTo(currentIndex - 1);
-                if (e.key === 'ArrowRight')  goTo(currentIndex + 1);
-            });
+            imgs.forEach(function(el,i){ el.onclick = function(){ open(i); }; });
+            lb.querySelector('.lb-close').onclick = close;
+            lb.querySelector('.lb-prev').onclick = function(e){ e.stopPropagation(); goTo(cur-1); };
+            lb.querySelector('.lb-next').onclick = function(e){ e.stopPropagation(); goTo(cur+1); };
+            lb.onclick = function(e){ if(e.target===lb) close(); };
+            document.onkeydown = function(e){
+                if(!lb.classList.contains('open')) return;
+                if(e.key==='Escape') close();
+                if(e.key==='ArrowLeft') goTo(cur-1);
+                if(e.key==='ArrowRight') goTo(cur+1);
+            };
         })();
     </script>
 </body>

@@ -3,911 +3,458 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design Coaching & Craft Evaluation - Heidi Lowry</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Design Coaching &amp; Craft — Heidi Lowry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
-        /* ---- Page hero ---- */
-        .coaching-hero {
-            padding: 3rem 0 2rem;
-            border-bottom: 1px solid var(--border);
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --white: #ffffff;
+            --bg: #F9F9F8;
+            --ink: #111111;
+            --mid: #555555;
+            --light: #999999;
+            --rule: #E5E4E0;
+            --blue: #1B4FD8;
+            --blue-light: #EEF3FF;
+            --blue-mid: #C7D7FA;
+            --green: #1A6648;
+            --green-light: #EDFAF3;
+            --amber: #92400E;
+            --amber-light: #FFFBEB;
         }
 
-        .coaching-hero h1 {
-            margin-bottom: 0.5rem;
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--white); color: var(--ink); line-height: 1.5; }
+
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--rule); }
+        .nav-name { font-size: 14px; font-weight: 600; letter-spacing: 0.01em; color: var(--ink); text-decoration: none; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-size: 13px; font-weight: 500; color: var(--light); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+
+        /* LAYOUT */
+        .wrap { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+
+        /* EYEBROW */
+        .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 20px; display: block; }
+
+        /* PAGE HERO */
+        .page-hero { padding: 140px 48px 80px; max-width: 1200px; margin: 0 auto; }
+        .page-title { font-size: clamp(40px, 5vw, 72px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; color: var(--ink); max-width: 800px; margin-bottom: 20px; }
+        .page-subtitle { font-size: 18px; font-weight: 400; color: var(--mid); max-width: 600px; line-height: 1.65; }
+
+        /* SECTION HEADINGS */
+        .section-h2 { font-size: clamp(28px, 3.5vw, 44px); font-weight: 800; letter-spacing: -0.025em; line-height: 1.1; color: var(--ink); margin-bottom: 12px; }
+        .section-lead { font-size: 17px; color: var(--mid); line-height: 1.65; max-width: 640px; margin-top: 12px; }
+
+        /* STATS STRIP */
+        .stats-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--rule); margin: 48px 0; }
+        .stat-card { background: var(--white); padding: 40px 32px; text-align: center; }
+        .stat-icon { color: var(--blue); margin-bottom: 16px; display: flex; justify-content: center; }
+        .stat-num { font-size: clamp(36px, 4vw, 52px); font-weight: 800; letter-spacing: -0.03em; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+        .stat-label { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--light); line-height: 1.4; }
+
+        /* METADATA */
+        .meta-strip { display: flex; gap: 48px; padding: 40px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+        .meta-item { display: flex; flex-direction: column; gap: 6px; }
+        .meta-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); display: flex; align-items: center; gap: 6px; }
+        .meta-label svg { color: var(--blue); }
+        .meta-value { font-size: 15px; font-weight: 500; color: var(--ink); line-height: 1.5; }
+
+        /* STATUS BADGE */
+        .status-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--green-light); color: var(--green); font-size: 12px; font-weight: 700; letter-spacing: 0.04em; padding: 6px 14px; border-radius: 100px; margin-top: 24px; }
+        .status-badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+        /* CHALLENGE */
+        .challenge-block { padding: 80px 0; }
+        .challenge-inner { border-left: 3px solid var(--blue); padding-left: 32px; }
+        .challenge-inner h3 { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
+        .challenge-inner p { font-size: 17px; color: var(--mid); line-height: 1.75; max-width: 720px; margin-bottom: 12px; }
+        .challenge-inner p:last-child { margin-bottom: 0; }
+        .challenge-inner strong { color: var(--ink); }
+
+        /* SEAM GRID */
+        .seam-grid { display: grid; gap: 2px; background: var(--rule); margin-top: 40px; }
+        .seam-grid.cols-1 { grid-template-columns: 1fr; }
+        .seam-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .seam-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .seam-card { background: var(--white); padding: 48px 44px; }
+        .seam-card.tint { background: var(--bg); }
+        .card-icon { color: var(--blue); margin-bottom: 16px; display: block; }
+        .card-title { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 12px; }
+        .card-body { font-size: 15px; color: var(--mid); line-height: 1.7; }
+        .card-body ul { padding-left: 18px; margin-top: 8px; }
+        .card-body li { margin-bottom: 6px; font-size: 15px; line-height: 1.6; color: var(--mid); }
+        .card-body strong { color: var(--ink); }
+        .card-body p { margin-bottom: 10px; }
+
+        /* ICON LIST */
+        .icon-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+        .icon-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.65; color: var(--mid); }
+        .icon-list li svg { color: var(--blue); flex-shrink: 0; margin-top: 2px; }
+        .icon-list.alert li svg { color: var(--amber); }
+
+        /* STEPPER */
+        .stepper { display: flex; flex-direction: column; gap: 0; }
+        .step { display: flex; align-items: flex-start; gap: 16px; position: relative; }
+        .step:not(:last-child)::after { content: ""; position: absolute; left: 15px; top: 32px; width: 2px; height: calc(100% - 8px); background: var(--rule); }
+        .step-num { width: 32px; height: 32px; background: var(--blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; position: relative; z-index: 1; }
+        .step-body { padding: 0 0 28px; flex: 1; }
+        .step-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; display: block; }
+        .step-desc { font-size: 14px; color: var(--mid); line-height: 1.6; margin: 0; }
+
+        /* EVALUATION SECTION */
+        .eval-section { margin: 32px 0; }
+        .eval-category { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); margin: 32px 0 12px; display: flex; align-items: center; gap: 8px; }
+        .eval-category svg { color: var(--blue); }
+        .eval-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--rule); margin-bottom: 2px; }
+        .eval-card { padding: 28px; background: var(--white); }
+        .eval-card.strengths { border-top: 3px solid var(--green); }
+        .eval-card.concerns { border-top: 3px solid var(--amber); }
+        .eval-card h4 { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .eval-card.strengths h4 { color: var(--green); }
+        .eval-card.concerns h4 { color: var(--amber); }
+        .eval-card ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+        .eval-card li { font-size: 14px; color: var(--mid); line-height: 1.6; padding-left: 14px; position: relative; }
+        .eval-card li::before { content: "—"; position: absolute; left: 0; color: var(--rule); }
+
+        /* USER IMPACT CALLOUT */
+        .user-impact { background: var(--blue-light); border-left: 3px solid var(--blue); padding: 20px 24px; border-radius: 0 4px 4px 0; margin: 20px 0 0; }
+        .user-impact p { font-size: 14px; color: var(--mid); line-height: 1.65; margin: 0; }
+        .user-impact strong { color: var(--ink); }
+
+        /* IMAGE BLOCK */
+        .img-block { margin: 24px 0; }
+        .img-block img { width: 100%; display: block; border: 1px solid var(--rule); border-radius: 4px; margin-bottom: 10px; cursor: pointer; transition: filter 0.2s, transform 0.2s; }
+        .img-block img:hover { filter: brightness(1.03); transform: scale(1.005); }
+        .img-block .caption { font-size: 13px; color: var(--light); font-style: italic; line-height: 1.5; }
+
+        /* QUOTE */
+        .pull-quote { border-left: 3px solid var(--amber); background: var(--amber-light); padding: 28px 32px; margin: 48px 0; border-radius: 0 6px 6px 0; }
+        .pull-quote p { font-size: 18px; font-style: italic; color: var(--ink); line-height: 1.65; margin: 0; font-weight: 500; }
+
+        /* COACHING INSIGHT */
+        .coaching-insight { background: var(--blue-light); border-left: 3px solid var(--blue); padding: 16px 20px; border-radius: 0 4px 4px 0; margin: 20px 0; }
+        .coaching-insight p { font-size: 14px; color: var(--mid); line-height: 1.65; margin: 0; }
+        .coaching-insight strong { color: var(--ink); }
+
+        /* IMPACT GRID */
+        .impact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--rule); }
+        .impact-item { background: var(--white); padding: 32px 28px; }
+        .impact-item h4 { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; color: var(--ink); margin-bottom: 16px; }
+        .impact-item ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+        .impact-item li { font-size: 14px; color: var(--mid); line-height: 1.6; padding-left: 16px; position: relative; }
+        .impact-item li::before { content: "—"; position: absolute; left: 0; color: var(--rule); }
+        .impact-item li strong { color: var(--ink); }
+
+        /* REFLECTION */
+        .reflection { padding: 48px 0; border-top: 1px solid var(--rule); }
+        .reflection-body { max-width: 720px; }
+        .reflection-body p { font-size: 16px; color: var(--mid); line-height: 1.75; margin-bottom: 16px; }
+        .reflection-body p:last-child { margin-bottom: 0; }
+        .reflection-body strong { color: var(--ink); }
+
+        /* CASE NAV */
+        .case-nav { padding: 60px 0; border-top: 1px solid var(--rule); }
+        .case-nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .case-nav-link { display: flex; flex-direction: column; gap: 6px; text-decoration: none; }
+        .case-nav-link.next { text-align: right; }
+        .case-nav-dir { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); }
+        .case-nav-title { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); transition: color 0.2s; }
+        .case-nav-link:hover .case-nav-title { color: var(--blue); }
+
+        /* FOOTER */
+        footer { border-top: 1px solid var(--rule); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; }
+        .footer-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+        .footer-copy { font-size: 13px; color: var(--light); }
+
+        /* LIGHTBOX */
+        .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow-y: auto; padding: 48px 24px 120px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+        .lightbox.open { opacity: 1; pointer-events: all; }
+        .lb-main { max-width: 96vw; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+        #lb-img { max-width: 96vw; width: 100%; object-fit: contain; border-radius: 4px; box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
+        #lb-cap { color: rgba(255,255,255,0.7); font-size: 14px; text-align: center; max-width: 640px; line-height: 1.5; }
+        .lb-close { position: fixed; top: 20px; right: 24px; background: rgba(255,255,255,0.95); border: none; color: #111; width: 44px; height: 44px; border-radius: 50%; font-size: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1001; }
+        .lb-prev, .lb-next { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.95); border: none; color: #111; width: 48px; height: 64px; border-radius: 6px; font-size: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1001; }
+        .lb-prev { left: 16px; } .lb-next { right: 16px; }
+        .lb-strip { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); padding: 12px 16px; overflow-x: auto; }
+        .lb-thumbs { display: flex; gap: 8px; justify-content: center; }
+        .lb-thumb { width: 80px; height: 60px; object-fit: cover; object-position: top left; border-radius: 3px; border: 2px solid transparent; opacity: 0.55; cursor: pointer; flex-shrink: 0; transition: opacity 0.2s, border-color 0.2s; }
+        .lb-thumb.active { border-color: var(--blue); opacity: 1; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            nav { padding: 16px 24px; }
+            .nav-links { gap: 20px; }
+            .page-hero { padding: 120px 24px 60px; }
+            .wrap { padding: 0 24px; }
+            .stats-strip { grid-template-columns: repeat(2, 1fr); }
+            .seam-grid.cols-2 { grid-template-columns: 1fr; }
+            .seam-grid.cols-3 { grid-template-columns: 1fr; }
+            .eval-row { grid-template-columns: 1fr; }
+            .impact-grid { grid-template-columns: 1fr; }
+            .meta-strip { gap: 24px; }
+            .case-nav-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+            footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
         }
-
-        .coaching-hero .tagline {
-            margin-bottom: 0;
-        }
-
-        /* ---- Stat cards strip ---- */
-        .coaching-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin: 2rem 0 2.5rem;
-        }
-
-        .coaching-stat-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.5rem 1.25rem;
-            text-align: center;
-        }
-
-        .coaching-stat-icon {
-            color: var(--primary);
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .coaching-stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1;
-            margin-bottom: 0.25rem;
-        }
-
-        .coaching-stat-label {
-            font-size: 0.8125rem;
-            color: var(--text-medium);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            line-height: 1.3;
-        }
-
-        /* ---- Section h2 with icon chip ---- */
-        .h2-with-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .h2-with-icon .section-icon-chip {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            background: rgba(37, 99, 235, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .h2-with-icon .section-icon-chip svg {
-            color: var(--primary);
-        }
-
-        .h2-with-icon h2 {
-            margin: 0;
-        }
-
-        /* ---- Section h3 with icon ---- */
-        .section-h3-with-icon {
-            display: flex;
-            align-items: center;
-            gap: 0.625rem;
-            margin: 2.5rem 0 1rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .section-h3-with-icon svg {
-            color: var(--primary);
-            flex-shrink: 0;
-        }
-
-        /* ---- Icon list ---- */
-        .icon-list {
-            list-style: none;
-            padding-left: 0;
-            margin: 1.25rem 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .icon-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.625rem;
-            font-size: 0.9375rem;
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
-
-        .icon-list li svg {
-            color: var(--primary);
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        /* ---- Metadata with icons ---- */
-        .metadata-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .metadata-label {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            color: var(--text-medium);
-            font-weight: 600;
-            font-size: 0.8125rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .metadata-label svg {
-            color: var(--primary);
-            flex-shrink: 0;
-        }
-
-        /* ---- Strategy cards for evaluation lenses ---- */
-        .strategy-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-            margin: 1.5rem 0 2.5rem;
-        }
-
-        .strategy-card {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--primary);
-            border-radius: 8px;
-            padding: 1.75rem;
-        }
-
-        .strategy-card-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .strategy-card-header svg {
-            color: var(--primary);
-            flex-shrink: 0;
-        }
-
-        .strategy-card-header h4 {
-            margin: 0;
-            font-size: 1.05rem;
-            color: var(--text-dark);
-        }
-
-        .strategy-card ul {
-            margin: 0;
-            padding-left: 1.25rem;
-        }
-
-        .strategy-card li {
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        /* ---- Coaching process stepper ---- */
-        .coaching-flow {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            margin: 2rem 0;
-        }
-
-        .coaching-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            position: relative;
-        }
-
-        .coaching-step:not(:last-child)::after {
-            content: "";
-            position: absolute;
-            left: 15px;
-            top: 32px;
-            width: 2px;
-            height: calc(100% - 8px);
-            background: var(--border);
-        }
-
-        .coaching-step-num {
-            width: 32px;
-            height: 32px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.8125rem;
-            flex-shrink: 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .coaching-step-body {
-            padding: 0 0 1.75rem;
-            flex: 1;
-        }
-
-        .coaching-step-body strong {
-            display: block;
-            font-size: 0.9375rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 0.25rem;
-        }
-
-        .coaching-step-body p {
-            font-size: 0.9rem;
-            color: var(--text-medium);
-            margin: 0;
-            line-height: 1.55;
-        }
-
-        /* ---- Evaluation cards ---- */
-        .evaluation-section {
-            margin: 2rem 0;
-        }
-
-        .evaluation-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin: 1.25rem 0;
-        }
-
-        .evaluation-card {
-            background: white;
-            padding: 1.75rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
-        .evaluation-card.strengths {
-            border-left: 4px solid var(--success);
-        }
-
-        .evaluation-card.concerns {
-            border-left: 4px solid var(--accent);
-        }
-
-        .evaluation-card h4 {
-            margin-top: 0;
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .evaluation-card.strengths h4 {
-            color: var(--success);
-        }
-
-        .evaluation-card.concerns h4 {
-            color: var(--accent);
-        }
-
-        .evaluation-card ul {
-            margin: 0;
-            padding-left: 1.25rem;
-        }
-
-        .evaluation-card li {
-            margin-bottom: 0.875rem;
-            line-height: 1.6;
-            font-size: 0.9rem;
-        }
-
-        .evaluation-card li:last-child {
-            margin-bottom: 0;
-        }
-
-        .category-header {
-            font-size: 0.8125rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin: 2rem 0 0.75rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--primary-light);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .category-header svg {
-            color: var(--primary);
-            flex-shrink: 0;
-        }
-
-        .category-header:first-child {
-            margin-top: 0;
-        }
-
-        /* ---- Impact section ---- */
-        .impact-section {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 2rem;
-            margin: 1.5rem 0;
-        }
-
-        .impact-section h3 {
-            margin-top: 0;
-        }
-
-        .impact-section .impact-grid {
-            margin: 0;
-        }
-
-        .impact-section .impact-item {
-            background: white;
-        }
-
-        /* ---- Quote / callout block ---- */
-        .quote-block {
-            background: var(--accent-light);
-            padding: 1.75rem 2rem;
-            margin: 2rem 0;
-            border-left: 4px solid var(--accent);
-            border-radius: 4px;
-        }
-
-        .quote-block p {
-            font-style: italic;
-            color: var(--text-dark);
-            font-size: 1.0625rem;
-            margin: 0;
-            font-weight: 500;
-            line-height: 1.7;
-        }
-
-        /* ---- Case navigation ---- */
-        /* inherits from style.css */
-
-        /* ============================================================
-           Mobile — 768px
-        ============================================================ */
-        @media (max-width: 768px) {
-            .coaching-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .evaluation-row {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .strategy-card {
-                padding: 1.25rem;
-            }
-
-            .impact-section {
-                padding: 1.25rem;
-            }
-        }
-
-        /* ============================================================
-           Mobile — 640px
-        ============================================================ */
         @media (max-width: 640px) {
-            .coaching-hero {
-                padding: 2rem 0 1.5rem;
-            }
-
-            .evaluation-card {
-                padding: 1.25rem;
-            }
-
-            .quote-block {
-                padding: 1.25rem;
-            }
-
-            .category-header {
-                margin: 1.5rem 0 0.75rem;
-            }
-        }
-
-        /* ============================================================
-           Mobile — 480px
-        ============================================================ */
-        @media (max-width: 480px) {
-            .coaching-stat-number {
-                font-size: 1.625rem;
-            }
-        }
-
-        /* ============================================================
-           LIGHTBOX — full-screen image viewer
-        ============================================================ */
-
-        /* Clickable image affordance */
-        .design-artifact img {
-            cursor: pointer;
-            transition: filter 0.2s ease, transform 0.2s ease;
-        }
-        .design-artifact img:hover {
-            filter: brightness(1.05);
-            transform: scale(1.01);
-        }
-
-        /* Overlay */
-        .lightbox {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            overflow-y: auto;
-            scroll-behavior: smooth;
-            padding: 3rem 1rem 120px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s ease;
-        }
-        .lightbox.is-open {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        /* Main image area */
-        .lightbox-main {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.75rem;
-            max-width: 96vw;
-            width: 100%;
-        }
-        #lightbox-img {
-            max-height: none;
-            max-width: 96vw;
-            width: 100%;
-            object-fit: contain;
-            border-radius: 6px;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
-            display: block;
-        }
-        .lightbox-caption {
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 0.875rem;
-            text-align: center;
-            line-height: 1.5;
-            max-width: 680px;
-            margin: 0;
-        }
-
-        /* Close button */
-        .lightbox-close {
-            position: fixed;
-            top: 1.25rem;
-            right: 1.5rem;
-            background: rgba(255, 255, 255, 0.95);
-            border: none;
-            color: #111;
-            font-size: 1.5rem;
-            line-height: 1;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background 0.15s ease, transform 0.15s ease;
-            z-index: 1001;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-        }
-        .lightbox-close:hover {
-            background: white;
-            transform: scale(1.1);
-        }
-
-        /* Prev / next buttons */
-        .lightbox-prev,
-        .lightbox-next {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            border: none;
-            color: #111;
-            font-size: 2rem;
-            line-height: 1;
-            width: 52px;
-            height: 72px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background 0.15s ease, transform 0.15s ease;
-            z-index: 1001;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-        }
-        .lightbox-prev { left: 1rem; }
-        .lightbox-next { right: 1rem; }
-        .lightbox-prev:hover { transform: translateY(-50%) scale(1.05); background: white; }
-        .lightbox-next:hover { transform: translateY(-50%) scale(1.05); background: white; }
-
-        /* Thumbnail strip */
-        .lightbox-strip {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0.75rem 1rem;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        .lightbox-thumbs {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: center;
-            min-width: max-content;
-            margin: 0 auto;
-        }
-        .lightbox-thumb {
-            width: 80px;
-            height: 60px;
-            object-fit: cover;
-            object-position: top left;
-            border-radius: 4px;
-            border: 2px solid transparent;
-            cursor: pointer;
-            opacity: 0.55;
-            transition: opacity 0.2s ease, border-color 0.2s ease;
-            flex-shrink: 0;
-        }
-        .lightbox-thumb:hover {
-            opacity: 0.85;
-        }
-        .lightbox-thumb.is-active {
-            border-color: var(--primary);
-            opacity: 1;
-        }
-
-        @media (max-width: 768px) {
-            .lightbox-prev { left: 0.25rem; }
-            .lightbox-next { right: 0.25rem; }
-            .lightbox-prev,
-            .lightbox-next {
-                width: 36px;
-                height: 52px;
-                font-size: 1.5rem;
-            }
-            .lightbox-thumb {
-                width: 60px;
-                height: 46px;
-            }
+            .page-hero { padding: 100px 20px 48px; }
+            .wrap { padding: 0 20px; }
+            .seam-card { padding: 32px 24px; }
+            .pull-quote { padding: 20px 24px; margin: 32px 0; }
         }
     </style>
 </head>
 <body>
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="index.html" class="nav-brand">Heidi Lowry</a>
-            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <i data-lucide="menu" width="24" height="24"></i>
-            </button>
-            <div class="nav-links" id="nav-links">
-                <a href="index.html" class="nav-link">About</a>
-                <a href="ai-platform.html" class="nav-link">AI Platform</a>
-                <a href="process-manager.html" class="nav-link">Process Manager</a>
-                <a href="leadership.html" class="nav-link">Leadership</a>
-                <a href="design-coaching.html" class="nav-link active">Coaching & Craft</a>
-                <a href="mailto:heidi.lowry@gmail.com" class="nav-link">Contact</a>
-            </div>
-        </div>
+
+    <!-- NAV -->
+    <nav>
+        <a href="index.html" class="nav-name">Heidi Lowry</a>
+        <ul class="nav-links">
+            <li><a href="index.html">About</a></li>
+            <li><a href="ai-platform.html">AI Platform</a></li>
+            <li><a href="process-manager.html">Process Manager</a></li>
+            <li><a href="leadership.html">Leadership</a></li>
+            <li><a href="design-coaching.html" class="active">Coaching &amp; Craft</a></li>
+            <li><a href="mailto:heidi.lowry@gmail.com">Contact</a></li>
+        </ul>
     </nav>
 
-    <div class="accent-bar"></div>
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+        <span class="eyebrow">Coaching &amp; Craft</span>
+        <h1 class="page-title">Design Coaching &amp; Craft Evaluation</h1>
+        <p class="page-subtitle">Developing senior designers through systematic visual design analysis and strategic decision-making</p>
+    </div>
 
-    <div class="container">
-
-        <!-- Page hero -->
-        <header class="coaching-hero">
-            <h1>Design Coaching & Craft Evaluation</h1>
-            <p class="tagline">Developing senior designers through systematic visual design analysis and strategic decision-making</p>
-        </header>
-
-        <!-- Stat strip -->
-        <div class="coaching-stats">
-            <div class="coaching-stat-card">
-                <div class="coaching-stat-icon">
-                    <i data-lucide="trending-up" width="24" height="24"></i>
-                </div>
-                <div class="coaching-stat-number">1</div>
-                <div class="coaching-stat-label">Designer promoted to senior</div>
+    <!-- STATS STRIP -->
+    <div class="wrap">
+        <div class="stats-strip">
+            <div class="stat-card">
+                <div class="stat-icon"><i data-lucide="trending-up" width="28" height="28"></i></div>
+                <div class="stat-num">1</div>
+                <div class="stat-label">Designer promoted to senior</div>
             </div>
-            <div class="coaching-stat-card">
-                <div class="coaching-stat-icon">
-                    <i data-lucide="layers" width="24" height="24"></i>
-                </div>
-                <div class="coaching-stat-number">3</div>
-                <div class="coaching-stat-label">Evaluation lenses taught</div>
+            <div class="stat-card">
+                <div class="stat-icon"><i data-lucide="layers" width="28" height="28"></i></div>
+                <div class="stat-num">3</div>
+                <div class="stat-label">Evaluation lenses taught</div>
             </div>
-            <div class="coaching-stat-card">
-                <div class="coaching-stat-icon">
-                    <i data-lucide="git-branch" width="24" height="24"></i>
-                </div>
-                <div class="coaching-stat-number">2</div>
-                <div class="coaching-stat-label">Design directions compared</div>
+            <div class="stat-card">
+                <div class="stat-icon"><i data-lucide="git-branch" width="28" height="28"></i></div>
+                <div class="stat-num">2</div>
+                <div class="stat-label">Design directions compared</div>
             </div>
-            <div class="coaching-stat-card">
-                <div class="coaching-stat-icon">
-                    <i data-lucide="activity" width="24" height="24"></i>
-                </div>
-                <div class="coaching-stat-number">Active</div>
-                <div class="coaching-stat-label">Implementation ongoing</div>
+            <div class="stat-card">
+                <div class="stat-icon"><i data-lucide="activity" width="28" height="28"></i></div>
+                <div class="stat-num">Active</div>
+                <div class="stat-label">Implementation ongoing</div>
             </div>
         </div>
+    </div>
 
-        <!-- Case Study -->
-        <section class="case-study">
-
-            <!-- Challenge -->
-            <div class="challenge">
+    <!-- CHALLENGE -->
+    <div class="challenge-block">
+        <div class="wrap">
+            <div class="challenge-inner">
                 <h3>The Dual Challenge</h3>
-                <p><strong>Product Challenge:</strong> Our procedure editing interface was outdated—bloated UI, unclear hierarchy between activity and task content, and interaction patterns that felt dated compared to modern tools.</p>
+                <p><strong>Product Challenge:</strong> Our procedure editing interface was outdated — bloated UI, unclear hierarchy between activity and task content, and interaction patterns that felt dated compared to modern tools.</p>
                 <p><strong>Development Opportunity:</strong> I had a talented mid-level designer ready for senior-level work. Rather than designing the solution myself, I used this modernization project as a coaching opportunity to develop her craft evaluation skills and strategic thinking.</p>
             </div>
+        </div>
+    </div>
 
-            <!-- Metadata strip with icons -->
-            <div class="metadata">
-                <div class="metadata-item">
-                    <div class="metadata-label">
-                        <i data-lucide="user" width="13" height="13"></i>
-                        Role
-                    </div>
-                    <span>Product Design Manager (Coach)</span>
+    <!-- METADATA -->
+    <div class="wrap">
+        <div class="meta-strip">
+            <div class="meta-item">
+                <span class="meta-label"><i data-lucide="user" width="12" height="12"></i> Role</span>
+                <span class="meta-value">Product Design Manager (Coach)</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label"><i data-lucide="calendar" width="12" height="12"></i> Timeline</span>
+                <span class="meta-value">2025–2026 (Ongoing)</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label"><i data-lucide="award" width="12" height="12"></i> Outcome</span>
+                <span class="meta-value">Designer promoted to senior role</span>
+            </div>
+        </div>
+        <div class="status-badge">Active Project — Designer Promoted, Implementation Ongoing</div>
+    </div>
+
+    <!-- CURRENT STATE -->
+    <div style="padding: 80px 0; border-bottom: 1px solid var(--rule);">
+        <div class="wrap">
+            <span class="eyebrow">Starting Point</span>
+            <h2 class="section-h2">Current State: The Legacy Experience</h2>
+            <div style="margin-top: 40px;">
+                <div class="img-block" id="legacy-img">
+                    <img src="images/legacy-procedure-interface.png" alt="Legacy procedure editing interface showing outdated visual design, bloated UI, and unclear hierarchy">
+                    <p class="caption">Original interface: Outdated visual design, bloated UI with excessive options, and unclear hierarchy between activity-level and task-level content</p>
                 </div>
-                <div class="metadata-item">
-                    <div class="metadata-label">
-                        <i data-lucide="calendar" width="13" height="13"></i>
-                        Timeline
-                    </div>
-                    <span>2025–2026 (Ongoing)</span>
-                </div>
-                <div class="metadata-item">
-                    <div class="metadata-label">
-                        <i data-lucide="award" width="13" height="13"></i>
-                        Outcome
-                    </div>
-                    <span>Designer promoted to senior role</span>
-                </div>
+                <p style="font-size: 16px; font-weight: 600; color: var(--ink); margin: 32px 0 12px;">Problems to Solve:</p>
+                <ul class="icon-list alert">
+                    <li><i data-lucide="alert-circle" width="15" height="15"></i><span>Outdated visual design doesn't align with modern platform aesthetic</span></li>
+                    <li><i data-lucide="alert-circle" width="15" height="15"></i><span>Bloated UI with excessive options creates cognitive load</span></li>
+                    <li><i data-lucide="alert-circle" width="15" height="15"></i><span>Unclear hierarchy between activity-level and task-level content</span></li>
+                    <li><i data-lucide="alert-circle" width="15" height="15"></i><span>Interaction patterns feel dated compared to contemporary tools</span></li>
+                </ul>
             </div>
+        </div>
+    </div>
 
-            <div class="status-badge">
-                Active Project — Designer Promoted, Implementation Ongoing
-            </div>
+    <!-- COACHING APPROACH -->
+    <div style="background: var(--bg); border-bottom: 1px solid var(--rule);">
+        <div class="wrap" style="padding-top: 80px; padding-bottom: 80px;">
+            <span class="eyebrow">Coaching Philosophy</span>
+            <h2 class="section-h2">My Coaching Approach</h2>
+            <p class="section-lead">Instead of directing the designer toward a specific solution, I taught her to evaluate design options systematically using three lenses.</p>
 
-            <!-- Current State -->
-            <div class="section-h3-with-icon" style="margin-top: 3rem;">
-                <i data-lucide="eye" width="20" height="20"></i>
-                <span>Current State: The Legacy Experience</span>
-            </div>
-
-            <div class="design-artifact">
-                <div class="diagram-title">What We Were Modernizing</div>
-                <img src="images/legacy-procedure-interface.png" alt="Legacy procedure editing interface showing outdated visual design, bloated UI, and unclear hierarchy" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1.5rem;">
-                <p class="caption">Original interface: Outdated visual design, bloated UI with excessive options, and unclear hierarchy between activity-level and task-level content</p>
-            </div>
-
-            <h4>Problems to Solve:</h4>
-            <ul class="icon-list">
-                <li>
-                    <i data-lucide="alert-circle" width="16" height="16"></i>
-                    <span>Outdated visual design doesn't align with modern platform aesthetic</span>
-                </li>
-                <li>
-                    <i data-lucide="alert-circle" width="16" height="16"></i>
-                    <span>Bloated UI with excessive options creates cognitive load</span>
-                </li>
-                <li>
-                    <i data-lucide="alert-circle" width="16" height="16"></i>
-                    <span>Unclear hierarchy between activity-level and task-level content</span>
-                </li>
-                <li>
-                    <i data-lucide="alert-circle" width="16" height="16"></i>
-                    <span>Interaction patterns feel dated compared to contemporary tools</span>
-                </li>
-            </ul>
-
-            <!-- My Coaching Approach -->
-            <div class="h2-with-icon" style="margin-top: 3rem;">
-                <div class="section-icon-chip">
-                    <i data-lucide="book-open" width="22" height="22"></i>
-                </div>
-                <h2>My Coaching Approach</h2>
-            </div>
-
-            <p>Instead of directing the designer toward a specific solution, I taught her to evaluate design options systematically using three lenses:</p>
-
-            <!-- Coaching process flow -->
-            <div class="design-artifact">
-                <div class="diagram-title">How I Structure a Coaching Engagement</div>
-                <div class="coaching-flow">
-                    <div class="coaching-step">
-                        <div class="coaching-step-num">1</div>
-                        <div class="coaching-step-body">
-                            <strong>Observe without directing</strong>
-                            <p>I watch how the designer approaches the problem before offering any guidance—understanding their instincts helps me know where to push.</p>
+            <div style="max-width: 720px; margin-top: 48px; background: var(--white); border: 1px solid var(--rule); border-radius: 6px; padding: 32px;">
+                <p style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); margin-bottom: 24px;">How I Structure a Coaching Engagement</p>
+                <div class="stepper">
+                    <div class="step">
+                        <div class="step-num">1</div>
+                        <div class="step-body">
+                            <span class="step-title">Observe without directing</span>
+                            <p class="step-desc">I watch how the designer approaches the problem before offering any guidance — understanding their instincts helps me know where to push.</p>
                         </div>
                     </div>
-                    <div class="coaching-step">
-                        <div class="coaching-step-num">2</div>
-                        <div class="coaching-step-body">
-                            <strong>Frame the evaluation lens</strong>
-                            <p>I introduce a structured way of looking at the work—visual hierarchy, interaction patterns, user impact—so critique becomes systematic, not subjective.</p>
+                    <div class="step">
+                        <div class="step-num">2</div>
+                        <div class="step-body">
+                            <span class="step-title">Frame the evaluation lens</span>
+                            <p class="step-desc">I introduce a structured way of looking at the work — visual hierarchy, interaction patterns, user impact — so critique becomes systematic, not subjective.</p>
                         </div>
                     </div>
-                    <div class="coaching-step">
-                        <div class="coaching-step-num">3</div>
-                        <div class="coaching-step-body">
-                            <strong>Let them explore options</strong>
-                            <p>I create space for the designer to generate and compare directions, coaching them to articulate the tradeoffs rather than just picking a favorite.</p>
+                    <div class="step">
+                        <div class="step-num">3</div>
+                        <div class="step-body">
+                            <span class="step-title">Let them explore options</span>
+                            <p class="step-desc">I create space for the designer to generate and compare directions, coaching them to articulate the tradeoffs rather than just picking a favorite.</p>
                         </div>
                     </div>
-                    <div class="coaching-step">
-                        <div class="coaching-step-num">4</div>
-                        <div class="coaching-step-body">
-                            <strong>Evaluate against user impact</strong>
-                            <p>We pressure-test every option against who it serves well and who it disadvantages—turning design decisions into user advocacy.</p>
+                    <div class="step">
+                        <div class="step-num">4</div>
+                        <div class="step-body">
+                            <span class="step-title">Evaluate against user impact</span>
+                            <p class="step-desc">We pressure-test every option against who it serves well and who it disadvantages — turning design decisions into user advocacy.</p>
                         </div>
                     </div>
-                    <div class="coaching-step">
-                        <div class="coaching-step-num">5</div>
-                        <div class="coaching-step-body">
-                            <strong>Reflect on the decision</strong>
-                            <p>After choices are made, I help the designer name what they learned and how they'd apply it next time. This is where the skill actually sticks.</p>
+                    <div class="step">
+                        <div class="step-num">5</div>
+                        <div class="step-body">
+                            <span class="step-title">Reflect on the decision</span>
+                            <p class="step-desc">After choices are made, I help the designer name what they learned and how they'd apply it next time. This is where the skill actually sticks.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Three evaluation lenses as strategy cards -->
-            <div class="section-h3-with-icon">
-                <i data-lucide="search" width="20" height="20"></i>
-                <span>The Three Evaluation Lenses</span>
-            </div>
-
-            <div class="strategy-cards">
-                <div class="strategy-card">
-                    <div class="strategy-card-header">
-                        <i data-lucide="layout" width="22" height="22"></i>
-                        <h4>Visual Design Assessment</h4>
+            <!-- Three Evaluation Lenses -->
+            <div style="margin-top: 56px;">
+                <p style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--light); margin-bottom: 20px; display: flex; align-items: center; gap: 8px;"><i data-lucide="search" width="14" height="14" style="color: var(--blue);"></i> The Three Evaluation Lenses</p>
+                <div class="seam-grid cols-3">
+                    <div class="seam-card">
+                        <i data-lucide="layout" class="card-icon" width="24" height="24"></i>
+                        <h3 class="card-title" style="font-size: 16px;">Visual Design Assessment</h3>
+                        <div class="card-body">
+                            <ul>
+                                <li>How does visual hierarchy guide user attention?</li>
+                                <li>Does spacing create natural scanning patterns?</li>
+                                <li>Are interactive elements clearly afforded?</li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul>
-                        <li>How does visual hierarchy guide user attention?</li>
-                        <li>Does spacing create natural scanning patterns?</li>
-                        <li>Are interactive elements clearly afforded?</li>
-                    </ul>
-                </div>
-                <div class="strategy-card">
-                    <div class="strategy-card-header">
-                        <i data-lucide="mouse-pointer" width="22" height="22"></i>
-                        <h4>Interaction Pattern Analysis</h4>
+                    <div class="seam-card tint">
+                        <i data-lucide="mouse-pointer" class="card-icon" width="24" height="24"></i>
+                        <h3 class="card-title" style="font-size: 16px;">Interaction Pattern Analysis</h3>
+                        <div class="card-body">
+                            <ul>
+                                <li>How discoverable are key actions?</li>
+                                <li>Does the pattern match user mental models?</li>
+                                <li>What's the cognitive load at each step?</li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul>
-                        <li>How discoverable are key actions?</li>
-                        <li>Does the pattern match user mental models?</li>
-                        <li>What's the cognitive load at each step?</li>
-                    </ul>
-                </div>
-                <div class="strategy-card">
-                    <div class="strategy-card-header">
-                        <i data-lucide="users" width="22" height="22"></i>
-                        <h4>User Impact Consideration</h4>
+                    <div class="seam-card">
+                        <i data-lucide="users" class="card-icon" width="24" height="24"></i>
+                        <h3 class="card-title" style="font-size: 16px;">User Impact Consideration</h3>
+                        <div class="card-body">
+                            <ul>
+                                <li>Who does this serve well?</li>
+                                <li>Who might struggle with this approach?</li>
+                                <li>How does it balance different user needs?</li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul>
-                        <li>Who does this serve well?</li>
-                        <li>Who might struggle with this approach?</li>
-                        <li>How does it balance different user needs?</li>
-                    </ul>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- The Design Options -->
-            <div class="h2-with-icon">
-                <div class="section-icon-chip">
-                    <i data-lucide="git-branch" width="22" height="22"></i>
+    <!-- THE DESIGN OPTIONS -->
+    <div style="padding: 80px 0; border-bottom: 1px solid var(--rule);">
+        <div class="wrap">
+            <span class="eyebrow">Design Evaluation</span>
+            <h2 class="section-h2">The Design Options</h2>
+            <p class="section-lead">The designer explored two fundamentally different approaches. I coached her to create a systematic comparison that would help stakeholders understand the tradeoffs.</p>
+
+            <!-- Option 1 -->
+            <div style="margin-top: 56px;">
+                <p style="font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 20px;">Option 1: Prescriptive, Structured Approach</p>
+                <div class="img-block">
+                    <img src="images/option-1-prescriptive.png" alt="Prescriptive approach showing explicit UI controls, structured layout with clear boundaries">
+                    <p class="caption">Prescriptive approach: Explicit controls and guidance with visible structure and clear boundaries</p>
                 </div>
-                <h2>The Design Options</h2>
-            </div>
 
-            <p>The designer explored two fundamentally different approaches. I coached her to create a systematic comparison that would help stakeholders understand the tradeoffs.</p>
-
-            <!-- Visual Design Comparison -->
-            <div class="design-artifact">
-                <div class="diagram-title">Design Evaluation Framework</div>
-
-                <h4>Option 1: Prescriptive, Structured Approach</h4>
-                <img src="images/option-1-prescriptive.png" alt="Prescriptive approach showing explicit UI controls, structured layout with clear boundaries" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1.5rem;">
-                <p class="caption">Prescriptive approach: Explicit controls and guidance with visible structure and clear boundaries</p>
-
-                <div class="evaluation-section">
-                    <div class="category-header">
-                        <i data-lucide="eye" width="14" height="14"></i>
+                <div class="eval-section">
+                    <div class="eval-category">
+                        <i data-lucide="eye" width="13" height="13"></i>
                         Visual Design Analysis
                     </div>
-
-                    <div class="evaluation-row">
-                        <div class="evaluation-card strengths">
-                            <h4>
-                                <i data-lucide="check-circle" width="16" height="16"></i>
-                                Strengths
-                            </h4>
+                    <div class="eval-row">
+                        <div class="eval-card strengths">
+                            <h4><i data-lucide="check-circle" width="14" height="14"></i> Strengths</h4>
                             <ul>
                                 <li>Clear visual hierarchy separates activity-level content from nested task/note details</li>
-                                <li>Explicit button labels ("Add task", "Add note", image/file icons) provide clear affordances</li>
+                                <li>Explicit button labels ("Add task", "Add note") provide clear affordances</li>
                                 <li>Familiar "Add [content type]" pattern reduces learning curve for new users</li>
                                 <li>Structured layout with consistent spacing creates predictable scanning pattern</li>
                             </ul>
                         </div>
-
-                        <div class="evaluation-card concerns">
-                            <h4>
-                                <i data-lucide="alert-triangle" width="16" height="16"></i>
-                                Concerns
-                            </h4>
+                        <div class="eval-card concerns">
+                            <h4><i data-lucide="alert-triangle" width="14" height="14"></i> Concerns</h4>
                             <ul>
                                 <li>Multiple button options at bottom of each activity could create visual clutter and decision fatigue</li>
-                                <li>"Add participant(s) and system(s)" secondary section competes with activity name for visual priority</li>
-                                <li>Still rather rigid structure — is modernization enough to differentiate from legacy experience?</li>
+                                <li>"Add participant(s) and system(s)" section competes with activity name for visual priority</li>
+                                <li>Still rather rigid — is modernization enough to differentiate from legacy experience?</li>
                                 <li>Visual weight distributed across many UI elements rather than focusing on primary actions</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="category-header">
-                        <i data-lucide="mouse-pointer" width="14" height="14"></i>
+                    <div class="eval-category" style="margin-top: 16px;">
+                        <i data-lucide="mouse-pointer" width="13" height="13"></i>
                         Interaction Pattern Analysis
                     </div>
-
-                    <div class="evaluation-row">
-                        <div class="evaluation-card strengths">
-                            <h4>
-                                <i data-lucide="check-circle" width="16" height="16"></i>
-                                Strengths
-                            </h4>
+                    <div class="eval-row">
+                        <div class="eval-card strengths">
+                            <h4><i data-lucide="check-circle" width="14" height="14"></i> Strengths</h4>
                             <ul>
                                 <li>Explicit controls make all actions discoverable without exploration</li>
-                                <li>Users can add different content types (tasks, notes, images, docs) in any order</li>
+                                <li>Users can add different content types in any order</li>
                                 <li>Button group always visible at activity level — no hidden interactions</li>
                             </ul>
                         </div>
-
-                        <div class="evaluation-card concerns">
-                            <h4>
-                                <i data-lucide="alert-triangle" width="16" height="16"></i>
-                                Concerns
-                            </h4>
+                        <div class="eval-card concerns">
+                            <h4><i data-lucide="alert-triangle" width="14" height="14"></i> Concerns</h4>
                             <ul>
-                                <li>Requiring users to choose content type upfront (task vs. note vs. image) adds cognitive load before they can start working</li>
+                                <li>Requiring users to choose content type upfront adds cognitive load before they can start working</li>
                                 <li>Every activity shows all options regardless of whether user needs them</li>
                                 <li>Pattern assumes users know what content type they need before creating it</li>
                             </ul>
@@ -915,26 +462,27 @@
                     </div>
                 </div>
 
-                <div class="key-insight">
-                    <strong>User Impact:</strong> This approach serves conservative users transitioning from legacy systems (familiar patterns reduce change resistance) and new users who need scaffolding to understand available features. However, power users who want to work quickly without clicking through options may find the structure adds friction, and teams with simple documentation needs may feel the structure is over-engineered.
+                <div class="user-impact">
+                    <p><strong>User Impact:</strong> This approach serves conservative users transitioning from legacy systems and new users who need scaffolding. However, power users who want to work quickly may find the structure adds friction, and teams with simple documentation needs may feel it's over-engineered.</p>
+                </div>
+            </div>
+
+            <!-- Option 2 -->
+            <div style="margin-top: 72px;">
+                <p style="font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 20px;">Option 2: Flexible, Free-Form Approach</p>
+                <div class="img-block">
+                    <img src="images/option-2-flexible.png" alt="Flexible approach showing minimal interface, less exposed structure, more like modern authoring tools">
+                    <p class="caption">Flexible approach: Less exposed structure with more flexible editing experience, interaction pattern similar to Notion</p>
                 </div>
 
-                <h4>Option 2: Flexible, Free-Form Approach</h4>
-                <img src="images/option-2-flexible.png" alt="Flexible approach showing minimal interface, less exposed structure, more like modern authoring tools" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1.5rem;">
-                <p class="caption">Flexible approach: Less exposed structure with more flexible editing experience, interaction pattern similar to Notion</p>
-
-                <div class="evaluation-section">
-                    <div class="category-header">
-                        <i data-lucide="eye" width="14" height="14"></i>
+                <div class="eval-section">
+                    <div class="eval-category">
+                        <i data-lucide="eye" width="13" height="13"></i>
                         Visual Design Analysis
                     </div>
-
-                    <div class="evaluation-row">
-                        <div class="evaluation-card strengths">
-                            <h4>
-                                <i data-lucide="check-circle" width="16" height="16"></i>
-                                Strengths
-                            </h4>
+                    <div class="eval-row">
+                        <div class="eval-card strengths">
+                            <h4><i data-lucide="check-circle" width="14" height="14"></i> Strengths</h4>
                             <ul>
                                 <li>Very clean, minimal interface lets procedure content be the visual focus</li>
                                 <li>Reduced chrome and UI controls create more breathing room for actual content</li>
@@ -942,12 +490,8 @@
                                 <li>Modern aesthetic aligns with contemporary collaboration tools users already know</li>
                             </ul>
                         </div>
-
-                        <div class="evaluation-card concerns">
-                            <h4>
-                                <i data-lucide="alert-triangle" width="16" height="16"></i>
-                                Concerns
-                            </h4>
+                        <div class="eval-card concerns">
+                            <h4><i data-lucide="alert-triangle" width="14" height="14"></i> Concerns</h4>
                             <ul>
                                 <li>Slash command (/) interaction completely hidden — no visual cue this functionality exists</li>
                                 <li>Editing actions tucked behind icons without labels — users must discover through trial</li>
@@ -957,275 +501,169 @@
                         </div>
                     </div>
 
-                    <div class="category-header">
-                        <i data-lucide="mouse-pointer" width="14" height="14"></i>
+                    <div class="eval-category" style="margin-top: 16px;">
+                        <i data-lucide="mouse-pointer" width="13" height="13"></i>
                         Interaction Pattern Analysis
                     </div>
-
-                    <div class="evaluation-row">
-                        <div class="evaluation-card strengths">
-                            <h4>
-                                <i data-lucide="check-circle" width="16" height="16"></i>
-                                Strengths
-                            </h4>
+                    <div class="eval-row">
+                        <div class="eval-card strengths">
+                            <h4><i data-lucide="check-circle" width="14" height="14"></i> Strengths</h4>
                             <ul>
-                                <li>"/" slash command allows fast content insertion for users who learn it — type naturally, invoke menu when needed</li>
-                                <li>Inline editing reduces mode-switching — users stay in content flow rather than clicking buttons</li>
+                                <li>"/" slash command allows fast content insertion for users who learn it</li>
+                                <li>Inline editing reduces mode-switching — users stay in content flow</li>
                                 <li>Flexible text entry removes friction — start typing immediately without choosing content type</li>
-                                <li>Modern pattern familiar from Notion, Slack, ClickUp — low learning curve for users of these tools</li>
+                                <li>Modern pattern familiar from Notion, Slack, ClickUp</li>
                             </ul>
                         </div>
-
-                        <div class="evaluation-card concerns">
-                            <h4>
-                                <i data-lucide="alert-triangle" width="16" height="16"></i>
-                                Concerns
-                            </h4>
+                        <div class="eval-card concerns">
+                            <h4><i data-lucide="alert-triangle" width="14" height="14"></i> Concerns</h4>
                             <ul>
-                                <li>Discoverability crisis — users won't know "/" triggers options without onboarding or documentation</li>
-                                <li>Hidden functionality creates "expert" vs. "novice" divide — power users thrive, new users struggle</li>
-                                <li>No visual distinction between task ("a. Warmly greet customer") vs. descriptive text — semantic meaning lost</li>
-                                <li>Abstraction through generic terms ("text", "lettered list", "toggle list") may obscure that this is process documentation with specific structure and the terms are non-standard</li>
+                                <li>Discoverability crisis — users won't know "/" triggers options without onboarding</li>
+                                <li>Hidden functionality creates "expert" vs. "novice" divide</li>
+                                <li>No visual distinction between task vs. descriptive text — semantic meaning lost</li>
+                                <li>Generic terms ("text", "lettered list") may obscure that this is structured process documentation</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="key-insight">
-                    <strong>User Impact:</strong> This approach serves new customers familiar with modern editing tools (immediate comfort with interaction patterns), users who want to document quickly without UI friction, and teams creating simple, narrative-style procedures without complex task hierarchies. However, users expecting explicit process structure (activities → tasks → notes) may struggle with the flexible format not enforcing this, teams needing consistency across documentation may see too much flexibility leading to varied patterns, and anyone without prior exposure to slash-command interfaces will face a completely hidden functionality crisis.
+                <div class="user-impact">
+                    <p><strong>User Impact:</strong> This approach serves new customers familiar with modern editing tools and users who want to document quickly without friction. However, users expecting explicit process structure may struggle, and anyone without prior exposure to slash-command interfaces will face a completely hidden functionality crisis.</p>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Strategic Decision & Evolution -->
-            <div class="h2-with-icon">
-                <div class="section-icon-chip">
-                    <i data-lucide="navigation" width="22" height="22"></i>
-                </div>
-                <h2>Strategic Decision &amp; Evolution</h2>
+    <!-- STRATEGIC DECISION -->
+    <div style="background: var(--bg); border-bottom: 1px solid var(--rule);">
+        <div class="wrap" style="padding-top: 80px; padding-bottom: 80px;">
+            <span class="eyebrow">Decision &amp; Evolution</span>
+            <h2 class="section-h2">Strategic Decision &amp; Evolution</h2>
+
+            <div style="max-width: 720px; margin-top: 32px;">
+                <p style="font-size: 17px; color: var(--mid); line-height: 1.75; margin-bottom: 16px;">The team chose Option 1 (prescriptive approach) because our existing user base expected explicit process structure and we needed to minimize change resistance during the modernization.</p>
+                <p style="font-size: 17px; color: var(--mid); line-height: 1.75; margin-bottom: 32px;">We continued iterating on the procedure view design, working toward a final version that would build on the strengths we identified. As we refined the details, I coached the designer to collaborate with our design system team to align similar interaction patterns across platform capabilities — work the design system team ultimately picked up to ensure consistency.</p>
             </div>
 
-            <p>The team chose Option 1 (prescriptive approach) because our existing user base expected explicit process structure and we needed to minimize change resistance during the modernization.</p>
-
-            <p>We continued iterating on the procedure view design, working toward a final version that would build on the strengths we identified. As we refined the details, I coached the designer to collaborate with our design system team to align similar interaction patterns across platform capabilities—work the design system team ultimately picked up to ensure consistency.</p>
-
-            <div class="design-artifact">
-                <div class="diagram-title">Final Procedure View Design</div>
-                <img src="images/final-procedure-design.png" alt="Final procedure view design incorporating iteration learnings and design system alignment" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1.5rem;">
+            <div class="img-block">
+                <img src="images/final-procedure-design.png" alt="Final procedure view design incorporating iteration learnings and design system alignment">
                 <p class="caption">Final procedure view: Refined through iteration, incorporating evaluation learnings and aligned with platform design system patterns</p>
             </div>
 
-            <div class="key-insight">
-                <strong>Coaching Moment:</strong> Rather than viewing this as "handing off" work to another team, I coached the designer to see the design system team's involvement as validation that our patterns were valuable enough to scale across the platform. This is exactly the kind of strategic collaboration senior designers need to recognize and leverage.
+            <div class="coaching-insight" style="max-width: 720px; margin-top: 32px;">
+                <p><strong>Coaching Moment:</strong> Rather than viewing this as "handing off" work to another team, I coached the designer to see the design system team's involvement as validation that our patterns were valuable enough to scale across the platform. This is exactly the kind of strategic collaboration senior designers need to recognize and leverage.</p>
             </div>
 
-            <p>Simultaneously, we shifted focus to designing a complementary map view visualization. After consulting with engineering, we learned the map view presented bigger technical unknowns that needed deeper exploration. As a complement to the procedure view, the map view would serve our existing user base who needed to visualize process flows—making it the ideal candidate for the deep user testing and technical validation we needed to conduct next.</p>
+            <div style="max-width: 720px; margin-top: 32px;">
+                <p style="font-size: 17px; color: var(--mid); line-height: 1.75; margin-bottom: 16px;">Simultaneously, we shifted focus to designing a complementary map view visualization. After consulting with engineering, we learned the map view presented bigger technical unknowns that needed deeper exploration.</p>
+                <p style="font-size: 17px; color: var(--mid); line-height: 1.75;">The designer is currently iterating on the map view approach through user testing with our target user group, applying the same systematic evaluation framework we established during the initial comparison.</p>
+            </div>
 
-            <p>The designer is currently iterating on the map view approach through user testing with our target user group, applying the same systematic evaluation framework we established during the initial comparison.</p>
-
-            <div class="quote-block">
+            <div class="pull-quote" style="max-width: 720px;">
                 <p>"The best way to develop senior-level designers is to teach them how to think systematically about design decisions, not just execute solutions."</p>
             </div>
-
-            <!-- Impact & Outcomes -->
-            <div class="h2-with-icon">
-                <div class="section-icon-chip">
-                    <i data-lucide="trending-up" width="22" height="22"></i>
-                </div>
-                <h2>Impact &amp; Outcomes</h2>
-            </div>
-
-            <div class="impact-section">
-                <div class="impact-grid">
-                    <div class="impact-item">
-                        <h4>Product Impact</h4>
-                        <ul>
-                            <li>Modernized interface approach approved by stakeholders</li>
-                            <li>Systematic evaluation framework now used across team for design decisions</li>
-                            <li>Design system team adopted interaction patterns for platform-wide consistency</li>
-                            <li>User testing validating map view iteration (ongoing)</li>
-                            <li>Strategic collaboration demonstrated cross-team design maturity</li>
-                        </ul>
-                    </div>
-                    <div class="impact-item">
-                        <h4>Designer Development Impact</h4>
-                        <ul>
-                            <li><strong>Promoted from mid-level to senior designer</strong></li>
-                            <li>Developed systematic approach to visual design evaluation</li>
-                            <li>Built confidence presenting design rationale to stakeholders</li>
-                            <li>Learned to recognize when design system collaboration adds strategic value</li>
-                            <li>Navigated technical constraints by consulting engineering early</li>
-                            <li>Now coaches other designers using similar frameworks</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reflection -->
-            <div class="reflection-section">
-                <h3>Leadership Reflection</h3>
-                <p><strong>On coaching through craft:</strong> The best way to develop senior-level designers is to teach them how to think systematically about design decisions, not just execute solutions. By creating evaluation frameworks together, I helped this designer build lasting analytical skills she now applies to every project.</p>
-                <p><strong>On developing judgment, not just taste:</strong> Visual design isn't just about what looks good—it's about understanding why certain approaches serve certain users better than others. The side-by-side comparison forced explicit discussion of tradeoffs, which is exactly the kind of thinking senior designers need to demonstrate.</p>
-                <p><strong>On strategic collaboration:</strong> When the design system team picked up our interaction patterns, I coached the designer to view this as success, not loss of ownership. Learning to recognize when your work scales beyond your immediate project is a critical senior-level insight.</p>
-                <p><strong>Most importantly:</strong> This designer's promotion wasn't because she executed my vision—it was because she developed her own systematic approach to design evaluation that she'll carry throughout her career. That's the real measure of successful coaching.</p>
-            </div>
-
-        </section>
-
-        <!-- Case Navigation -->
-        <div class="case-navigation">
-            <div>
-                <a href="leadership.html" class="btn btn-secondary">&larr; Previous: Leadership</a>
-            </div>
-            <div>
-                <a href="index.html" class="btn btn-primary">Next: Overview &rarr;</a>
-            </div>
         </div>
-
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Heidi Lowry. Available for leadership roles in Canada and US. Made with love ❤️ and AI 🤖</p>
+    <!-- IMPACT -->
+    <div style="padding: 80px 0; border-bottom: 1px solid var(--rule);">
+        <div class="wrap">
+            <span class="eyebrow">Impact &amp; Outcomes</span>
+            <h2 class="section-h2">What changed</h2>
+
+            <div class="impact-grid" style="margin-top: 40px;">
+                <div class="impact-item">
+                    <h4>Product Impact</h4>
+                    <ul>
+                        <li>Modernized interface approach approved by stakeholders</li>
+                        <li>Systematic evaluation framework now used across team for design decisions</li>
+                        <li>Design system team adopted interaction patterns for platform-wide consistency</li>
+                        <li>User testing validating map view iteration (ongoing)</li>
+                        <li>Strategic collaboration demonstrated cross-team design maturity</li>
+                    </ul>
+                </div>
+                <div class="impact-item">
+                    <h4>Designer Development Impact</h4>
+                    <ul>
+                        <li><strong>Promoted from mid-level to senior designer</strong></li>
+                        <li>Developed systematic approach to visual design evaluation</li>
+                        <li>Built confidence presenting design rationale to stakeholders</li>
+                        <li>Learned to recognize when design system collaboration adds strategic value</li>
+                        <li>Navigated technical constraints by consulting engineering early</li>
+                        <li>Now coaches other designers using similar frameworks</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="reflection" style="margin-top: 0;">
+                <span class="eyebrow" style="margin-top: 0;">Leadership Reflection</span>
+                <div class="reflection-body">
+                    <p><strong>On coaching through craft:</strong> The best way to develop senior-level designers is to teach them how to think systematically about design decisions, not just execute solutions. By creating evaluation frameworks together, I helped this designer build lasting analytical skills she now applies to every project.</p>
+                    <p><strong>On developing judgment, not just taste:</strong> Visual design isn't just about what looks good — it's about understanding why certain approaches serve certain users better than others. The side-by-side comparison forced explicit discussion of tradeoffs, which is exactly the kind of thinking senior designers need to demonstrate.</p>
+                    <p><strong>On strategic collaboration:</strong> When the design system team picked up our interaction patterns, I coached the designer to view this as success, not loss of ownership. Learning to recognize when your work scales beyond your immediate project is a critical senior-level insight.</p>
+                    <p><strong>Most importantly:</strong> This designer's promotion wasn't because she executed my vision — it was because she developed her own systematic approach to design evaluation that she'll carry throughout her career. That's the real measure of successful coaching.</p>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <!-- CASE NAV -->
+    <div class="wrap">
+        <div class="case-nav">
+            <div class="case-nav-inner">
+                <a href="leadership.html" class="case-nav-link">
+                    <span class="case-nav-dir">← Previous</span>
+                    <span class="case-nav-title">Leadership</span>
+                </a>
+                <a href="index.html" class="case-nav-link next">
+                    <span class="case-nav-dir">Next →</span>
+                    <span class="case-nav-title">Overview</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <span class="footer-name">Heidi Lowry</span>
+        <span class="footer-copy">&copy; 2026 &middot; Available for leadership roles in Canada and US</span>
     </footer>
 
-    <!-- Lightbox modal -->
-    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image viewer">
-        <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
-        <button class="lightbox-prev" aria-label="Previous image">&#8249;</button>
-        <button class="lightbox-next" aria-label="Next image">&#8250;</button>
-        <div class="lightbox-main">
-            <img id="lightbox-img" src="" alt="">
-            <p id="lightbox-caption" class="lightbox-caption"></p>
+    <!-- LIGHTBOX -->
+    <div id="lb" class="lightbox" aria-hidden="true">
+        <button class="lb-close">&times;</button>
+        <button class="lb-prev">&#8249;</button>
+        <button class="lb-next">&#8250;</button>
+        <div class="lb-main">
+            <img id="lb-img" src="" alt="">
+            <p id="lb-cap"></p>
         </div>
-        <div class="lightbox-strip">
-            <div id="lightbox-thumbs" class="lightbox-thumbs"></div>
-        </div>
+        <div class="lb-strip"><div id="lb-thumbs" class="lb-thumbs"></div></div>
     </div>
 
     <script>
         lucide.createIcons();
-        (function() {
-            var toggle = document.querySelector('.nav-toggle');
-            var links  = document.getElementById('nav-links');
-            if (!toggle || !links) return;
-            toggle.addEventListener('click', function() {
-                var open = links.classList.toggle('open');
-                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-                var icon = toggle.querySelector('i');
-                if (icon) {
-                    icon.setAttribute('data-lucide', open ? 'x' : 'menu');
-                    lucide.createIcons();
-                }
-            });
-        })();
 
-        // ============================================================
-        // LIGHTBOX
-        // ============================================================
-        (function () {
-            // Collect all content images inside .design-artifact
-            // This naturally excludes nav logos and any icon SVGs.
-            var imgEls = Array.from(
-                document.querySelectorAll('.design-artifact img')
-            );
-
-            if (imgEls.length === 0) return;
-
-            // Build the data array
-            var images = imgEls.map(function (el) {
-                // Look for the caption immediately after this image, not just
-                // any .caption in the parent (which breaks when multiple images
-                // share the same .design-artifact wrapper).
-                var caption = el.getAttribute('alt') || '';
-                var next = el.nextElementSibling;
-                if (next && next.classList.contains('caption')) {
-                    caption = next.textContent.trim();
-                }
-                return { src: el.getAttribute('src'), alt: el.getAttribute('alt') || '', caption: caption };
-            });
-
-            // DOM refs
-            var lightbox     = document.getElementById('lightbox');
-            var lightboxImg  = document.getElementById('lightbox-img');
-            var lightboxCap  = document.getElementById('lightbox-caption');
-            var thumbsEl     = document.getElementById('lightbox-thumbs');
-            var btnClose     = lightbox.querySelector('.lightbox-close');
-            var btnPrev      = lightbox.querySelector('.lightbox-prev');
-            var btnNext      = lightbox.querySelector('.lightbox-next');
-
-            var currentIndex = 0;
-            var thumbEls     = [];
-
-            // Build thumbnail strip
-            images.forEach(function (img, i) {
-                var thumb = document.createElement('img');
-                thumb.src = img.src;
-                thumb.alt = img.alt;
-                thumb.className = 'lightbox-thumb';
-                thumb.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    goTo(i);
-                });
-                thumbsEl.appendChild(thumb);
-                thumbEls.push(thumb);
-            });
-
-            function goTo(index) {
-                currentIndex = (index + images.length) % images.length;
-                var img = images[currentIndex];
-                lightboxImg.src = img.src;
-                lightboxImg.alt = img.alt;
-                lightboxCap.textContent = img.caption;
-
-                // Update thumbnail active state and scroll active thumb into view
-                thumbEls.forEach(function (t, i) {
-                    t.classList.toggle('is-active', i === currentIndex);
-                });
-                var activeThumb = thumbEls[currentIndex];
-                if (activeThumb) {
-                    activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                }
-            }
-
-            function openLightbox(index) {
-                goTo(index);
-                lightbox.classList.add('is-open');
-                lightbox.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
-                btnClose.focus();
-            }
-
-            function closeLightbox() {
-                lightbox.classList.remove('is-open');
-                lightbox.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
-            }
-
-            // Wire up click on each source image
-            imgEls.forEach(function (el, i) {
-                el.addEventListener('click', function () {
-                    openLightbox(i);
-                });
-            });
-
-            // Controls
-            btnClose.addEventListener('click', closeLightbox);
-            btnPrev.addEventListener('click', function (e) { e.stopPropagation(); goTo(currentIndex - 1); });
-            btnNext.addEventListener('click', function (e) { e.stopPropagation(); goTo(currentIndex + 1); });
-
-            // Click outside main image to close (click on dark overlay)
-            lightbox.addEventListener('click', function (e) {
-                if (e.target === lightbox) closeLightbox();
-            });
-
-            // Keyboard support
-            document.addEventListener('keydown', function (e) {
-                if (!lightbox.classList.contains('is-open')) return;
-                if (e.key === 'Escape')      closeLightbox();
-                if (e.key === 'ArrowLeft')   goTo(currentIndex - 1);
-                if (e.key === 'ArrowRight')  goTo(currentIndex + 1);
-            });
+        // Lightbox — picks up all .img-block imgs
+        (function(){
+            var imgs = Array.from(document.querySelectorAll('.img-block img'));
+            if(!imgs.length) return;
+            var data = imgs.map(function(el){ var cap = el.nextElementSibling; return { src: el.src, alt: el.alt, cap: cap ? cap.textContent : el.alt }; });
+            var lb = document.getElementById('lb');
+            var lbImg = document.getElementById('lb-img');
+            var lbCap = document.getElementById('lb-cap');
+            var thumbsEl = document.getElementById('lb-thumbs');
+            var thumbEls = []; var cur = 0;
+            data.forEach(function(d,i){ var t = document.createElement('img'); t.src=d.src; t.alt=d.alt; t.className='lb-thumb'; t.onclick=function(e){e.stopPropagation();goTo(i);}; thumbsEl.appendChild(t); thumbEls.push(t); });
+            function goTo(i){ cur=(i+data.length)%data.length; lbImg.src=data[cur].src; lbImg.alt=data[cur].alt; lbCap.textContent=data[cur].cap; thumbEls.forEach(function(t,j){t.classList.toggle('active',j===cur);}); if(thumbEls[cur]) thumbEls[cur].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
+            function open(i){ goTo(i); lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+            function close(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+            imgs.forEach(function(el,i){ el.onclick=function(){open(i);}; });
+            lb.querySelector('.lb-close').onclick=close;
+            lb.querySelector('.lb-prev').onclick=function(e){e.stopPropagation();goTo(cur-1);};
+            lb.querySelector('.lb-next').onclick=function(e){e.stopPropagation();goTo(cur+1);};
+            lb.onclick=function(e){if(e.target===lb)close();};
+            document.onkeydown=function(e){ if(!lb.classList.contains('open'))return; if(e.key==='Escape')close(); if(e.key==='ArrowLeft')goTo(cur-1); if(e.key==='ArrowRight')goTo(cur+1); };
         })();
     </script>
 </body>
