@@ -1,2 +1,3 @@
 User-agent: *
 Disallow: /capital-one.html
+Disallow: /think-session.html

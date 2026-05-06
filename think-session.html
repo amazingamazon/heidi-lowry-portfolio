@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta http-equiv="X-Robots-Tag" content="noindex, nofollow">
+  <title>Think Company — Heidi Lowry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: white;
+      color: #2d3748;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    #slides-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .scenario-top-border {
+      height: 4px;
+      background: #bee3f8;
+      flex-shrink: 0;
+    }
+
+    .scenario-label {
+      position: absolute;
+      top: 1.75rem;
+      left: 3rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #2b6cb0;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 6rem;
+      padding-top: 5.5rem;
+    }
+
+    .slide-content.centered {
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.6rem, 4.5vw, 4.4rem);
+      line-height: 1.2;
+      color: #2d3748;
+      max-width: 760px;
+      font-weight: 400;
+    }
+
+    .slide-content.centered h1 {
+      max-width: 820px;
+    }
+
+    .tagline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+      color: #5a6475;
+      margin-top: 1.5rem;
+      max-width: 580px;
+      line-height: 1.7;
+    }
+
+    .slide-content.centered .tagline {
+      max-width: 640px;
+    }
+
+    #slide-counter {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 2.5rem;
+      font-size: 0.9rem;
+      color: #4a5568;
+      font-family: 'DM Sans', sans-serif;
+      z-index: 100;
+    }
+
+    /* Blue frame slides (3 and 19) */
+    .slide-blue {
+      background: #2b6cb0;
+    }
+    .slide-blue h1 {
+      color: white;
+    }
+    .slide-blue .tagline {
+      color: rgba(255, 255, 255, 0.95);
+    }
+    .slide-blue .scenario-label {
+      color: rgba(255,255,255,1);
+    }
+    /* Slide 18 callback lines */
+    .callback-lines {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .callback-line {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.45rem;
+      color: #2d3748;
+      line-height: 1.5;
+      max-width: 680px;
+      border-left: 4px solid #bee3f8;
+      padding-left: 1.5rem;
+    }
+
+    /* Artifact slide headlines */
+    .h1-artifact {
+      font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+    }
+
+    #btn-prev,
+    #btn-next {
+      position: fixed;
+      bottom: 1.5rem;
+      background: white;
+      border: 2px solid #a0aec0;
+      border-radius: 8px;
+      color: #2d3748;
+      font-size: 1.2rem;
+      width: 3rem;
+      height: 3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+      transition: background 0.15s ease,
+                  color 0.15s ease,
+                  border-color 0.15s ease,
+                  opacity 0.15s ease;
+      opacity: 1;
+    }
+
+    #btn-prev:hover,
+    #btn-next:hover {
+      background: #2b6cb0;
+      color: white;
+      border-color: #2b6cb0;
+      opacity: 1;
+    }
+
+    #btn-prev {
+      right: 5rem;
+    }
+
+    #btn-next {
+      right: 1.5rem;
+    }
+
+    #btn-prev:disabled,
+    #btn-next:disabled {
+      opacity: 0.15;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    @media print {
+      #slide-counter { display: none; }
+      #btn-prev, #btn-next { display: none; }
+      body { overflow: auto; height: auto; }
+      #slides-container { height: auto; }
+      .slide {
+        opacity: 1 !important;
+        position: relative !important;
+        pointer-events: auto !important;
+        page-break-after: always;
+        height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="slides-container">
+
+  <!-- Slide 1: OPEN -->
+  <div class="slide active" id="slide-1">
+    <div class="slide-content">
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2b6cb0; margin-bottom:1.5rem;">Heidi Lowry — Design Leadership & Strategy</p>
+      <h1>My job is to find the through lines.</h1>
+      <div style="width:64px; height:3px; background:#bee3f8; border-radius:2px; margin:1.75rem 0;"></div>
+      <div style="display:grid; grid-template-columns:repeat(3,auto); gap:0 4rem; align-items:start;">
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:5.2rem; color:#2b6cb0; line-height:1.1;">5</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1.05rem; color:#5a6475; margin-top:0.25rem;">product areas</div>
+        </div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:5.2rem; color:#2b6cb0; line-height:1.1;">6</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1.05rem; color:#5a6475; margin-top:0.25rem;">designers globally</div>
+        </div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:5.2rem; color:#2b6cb0; line-height:1.1;">4+</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1.05rem; color:#5a6475; margin-top:0.25rem;">regulated industries</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2: BRIDGE -->
+  <div class="slide" id="slide-2">
+    <div class="slide-content" style="display:grid; grid-template-columns:55% 1fr; gap:0; align-items:center; padding-top:5.5rem;">
+      <div style="padding-right:4rem; border-right:1.5px solid #e2e8f0;">
+        <p style="font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2b6cb0; margin-bottom:1.5rem;">The Through Line</p>
+        <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#5a6475; max-width:600px; line-height:1.7;">UX strategy is synthesis — bringing research, design, content, and product thinking into a coherent point of view a client can act on. My job is to build the team and conditions that make that synthesis possible.</p>
+        <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#2b6cb0; max-width:600px; line-height:1.7; font-weight:500; margin-top:0.75rem;">But you can't find the through lines if people aren't telling you what's actually happening. The synthesis only works if the information is honest.</p>
+        <div style="width:48px; height:3px; background:#bee3f8; border-radius:2px; margin-top:2rem;"></div>
+      </div>
+      <div style="padding-left:4rem; display:flex; flex-direction:column; justify-content:center; gap:2rem;">
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:3.5rem; color:#2b6cb0; line-height:1;">3</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1rem; color:#5a6475; margin-top:0.4rem;">scenarios</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:0.85rem; color:#4a5568;">one through-line</div>
+        </div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:3.5rem; color:#2b6cb0; line-height:1;">30</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1rem; color:#5a6475; margin-top:0.4rem;">minutes</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:0.85rem; color:#4a5568;">to show you how I think</div>
+        </div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:3.5rem; color:#2b6cb0; line-height:1;">1</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1rem; color:#5a6475; margin-top:0.4rem;">instinct</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:0.85rem; color:#4a5568;">everything else follows from it</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: OPEN -->
+  <div class="slide slide-blue" id="slide-3">
+    <div class="slide-content">
+      <h1 style="font-size:clamp(3rem,5.5vw,5rem);">Build an environment where people can tell you the truth.</h1>
+      <p class="tagline">When they can, everything else follows.</p>
+      <div style="margin-top:3rem; padding:2rem 2.5rem; background:rgba(0,0,0,0.15); border-radius:12px; max-width:600px; border-left:4px solid rgba(255,255,255,0.4);">
+        <p style="font-family:'DM Serif Display',serif; font-size:1.4rem; font-style:italic; color:white; line-height:1.6; margin:0;">"Everything I'm going to show you today comes back to this one thing."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: SCENARIO 1 Opener -->
+  <div class="slide" id="slide-4" style="display:flex; flex-direction:row; height:100vh; overflow:hidden;">
+    <div style="width:38%; background:#1a365d; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:3rem 2.5rem; flex-shrink:0; position:relative;">
+      <div style="font-family:'DM Serif Display',serif; font-size:clamp(6rem,12vw,10rem); color:white; opacity:0.9; line-height:1; margin-bottom:1.5rem;">01</div>
+      <div style="width:40px; height:2px; background:rgba(255,255,255,0.3); margin:0 auto 1.5rem;"></div>
+      <div style="font-family:'DM Sans',sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.7); text-align:center;">Career Progression</div>
+    </div>
+    <div style="flex:1; background:white; display:flex; flex-direction:column; justify-content:center; padding:4rem 5rem; position:relative;">
+      <div style="position:absolute; top:2rem; left:5rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:#2b6cb0;">Scenario 1 — Career Progression</div>
+      <h1 style="font-size:clamp(3rem,5vw,5rem); max-width:580px; margin-bottom:1.5rem;">She told me she was being overlooked.</h1>
+      <p style="font-family:'DM Sans',sans-serif; font-size:clamp(1.1rem,1.8vw,1.35rem); color:#4a5568; line-height:1.7; max-width:500px;">I heard it. She got promoted.</p>
+    </div>
+  </div>
+
+  <!-- Slide 5: SCENARIO 1 -->
+  <div class="slide" id="slide-5">
+    <div class="scenario-top-border"></div>
+    <div class="scenario-label">Scenario 1 — Career Progression</div>
+    <div class="slide-content">
+      <h1>Easy to overlook someone who never creates problems.</h1>
+      <div style="width:48px; height:3px; background:#bee3f8; border-radius:2px; margin:2rem 0;"></div>
+      <p style="font-family:'DM Serif Display',serif; font-size:clamp(1.7rem,3vw,2.5rem); color:#4a5568; font-style:italic; max-width:600px; line-height:1.5;">"She was dependable, so I was moving on. I was looking for fires. She wasn't one."</p>
+      <p style="font-family:'DM Sans',sans-serif; font-size:1rem; color:#4a5568; margin-top:1.25rem;">The kind of profile organizational systems tend to overlook.</p>
+    </div>
+  </div>
+
+  <!-- Slide 6: SCENARIO 1 -->
+  <div class="slide" id="slide-6">
+    <div class="scenario-top-border"></div>
+    <div class="scenario-label">Scenario 1 — Career Progression</div>
+    <div class="slide-content">
+      <h1>Visibility problems are a manager's problem to solve.</h1>
+      <div style="max-width:760px; margin-top:2rem; display:grid; grid-template-columns:1fr 1fr; gap:3rem; border-top:1.5px solid #e2e8f0; padding-top:2rem;">
+        <div>
+          <div style="font-size:0.78rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2b6cb0; margin-bottom:0.75rem;">The Gap</div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568; line-height:1.7;">Already hitting 80% of the senior rubric. The remaining 20% wasn't capability — it was visibility. Presence in rooms. Confidence trusting her own opinions out loud.</p>
+        </div>
+        <div>
+          <div style="font-size:0.78rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2b6cb0; margin-bottom:0.75rem;">My Mistake</div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568; line-height:1.7;">I had accidentally withheld the opportunities that would have built that. The work was there. The stage wasn't.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: SCENARIO 1 Close -->
+  <div class="slide" id="slide-7">
+    <div class="scenario-top-border"></div>
+    <div class="scenario-label">Scenario 1 — Career Progression</div>
+    <div class="slide-content">
+      <h1>She got promoted. The system is what endures.</h1>
+      <div style="max-width:720px; margin-top:2rem;">
+        <div style="display:grid; grid-template-columns:56px 1fr 1.5fr; align-items:center; gap:0 2.5rem; padding:1.25rem 0; border-top:1.5px solid #e2e8f0;">
+          <span style="font-family:'DM Serif Display',serif; font-size:1.8rem; color:#2b6cb0;">01</span>
+          <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; font-weight:600; color:#2d3748;">Coach</span>
+          <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#5a6475; line-height:1.6;">Trust her opinions. Plan every room. Who's there, what they care about, how to land.</span>
+        </div>
+        <div style="display:grid; grid-template-columns:56px 1fr 1.5fr; align-items:center; gap:0 2.5rem; padding:1.25rem 0; border-top:1.5px solid #e2e8f0;">
+          <span style="font-family:'DM Serif Display',serif; font-size:1.8rem; color:#2b6cb0;">02</span>
+          <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; font-weight:600; color:#2d3748;">Sequence</span>
+          <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#5a6475; line-height:1.6;">Deliberate project choices. Build the evidence HR needs to see.</span>
+        </div>
+        <div style="display:grid; grid-template-columns:56px 1fr 1.5fr; align-items:center; gap:0 2.5rem; padding:1.25rem 0; border-top:1.5px solid #e2e8f0;">
+          <span style="font-family:'DM Serif Display',serif; font-size:1.8rem; color:#2b6cb0;">03</span>
+          <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; font-weight:600; color:#2d3748;">Advocate</span>
+          <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#5a6475; line-height:1.6;">Pitch the promotion early. Get it in people's minds before it's urgent.</span>
+        </div>
+        <div style="display:grid; grid-template-columns:56px 1fr 1.5fr; align-items:center; gap:0 2.5rem; padding:1.25rem 0; border-top:1.5px solid #e2e8f0; border-bottom:1.5px solid #e2e8f0;">
+          <span style="font-family:'DM Serif Display',serif; font-size:1.8rem; color:#2b6cb0;">04</span>
+          <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; font-weight:600; color:#2d3748;">Pressure-test</span>
+          <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#5a6475; line-height:1.6;">AI to check my blind spots. Past review, rubric, current read. What am I missing?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 8: SCENARIO 2 Opener -->
+  <div class="slide" id="slide-8" style="display:flex; flex-direction:row; height:100vh; overflow:hidden;">
+    <div style="width:38%; background:#1a365d; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:3rem 2.5rem; flex-shrink:0; position:relative;">
+      <div style="font-family:'DM Serif Display',serif; font-size:clamp(6rem,12vw,10rem); color:white; opacity:0.9; line-height:1; margin-bottom:1.5rem;">02</div>
+      <div style="width:40px; height:2px; background:rgba(255,255,255,0.3); margin:0 auto 1.5rem;"></div>
+      <div style="font-family:'DM Sans',sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.7); text-align:center;">Performance Management</div>
+    </div>
+    <div style="flex:1; background:white; display:flex; flex-direction:column; justify-content:center; padding:4rem 5rem; position:relative;">
+      <div style="position:absolute; top:2rem; left:5rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:#2b6cb0;">Scenario 2 — Performance Management</div>
+      <h1 style="font-size:clamp(3rem,5vw,5rem); max-width:580px; margin-bottom:1.5rem;">She told me what was really happening.</h1>
+      <p style="font-family:'DM Sans',sans-serif; font-size:clamp(1.1rem,1.8vw,1.35rem); color:#4a5568; line-height:1.7; max-width:500px;">I heard it. Her trajectory reversed.</p>
+    </div>
+  </div>
+
+  <!-- Slide 9: SCENARIO 2 -->
+  <div class="slide" id="slide-9">
+    <div class="scenario-top-border"></div>
+    <div class="scenario-label">Scenario 2 — Performance Management</div>
+    <div class="slide-content">
+      <h1>It wasn't a performance problem.</h1>
+      <div style="width:48px; height:3px; background:#bee3f8; border-radius:2px; margin:2rem 0;"></div>
+      <div style="display:grid; grid-template-columns:repeat(3,auto); gap:0 5rem; align-items:start; max-width:700px;">
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:5rem; color:#2b6cb0; line-height:1;">1</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#5a6475; margin-top:0.4rem;">designer</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1rem; color:#4a5568;">supporting</div>
+        </div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:5rem; color:#2b6cb0; line-height:1;">5</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#5a6475; margin-top:0.4rem;">engineering teams</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1rem; color:#4a5568;">with competing asks</div>
+        </div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:5rem; color:#2b6cb0; line-height:1;">7</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#5a6475; margin-top:0.4rem;">communication channels</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1rem; color:#4a5568;">no priority signal</div>
+        </div>
+      </div>
+      <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568; font-style:italic; margin-top:1.5rem; max-width:560px; line-height:1.6;">Nobody had named any of that. They'd just escalated her.</p>
+    </div>
+  </div>
+
+  <!-- Slide 10: SCENARIO 2 -->
+  <div class="slide" id="slide-10">
+    <div class="scenario-top-border"></div>
+    <div class="scenario-label">Scenario 2 — Performance Management</div>
+    <div class="slide-content">
+      <h1>I worked both ends at once.</h1>
+      <div style="max-width:760px; margin-top:2rem; display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1.5px solid #e2e8f0; padding-top:2rem;">
+        <div style="border-right:1px solid #e2e8f0; padding-right:2.5rem;">
+          <div style="font-size:0.78rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2b6cb0; margin-bottom:0.75rem;">With Her</div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568; line-height:1.7;">Real options, not ultimatums. Leave provisions explored under her local employment terms. She chose to stay and commit.</p>
+          <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568; line-height:1.7; margin-top:1rem;">Communication rubric. One channel. Weekly tracker she owned and led.</p>
+        </div>
+        <div style="padding-left:2.5rem;">
+          <div style="font-size:0.78rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2b6cb0; margin-bottom:0.75rem;">With the System</div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568; line-height:1.7;">Named the coordination failure to the PM director. Seven channels, no priority signal. That's a coordination problem, not a designer problem.</p>
+          <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568; line-height:1.7; margin-top:1rem;">Fixed the structure. Not just the person.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 11: SCENARIO 2 — Performance Framework -->
+  <div class="slide" id="slide-11">
+    <div class="scenario-top-border"></div>
+    <div class="scenario-label">Scenario 2 — Performance Management</div>
+    <div class="slide-content">
+      <h1 class="h1-artifact">Here's what the framework actually looked like.</h1>
+      <div style="max-width:988px; margin-top:1.5rem; display:flex; flex-direction:column; gap:20px;">
+        <div style="background:#f7fafc; border:1px solid #e2e8f0; border-radius:8px; padding:1.3rem 1.6rem;">
+          <div style="font-size:0.9rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2b6cb0; margin-bottom:0.75rem;">Success Criteria</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:12px; height:12px; border-radius:50%; background:#38a169; flex-shrink:0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#2d3748;">Design reviews completed and shared with PM before sprint handoff — no engineering blockers</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:12px; height:12px; border-radius:50%; background:#d97706; flex-shrink:0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#2d3748;">All requests acknowledged within one business day, even if full response requires more time</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:12px; height:12px; border-radius:50%; background:#d97706; flex-shrink:0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#2d3748;">Work tracker updated and led by designer in weekly team sync — priorities confirmed with PM</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:12px; height:12px; border-radius:50%; background:#d97706; flex-shrink:0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#2d3748;">Figma files organized and handed off to engineering with specs complete — no back-and-forth required</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:#f7fafc; border:1px solid #e2e8f0; border-radius:8px; padding:1.3rem 1.6rem;">
+          <div style="font-size:0.9rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2b6cb0; margin-bottom:0.75rem;">Weekly Check-In</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:12px; height:12px; border:1.5px solid #cbd5e0; border-radius:2px; flex-shrink:0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568;">Review work tracker: are current tickets sequenced correctly against sprint priorities?</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:12px; height:12px; border-radius:2px; background:#2b6cb0; flex-shrink:0; display:flex; align-items:center; justify-content:center;">
+                <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3L3 5L7 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568;">Confirm all requests routing through single agreed channel — flag any that came in elsewhere</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:12px; height:12px; border:1.5px solid #cbd5e0; border-radius:2px; flex-shrink:0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568;">Design review with manager: walk through one piece of work in progress, discuss craft decisions</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:12px; height:12px; border:1.5px solid #cbd5e0; border-radius:2px; flex-shrink:0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568;">PM alignment check: does designer's understanding of priority match what product actually needs?</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:12px; height:12px; border:1.5px solid #cbd5e0; border-radius:2px; flex-shrink:0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568;">Identify one thing that blocked progress this week — structural or personal — and name it</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:#f7fafc; border:1px solid #e2e8f0; border-radius:8px; padding:1.3rem 1.6rem;">
+          <div style="font-size:0.9rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2b6cb0; margin-bottom:0.75rem;">Status Key</div>
+          <div style="display:flex; gap:25px; align-items:center;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div style="width:10px; height:10px; border-radius:50%; background:#38a169; flex-shrink:0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:1.05rem; color:#5a6475;">On track</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div style="width:10px; height:10px; border-radius:50%; background:#d97706; flex-shrink:0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:1.05rem; color:#5a6475;">Improving</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div style="width:10px; height:10px; border-radius:50%; background:#e53e3e; flex-shrink:0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:1.05rem; color:#5a6475;">Needs attention</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 12: SCENARIO 2 Close -->
+  <div class="slide" id="slide-12">
+    <div class="scenario-top-border"></div>
+    <div class="scenario-label">Scenario 2 — Performance Management</div>
+    <div class="slide-content">
+      <h1>Nobody should ever be shocked by a review.</h1>
+      <div style="width:48px; height:3px; background:#bee3f8; border-radius:2px; margin:2rem 0;"></div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:0 3rem; max-width:680px;">
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:4.8rem; color:#2b6cb0; line-height:1.1;">1 year</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1.05rem; color:#5a6475; margin-top:0.5rem;">from going dark to team model</div>
+        </div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:4.8rem; color:#2b6cb0; line-height:1.1;">0</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1.05rem; color:#5a6475; margin-top:0.5rem;">formal PIPs issued</div>
+        </div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:4.8rem; color:#2b6cb0; line-height:1.1;">Her</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1.05rem; color:#5a6475; margin-top:0.5rem;">engineers come to her first now</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 13: SCENARIO 3 Opener -->
+  <div class="slide" id="slide-13" style="display:flex; flex-direction:row; height:100vh; overflow:hidden;">
+    <div style="width:38%; background:#1a365d; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:3rem 2.5rem; flex-shrink:0; position:relative;">
+      <div style="font-family:'DM Serif Display',serif; font-size:clamp(6rem,12vw,10rem); color:white; opacity:0.9; line-height:1; margin-bottom:1.5rem;">03</div>
+      <div style="width:40px; height:2px; background:rgba(255,255,255,0.3); margin:0 auto 1.5rem;"></div>
+      <div style="font-family:'DM Sans',sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.7); text-align:center;">Create Your Own</div>
+      <div style="font-family:'DM Sans',sans-serif; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); text-align:center; margin-top:0.5rem;">AI Integration</div>
+    </div>
+    <div style="flex:1; background:white; display:flex; flex-direction:column; justify-content:center; padding:4rem 5rem; position:relative;">
+      <div style="position:absolute; top:2rem; left:5rem; font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:#2b6cb0;">Scenario 3 — AI Integration</div>
+      <h1 style="font-size:clamp(3rem,5vw,5rem); max-width:580px; margin-bottom:1.5rem;">She told me where the real bottleneck is.</h1>
+      <p style="font-family:'DM Sans',sans-serif; font-size:clamp(1.1rem,1.8vw,1.35rem); color:#4a5568; line-height:1.7; max-width:500px;">I heard it. We're building the fix together.</p>
+    </div>
+  </div>
+
+  <!-- Slide 14: SCENARIO 3 -->
+  <div class="slide" id="slide-14">
+    <div class="scenario-top-border"></div>
+    <div class="scenario-label">Scenario 3 — AI Integration</div>
+    <div class="slide-content">
+      <h1>Anchor on concepts, not products.</h1>
+      <div style="max-width:760px; margin-top:2rem; display:grid; grid-template-columns:1fr 1fr; gap:1.25rem;">
+        <div style="background:#fff5f5; border-radius:10px; padding:1.5rem 1.75rem;">
+          <div style="font-size:0.78rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#9b1c1c; margin-bottom:0.75rem;">Common Mistake</div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568; line-height:1.7;">Chase tools. Rebuild assumptions every cycle. Make infrastructure decisions based on the latest release.</p>
+        </div>
+        <div style="background:#ebf8ff; border-radius:10px; padding:1.5rem 1.75rem;">
+          <div style="font-size:0.78rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2b6cb0; margin-bottom:0.75rem;">The Approach</div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568; line-height:1.7;">Anchor on concepts. What is an LLM good at? Where does it fail? Build the foundation that lets your team evaluate any tool — not just today's.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 15: SCENARIO 3 -->
+  <div class="slide" id="slide-15">
+    <div class="scenario-top-border"></div>
+    <div class="scenario-label">Scenario 3 — AI Integration</div>
+    <div class="slide-content">
+      <h1>We can prototype fast. Then we get stuck.</h1>
+      <div style="width:48px; height:3px; background:#bee3f8; border-radius:2px; margin:2rem 0;"></div>
+      <div style="max-width:760px; display:grid; grid-template-columns:1fr 1fr; gap:1.25rem;">
+        <div style="background:#f0fff4; border-radius:10px; padding:1.5rem 1.75rem;">
+          <div style="font-size:0.78rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#1a4731; margin-bottom:0.75rem;">Where We Gained</div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568; line-height:1.7;">High-fidelity in hours, not days. Stakeholders react to something real. Alignment happens faster.</p>
+        </div>
+        <div style="background:#fff5f5; border-radius:10px; padding:1.5rem 1.75rem;">
+          <div style="font-size:0.78rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#9b1c1c; margin-bottom:0.75rem;">Where We Got Stuck</div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#4a5568; line-height:1.7;">Translating the prototype into our actual design system. Across multiple products, multiple teams, multiple pattern libraries. Still too slow.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 16: SCENARIO 3 Close -->
+  <div class="slide" id="slide-16">
+    <div class="scenario-top-border"></div>
+    <div class="scenario-label">Scenario 3 — AI Integration</div>
+    <div class="slide-content">
+      <h1>Strategy becomes the spec.</h1>
+      <svg viewBox="0 0 680 200" width="680" height="200" aria-hidden="true" style="display:block; margin:2rem 0;">
+        <defs>
+          <marker id="chain-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+            <path d="M0,0 L0,10 L10,5 z" fill="#2b6cb0"/>
+          </marker>
+        </defs>
+        <!-- Left: rough/sketchy -->
+        <rect x="0" y="13" width="209" height="138" fill="#f7fafc" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 3"/>
+        <line x1="21" y1="44" x2="131" y2="44" stroke="#cbd5e0" stroke-width="10" stroke-linecap="round"/>
+        <line x1="21" y1="69" x2="170" y2="69" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round"/>
+        <line x1="21" y1="90" x2="144" y2="90" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round"/>
+        <rect x="21" y="106" width="78" height="23" fill="#e2e8f0" rx="2"/>
+        <text x="105" y="178" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="600" letter-spacing="2" fill="#2b6cb0">CHAINSAW</text>
+        <text x="105" y="194" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" fill="#6b7280">rough form</text>
+        <!-- Arrow -->
+        <line x1="229" y1="81" x2="438" y2="81" stroke="#2b6cb0" stroke-width="3" marker-end="url(#chain-arrow)"/>
+        <text x="340" y="65" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="600" letter-spacing="1.5" fill="#2b6cb0">refine</text>
+        <!-- Right: clean/refined -->
+        <rect x="471" y="13" width="209" height="138" fill="white" stroke="#2b6cb0" stroke-width="2"/>
+        <rect x="471" y="13" width="209" height="28" fill="#2b6cb0"/>
+        <line x1="492" y1="60" x2="628" y2="60" stroke="#2d3748" stroke-width="8" stroke-linecap="round"/>
+        <line x1="492" y1="80" x2="654" y2="80" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+        <line x1="492" y1="98" x2="641" y2="98" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+        <rect x="492" y="113" width="73" height="20" fill="#bee3f8" rx="3"/>
+        <text x="576" y="178" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" font-weight="600" letter-spacing="2" fill="#2b6cb0">CHISEL</text>
+        <text x="576" y="194" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" fill="#6b7280">refined finish</text>
+      </svg>
+      <p class="tagline">The chainsaw gets the form. The chisel gets the finish.</p>
+    </div>
+  </div>
+
+  <!-- Slide 17: SCENARIO 3 — Create Your Own -->
+  <div class="slide" id="slide-17">
+    <div class="scenario-top-border"></div>
+    <div class="scenario-label">Scenario 3 — AI Integration</div>
+    <div class="slide-content">
+      <h1 class="h1-artifact">What operationalizing AI actually looks like.</h1>
+      <div style="max-width:1014px; margin-top:1.5rem;">
+        <div style="display:flex; align-items:center; gap:30px;">
+          <div style="flex:1; background:#ebf8ff; border-radius:10px; padding:1.6rem 2rem;">
+            <div style="font-size:0.9rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2b6cb0; margin-bottom:0.9rem;">Shared Foundation</div>
+            <div style="display:flex; flex-direction:column; gap:13px; margin-bottom:1rem;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div style="width:6px; height:6px; border-radius:50%; background:#2b6cb0; flex-shrink:0;"></div>
+                <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#2d3748;">Reusable skills</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div style="width:6px; height:6px; border-radius:50%; background:#2b6cb0; flex-shrink:0;"></div>
+                <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#2d3748;">Templates + scaffolding</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div style="width:6px; height:6px; border-radius:50%; background:#2b6cb0; flex-shrink:0;"></div>
+                <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#2d3748;">Context packs</span>
+              </div>
+            </div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:1.05rem; color:#5a6475; font-style:italic;">Things you call, not rebuild.</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
+            <div style="font-size:0.9rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:#2b6cb0; text-align:center; line-height:1.3; margin-bottom:4px;">Agent handles</div>
+            <div style="font-size:1.5rem; color:#2b6cb0; line-height:1;">&#8594;</div>
+            <div style="font-size:0.9rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:#2b6cb0; text-align:center; line-height:1.3; margin-top:4px;">Scaffolding</div>
+          </div>
+          <div style="flex:1; background:#f0fff4; border-radius:10px; padding:1.6rem 2rem;">
+            <div style="font-size:0.9rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#1a4731; margin-bottom:0.9rem;">Unique Context</div>
+            <div style="display:flex; flex-direction:column; gap:13px; margin-bottom:1rem;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div style="width:6px; height:6px; border-radius:50%; background:#38a169; flex-shrink:0;"></div>
+                <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#2d3748;">This client</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div style="width:6px; height:6px; border-radius:50%; background:#38a169; flex-shrink:0;"></div>
+                <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#2d3748;">This problem</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div style="width:6px; height:6px; border-radius:50%; background:#38a169; flex-shrink:0;"></div>
+                <span style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#2d3748;">This moment</span>
+              </div>
+            </div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:1.05rem; color:#5a6475; font-style:italic;">Where your attention actually goes.</div>
+          </div>
+        </div>
+        <div style="margin-top:20px; background:white; border:1px solid #e2e8f0; border-radius:8px; padding:1.2rem 1.6rem; display:flex; gap:1.6rem; align-items:flex-start;">
+          <div style="flex-shrink:0;">
+            <div style="font-size:0.9rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2b6cb0; margin-bottom:0.35rem;">Example</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#2d3748; font-weight:500;">Discovery synthesis</div>
+          </div>
+          <div style="width:1px; background:#e2e8f0; align-self:stretch; flex-shrink:0;"></div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1.1rem; color:#5a6475; font-style:italic; line-height:1.6;">Skill handles: structure, format, synthesis template. Context pack adds: client industry, stakeholder priorities, open questions from research.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 18: CLOSE -->
+  <div class="slide" id="slide-18">
+    <div class="scenario-label">Close</div>
+    <div class="slide-content">
+      <h1 style="font-size:clamp(2.2rem,3.5vw,3.2rem);">Three scenarios. Same instinct.</h1>
+      <div class="callback-lines">
+        <p class="callback-line">She told me she was being overlooked. I heard it. She got promoted.</p>
+        <p class="callback-line">She told me what was really happening. I heard it. Her trajectory reversed.</p>
+        <p class="callback-line">She told me where the real bottleneck is. I heard it. We're building the fix together.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 19: CLOSE -->
+  <div class="slide slide-blue" id="slide-19">
+    <div class="slide-content centered">
+      <h1>The through line is always the same.</h1>
+      <p class="tagline">Build the environment. Listen first. Act from there.</p>
+    </div>
+  </div>
+
+  <button id="btn-prev" aria-label="Previous slide">&#8592;</button>
+  <button id="btn-next" aria-label="Next slide">&#8594;</button>
+  <div id="slide-counter">1 / 19</div>
+
+</div>
+
+<script>
+  var slides = document.querySelectorAll('.slide');
+  var counter = document.getElementById('slide-counter');
+  var current = 0;
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, slides.length - 1));
+    slides[current].classList.add('active');
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+    counter.style.color = slides[current].classList.contains('slide-blue') ? 'rgba(255,255,255,0.7)' : '#4a5568';
+    document.getElementById('btn-prev').disabled = (current === 0);
+    document.getElementById('btn-next').disabled = (current === slides.length - 1);
+    var isBlue = slides[current].classList.contains('slide-blue');
+    var btnPrev = document.getElementById('btn-prev');
+    var btnNext = document.getElementById('btn-next');
+    if (isBlue) {
+      btnPrev.style.background = 'rgba(255,255,255,0.15)';
+      btnPrev.style.borderColor = 'rgba(255,255,255,0.3)';
+      btnPrev.style.color = 'white';
+      btnNext.style.background = 'rgba(255,255,255,0.15)';
+      btnNext.style.borderColor = 'rgba(255,255,255,0.3)';
+      btnNext.style.color = 'white';
+    } else {
+      btnPrev.style.background = 'white';
+      btnPrev.style.borderColor = '#cbd5e0';
+      btnPrev.style.color = '#2d3748';
+      btnNext.style.background = 'white';
+      btnNext.style.borderColor = '#cbd5e0';
+      btnNext.style.color = '#2d3748';
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      showSlide(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      showSlide(current - 1);
+    }
+  });
+
+  document.getElementById('btn-prev')
+    .addEventListener('click', function() {
+      showSlide(current - 1);
+    });
+
+  document.getElementById('btn-next')
+    .addEventListener('click', function() {
+      showSlide(current + 1);
+    });
+
+  showSlide(0);
+</script>
+
+</body>
+</html>
