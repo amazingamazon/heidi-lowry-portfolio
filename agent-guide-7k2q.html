@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" data-path="app">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Build Your Own Job Search Agent — Heidi Lowry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    :root {
+      --primary: #0055b8;
+      --primary-hover: #004494;
+      --primary-light: #e8f2ff;
+      --accent: #b87300;
+      --accent-light: #fff9f0;
+      --text-dark: #1a1a1a;
+      --text-medium: #4a4a4a;
+      --text-light: #6b6b6b;
+      --bg-light: #f9fafb;
+      --border: #e5e7eb;
+      --success: #059669;
+      --success-light: #d1fae5;
+      --code-bg: #14213d;
+      --code-text: #e8eefc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 140px; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.65;
+      color: var(--text-dark);
+      background: #fff;
+    }
+    a { color: var(--primary); }
+    a:hover { color: var(--primary-hover); }
+
+    /* Top bar */
+    .topbar { border-bottom: 1px solid var(--border); background: #fff; }
+    .topbar-inner {
+      max-width: 960px; margin: 0 auto; padding: 0 1.5rem; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { font-weight: 700; color: var(--text-dark); text-decoration: none; white-space: nowrap; }
+    .topbar .tag { text-align: right; padding-left: 1rem; }
+    .topbar .tag { font-size: 0.8rem; color: var(--text-light); }
+
+    /* Hero */
+    .hero { background: var(--bg-light); border-bottom: 1px solid var(--border); }
+    .hero-inner { max-width: 960px; margin: 0 auto; padding: 3.5rem 1.5rem 3rem; }
+    .eyebrow {
+      display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--primary); background: var(--primary-light);
+      padding: 0.3rem 0.7rem; border-radius: 999px; margin-bottom: 1rem;
+    }
+    h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.15; font-weight: 800; letter-spacing: -0.02em; max-width: 18ch; }
+    .lede { font-size: 1.15rem; color: var(--text-medium); max-width: 62ch; margin-top: 1rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-medium); }
+    .meta strong { color: var(--text-dark); }
+
+    /* Sticky path switcher */
+    .pathbar { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.96); backdrop-filter: blur(6px); border-bottom: 1px solid var(--border); }
+    .pathbar-inner { max-width: 960px; margin: 0 auto; padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .pathbar-label { font-size: 0.8rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.06em; }
+    .tabs { display: flex; gap: 0.5rem; flex: 1; min-width: 260px; }
+    .tab {
+      flex: 1; font: inherit; cursor: pointer; text-align: left;
+      border: 2px solid var(--border); background: #fff; color: var(--text-dark);
+      border-radius: 10px; padding: 0.55rem 0.9rem; transition: border-color .15s, background .15s;
+    }
+    .tab:hover { border-color: #b9c7de; }
+    .tab[aria-selected="true"] { border-color: var(--primary); background: var(--primary-light); }
+    .tab .t1 { display: block; font-weight: 700; font-size: 0.95rem; }
+    .tab .t2 { display: block; font-size: 0.78rem; color: var(--text-medium); }
+    .tab:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+    /* Layout */
+    main { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    h2 { font-size: 1.6rem; line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 0.6rem; }
+    h3 { font-size: 1.05rem; margin: 1.5rem 0 0.4rem; }
+    p { margin-bottom: 0.9rem; color: var(--text-medium); }
+    p strong, li strong { color: var(--text-dark); }
+    ul, ol { margin: 0 0 1rem 1.3rem; color: var(--text-medium); }
+    li { margin-bottom: 0.35rem; }
+
+    .step { display: grid; grid-template-columns: 56px 1fr; gap: 1.25rem; padding: 2.25rem 0; border-top: 1px solid var(--border); }
+    .step:first-of-type { border-top: 0; }
+    .step-num {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem;
+    }
+    .step-num.opt { background: var(--text-light); font-size: 0.7rem; }
+    .step-body { min-width: 0; }
+
+    /* Compare cards */
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.25rem 0 0.5rem; }
+    .card { border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; background: #fff; }
+    .card h3 { margin-top: 0; }
+    .card ul { margin-bottom: 0; }
+    .card .best { font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem; display: block; }
+
+    /* Concept boxes */
+    .concepts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.25rem 0; }
+    .concept { border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem; background: var(--bg-light); }
+    .concept .n { font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 0.25rem; }
+    .concept p { font-size: 0.92rem; margin: 0; }
+    .concept code { font-size: 0.8rem; }
+
+    /* Path panels: with JS only the selected path shows */
+    .js[data-path="app"] .path-term { display: none; }
+    .js[data-path="term"] .path-app { display: none; }
+    .path { border-left: 4px solid var(--primary); padding: 0.25rem 0 0.25rem 1.1rem; margin: 1rem 0; }
+    .path-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--primary); margin-bottom: 0.5rem; display: block; }
+    html:not(.js) .path-term { border-left-color: var(--accent); }
+    html:not(.js) .path-term .path-label { color: var(--accent); }
+
+    /* Code */
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em; background: #eef1f6; padding: 0.1em 0.35em; border-radius: 4px; color: var(--text-dark); }
+    .code { position: relative; margin: 0.6rem 0 1rem; }
+    .code .lbl { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-light); margin-bottom: 0.25rem; }
+    .code pre {
+      background: var(--code-bg); color: var(--code-text); border-radius: 10px;
+      padding: 1rem 5rem 1rem 1rem; overflow-x: auto; font-size: 0.88rem; line-height: 1.55;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; word-break: break-word;
+    }
+    .code pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+    .copy {
+      position: absolute; right: 0.6rem; bottom: 0.6rem; font: inherit; font-size: 0.75rem; font-weight: 600;
+      background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 6px; padding: 0.25rem 0.6rem; cursor: pointer;
+    }
+    .code:has(.lbl) .copy { bottom: 0.6rem; }
+    .copy:hover { background: rgba(255,255,255,0.28); }
+    .copy:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .copy.done { background: var(--success); border-color: var(--success); }
+
+    /* Callouts */
+    .callout { border-radius: 10px; padding: 0.9rem 1.1rem; margin: 1rem 0; font-size: 0.95rem; border: 1px solid; }
+    .callout p { margin: 0; color: inherit; }
+    .callout p + p { margin-top: 0.5rem; }
+    .callout.tip { background: var(--success-light); border-color: #a7e3c8; color: #064e3b; }
+    .callout.heads { background: var(--accent-light); border-color: #f0d9ae; color: #5c3a00; }
+    .callout.info { background: var(--primary-light); border-color: #c2d9f7; color: #0b3a7a; }
+
+    .btns { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0.6rem 0 1rem; }
+    .btn {
+      display: inline-block; text-decoration: none; font-weight: 600; font-size: 0.95rem;
+      background: var(--primary); color: #fff; padding: 0.65rem 1.1rem; border-radius: 8px;
+    }
+    .btn:hover { background: var(--primary-hover); color: #fff; }
+    .btn.secondary { background: #fff; color: var(--primary); border: 2px solid var(--primary); padding: calc(0.65rem - 2px) calc(1.1rem - 2px); }
+    .btn.secondary:hover { background: var(--primary-light); color: var(--primary-hover); }
+
+    details { border: 1px solid var(--border); border-radius: 10px; padding: 0 1rem; margin: 0.75rem 0; background: #fff; }
+    summary { cursor: pointer; font-weight: 600; padding: 0.8rem 0; color: var(--text-dark); }
+    details[open] summary { border-bottom: 1px solid var(--border); margin-bottom: 0.8rem; }
+    details > *:last-child { margin-bottom: 1rem; }
+
+    table { border-collapse: collapse; width: 100%; font-size: 0.92rem; margin: 0.5rem 0 1rem; }
+    th, td { text-align: left; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--bg-light); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-light); }
+    td:first-child { white-space: nowrap; }
+
+    .checklist { list-style: none; margin-left: 0; }
+    .checklist li { padding-left: 1.9rem; position: relative; }
+    .checklist li::before {
+      content: ""; position: absolute; left: 0; top: 0.25rem; width: 1.15rem; height: 1.15rem;
+      border: 2px solid var(--primary); border-radius: 4px;
+    }
+
+    footer { border-top: 1px solid var(--border); background: var(--bg-light); }
+    .footer-inner { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; font-size: 0.9rem; color: var(--text-medium); }
+
+    @media (max-width: 720px) {
+      .compare, .concepts { grid-template-columns: 1fr; }
+      .step { grid-template-columns: 1fr; gap: 0.6rem; }
+      .tab .t2 { display: none; }
+      .pathbar-label { display: none; }
+      html { scroll-padding-top: 110px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">Heidi Lowry</a>
+      <span class="tag">Unlisted guide. Please don't post the link publicly.</span>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">Step-by-step guide</span>
+      <h1>Build your own job search agent</h1>
+      <p class="lede">An agent is a set of instructions that remembers how you search. You paste in a job description, and it tells you whether the role fits, then builds a tailored resume and an optional cover letter. This guide starts from zero: no coding, no terminal experience needed.</p>
+      <div class="meta">
+        <span><strong>Time:</strong> about 45 minutes</span>
+        <span><strong>You need:</strong> a computer and a paid Claude plan</span>
+        <span><strong>You'll end with:</strong> your own working agent</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="pathbar" aria-label="Choose how you want to work">
+    <div class="pathbar-inner">
+      <span class="pathbar-label">Your path</span>
+      <div class="tabs" role="tablist" aria-label="Choose your path">
+        <button class="tab" role="tab" id="tab-app" data-path="app" aria-selected="true">
+          <span class="t1">Claude app</span>
+          <span class="t2">Click and type. Get going sooner.</span>
+        </button>
+        <button class="tab" role="tab" id="tab-term" data-path="term" aria-selected="false">
+          <span class="t1">Terminal</span>
+          <span class="t2">Learn it once, use it anywhere.</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- Which path -->
+    <section class="step" id="choose">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h2>Pick your path</h2>
+        <p>Both paths use the same Claude Code engine and the same starter kit, so you end up in the same place. Pick one now using the tabs above. You can switch any time and the steps below will change to match.</p>
+        <div class="compare">
+          <div class="card">
+            <span class="best">Choose this to get going sooner</span>
+            <h3>Claude app</h3>
+            <ul>
+              <li>A normal app you download and open</li>
+              <li>You click buttons, pick folders, and approve changes with a button</li>
+              <li>You can see exactly what Claude is changing</li>
+              <li>No commands to type</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="best">Choose this to demystify the terminal</span>
+            <h3>Terminal</h3>
+            <ul>
+              <li>A text window where you type short commands</li>
+              <li>This guide explains every command before you run it</li>
+              <li>A skill that carries over to a lot of other tools</li>
+              <li>Fewer clicks once you know it</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout tip"><p><strong>Not sure?</strong> Start with the Claude app. Everything you build works in the terminal later.</p></div>
+      </div>
+    </section>
+
+    <!-- Concepts -->
+    <section class="step" id="concepts">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h2>What you're building</h2>
+        <p>Three kinds of files, all plain text. Claude reads them every time you ask for help with a job.</p>
+        <div class="concepts">
+          <div class="concept">
+            <span class="n">The agent</span>
+            <p>Your rules: which roles you want, your dealbreakers, where you'll work, how you like to be coached. <code>job-search-coach.md</code></p>
+          </div>
+          <div class="concept">
+            <span class="n">The skill</span>
+            <p>The how-to for building resumes and cover letters: the template, the length limits, the "never invent anything" rule. <code>resume-tailor</code></p>
+          </div>
+          <div class="concept">
+            <span class="n">Your facts</span>
+            <p>Your real career history. The agent only uses what's in here, so it can't make things up about you. <code>professional-experience.md</code></p>
+          </div>
+        </div>
+        <p>The starter kit gives you all three with blanks to fill in. In Step 7, Claude interviews you and fills them in, so you never have to edit a file by hand.</p>
+      </div>
+    </section>
+
+    <!-- Need -->
+    <section class="step" id="need">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h2>What you need before you start</h2>
+        <ul class="checklist">
+          <li><strong>A Claude plan.</strong> Claude Code needs a paid plan: Pro, Max, Team, or Enterprise. <a href="https://claude.com/pricing" target="_blank" rel="noopener">See plans</a>.</li>
+          <li><strong>Your current resume</strong> as a PDF, Word file, or pasted text. It's the raw material for your facts file.</li>
+          <li><strong>One or two job descriptions</strong> you're interested in, for testing.</li>
+          <li><strong>A Mac or Windows computer.</strong> (Linux works too, with a few differences not covered here.)</li>
+        </ul>
+        <div class="callout heads"><p><strong>Where Claude is available:</strong> Claude Code isn't offered in every country. If the installer says it's unavailable in your region, see the <a href="https://www.anthropic.com/supported-countries" target="_blank" rel="noopener">supported countries list</a>.</p></div>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="step" id="install">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h2>Install Claude</h2>
+
+        <div class="path path-app">
+          <span class="path-label">Claude app</span>
+          <ol>
+            <li><strong>Download the app</strong> for your computer:
+              <div class="btns">
+                <a class="btn" href="https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect" target="_blank" rel="noopener">Download for Mac</a>
+                <a class="btn" href="https://claude.ai/api/desktop/win32/x64/setup/latest/redirect" target="_blank" rel="noopener">Download for Windows</a>
+                <a class="btn secondary" href="https://claude.ai/api/desktop/win32/arm64/setup/latest/redirect" target="_blank" rel="noopener">Windows ARM</a>
+              </div>
+            </li>
+            <li><strong>Open the downloaded file</strong> and finish installing. On a Mac, drag Claude into your Applications folder.</li>
+            <li><strong>Open Claude and sign in</strong> with your Claude account.</li>
+            <li><strong>Click the "Code" tab</strong> at the top of the sidebar. If you only see icons, hover over each one to see its name.</li>
+          </ol>
+          <div class="callout info"><p>If clicking Code shows an upgrade prompt, you need a paid plan first. The app already includes Claude Code, so you don't need to install anything else.</p></div>
+        </div>
+
+        <div class="path path-term">
+          <span class="path-label">Terminal</span>
+          <h3 style="margin-top:0">First: what is a terminal?</h3>
+          <p>A terminal is a window where you talk to your computer by typing instead of clicking. That's the whole idea. You type a short command, press Enter, and the computer does it. Claude Code runs inside it as a chat: you type a message, press Enter, and Claude replies.</p>
+          <p>A few things that make it less scary:</p>
+          <ul>
+            <li>You only run the commands this guide gives you. Nothing happens until you press <strong>Enter</strong>.</li>
+            <li>You can't click inside it. Use the arrow keys.</li>
+            <li>To stop whatever is running, press <strong>Esc</strong> (or <strong>Ctrl + C</strong>).</li>
+          </ul>
+
+          <h3>1. Open a terminal</h3>
+          <ul>
+            <li><strong>Mac:</strong> press <code>Cmd + Space</code>, type <code>Terminal</code>, press Enter.</li>
+            <li><strong>Windows:</strong> press <code>Win + X</code> and choose <strong>Windows PowerShell</strong> (or <strong>Terminal</strong>). Your lines should start with <code>PS</code>.</li>
+          </ul>
+
+          <h3>2. Install Claude Code</h3>
+          <p>Copy the command for your computer, paste it into the terminal (<code>Cmd + V</code> on Mac, <code>Ctrl + V</code> or right-click on Windows), and press Enter. It downloads the official installer from claude.ai and runs it. It shows <strong>no progress</strong> while it works, so wait until you see "Claude Code successfully installed!"</p>
+          <div class="code"><span class="lbl">Mac</span><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre><button class="copy" type="button">Copy</button></div>
+          <div class="code"><span class="lbl">Windows PowerShell</span><pre><code>irm https://claude.ai/install.ps1 | iex</code></pre><button class="copy" type="button">Copy</button></div>
+          <div class="callout heads"><p><strong>Windows says <code>irm</code> isn't recognized?</strong> You're in CMD, not PowerShell. Close it and open PowerShell with <code>Win + X</code>.</p></div>
+
+          <h3>3. Check it worked</h3>
+          <p>Close the terminal, open a new one, and run:</p>
+          <div class="code"><pre><code>claude --version</code></pre><button class="copy" type="button">Copy</button></div>
+          <p>You should see a version number. If it says "command not found", see <a href="#troubleshooting">Troubleshooting</a> below.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Starter kit -->
+    <section class="step" id="kit">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h2>Download the starter kit and put it somewhere easy to find</h2>
+        <p>The starter kit is a folder with a generic version of my agent and skill: the structure, the rules, and a clean resume and cover letter template. All the blanks are yours to fill in. It contains none of my personal details.</p>
+        <div class="btns">
+          <a class="btn" href="agent-starter-kit-7k2q.zip" download>Download the starter kit (.zip)</a>
+        </div>
+        <ol>
+          <li><strong>Unzip it.</strong> Double-click the .zip file in your Downloads folder. You'll get a folder called <code>job-search-agent-starter</code>.</li>
+          <li><strong>Move that folder to Documents</strong> so it's easy to find. This is your job search folder from now on.</li>
+        </ol>
+        <div class="callout heads">
+          <p><strong>Where's the <code>.claude</code> folder?</strong> Folders that start with a dot are hidden. On a Mac, press <code>Cmd + Shift + .</code> in Finder to show them. On Windows, open File Explorer, then View, then Show, then Hidden items. You don't have to see it, since Claude will edit the files for you, but it helps to know it's there.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Open the folder -->
+    <section class="step" id="open">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h2>Open your folder in Claude</h2>
+        <p>Claude works inside whatever folder you point it at. Pointing it at the starter kit folder is what makes your agent available.</p>
+
+        <div class="path path-app">
+          <span class="path-label">Claude app</span>
+          <ol>
+            <li>In the <strong>Code</strong> tab, look at the row under the prompt box.</li>
+            <li>Click the first control (the environment selector) and choose the top entry under <strong>Local</strong>, so Claude runs on your computer.</li>
+            <li>Click the project folder control next to it, choose <strong>Open folder…</strong>, and pick <code>job-search-agent-starter</code>.</li>
+            <li>Leave the <strong>Permission mode</strong> on <strong>Manual</strong>. Claude will then show you each change and wait for you to approve it.</li>
+          </ol>
+        </div>
+
+        <div class="path path-term">
+          <span class="path-label">Terminal</span>
+          <p>The terminal always has a "current folder", the place it's looking right now. You'll move it into your starter folder with <code>cd</code> (change directory).</p>
+          <div class="code"><span class="lbl">Mac</span><pre><code>cd ~/Documents/job-search-agent-starter</code></pre><button class="copy" type="button">Copy</button></div>
+          <div class="code"><span class="lbl">Windows PowerShell</span><pre><code>cd $HOME\Documents\job-search-agent-starter</code></pre><button class="copy" type="button">Copy</button></div>
+          <div class="callout tip"><p><strong>Shortcut:</strong> type <code>cd</code> and a space, then drag the folder from Finder or File Explorer into the terminal window. It fills in the path for you.</p></div>
+          <p>Now check you're in the right place. This lists what's in the folder, including hidden files. You should see <code>.claude</code> and <code>START-HERE.md</code>.</p>
+          <div class="code"><span class="lbl">Mac</span><pre><code>ls -a</code></pre><button class="copy" type="button">Copy</button></div>
+          <div class="code"><span class="lbl">Windows PowerShell</span><pre><code>dir -Force</code></pre><button class="copy" type="button">Copy</button></div>
+          <p>Then start Claude:</p>
+          <div class="code"><pre><code>claude</code></pre><button class="copy" type="button">Copy</button></div>
+          <p>The first time, it opens your browser so you can sign in. Claude may also ask whether you trust this folder. It's your own folder, so say yes.</p>
+        </div>
+
+        <h3>Check that your agent is there</h3>
+        <p>In the Claude chat box, paste this and press Enter:</p>
+        <div class="code"><pre><code>What agents and skills can you see in this folder?</code></pre><button class="copy" type="button">Copy</button></div>
+        <p>You should see <code>job-search-coach</code> and <code>resume-tailor</code> in the answer. If you don't, see <a href="#troubleshooting">Troubleshooting</a>.</p>
+      </div>
+    </section>
+
+    <!-- Interview -->
+    <section class="step" id="interview">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <h2>Let Claude interview you</h2>
+        <p>This is the step that makes it yours. Instead of editing files, you answer questions. Have your current resume handy, because Claude will ask for it first.</p>
+        <p>Paste this into the Claude chat box:</p>
+        <div class="code"><pre><code>Read START-HERE.md and everything in .claude/. Every [[double bracket]] is a blank for me to fill in. Interview me one question at a time to fill in all of them, starting with professional-experience.md. Ask me to paste my current resume first and use it to pre-fill what you can. Before saving anything, show me what you plan to write and wait for my OK. Do not invent anything I haven't told you.</code></pre><button class="copy" type="button">Copy</button></div>
+        <p>Plan on about 20 minutes. Claude will ask about:</p>
+        <ul>
+          <li>Your career history, with titles, companies, and dates exactly as they should appear</li>
+          <li>Your best bullets for each role, with outcomes first</li>
+          <li>The roles you want, the roles to skip, and your dealbreakers</li>
+          <li>Where you'll work: remote, hybrid cities, relocation</li>
+          <li>How you want to be coached</li>
+        </ul>
+        <div class="callout tip"><p><strong>Be specific and honest.</strong> The agent only uses what's in your facts file, so a real number or a concrete result in here will show up in every resume. If you don't have a number, describe the change instead. Don't round up.</p></div>
+        <div class="callout heads"><p><strong>Review every change.</strong> In the app, approve each one with the buttons. In the terminal, press <code>Enter</code> to approve when Claude asks, or tell it what to change.</p></div>
+      </div>
+    </section>
+
+    <!-- Test -->
+    <section class="step" id="test">
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <h2>Test it on a real job</h2>
+        <p>Find a job posting you're interested in, copy the whole description, and paste it in like this:</p>
+        <div class="code"><pre><code>Here's a job I found: [paste the whole job description here]</code></pre><button class="copy" type="button">Copy</button></div>
+        <p>What should happen:</p>
+        <ol>
+          <li><strong>Assessment first.</strong> Claude tells you whether the role fits your criteria and why, then <strong>asks for your OK</strong>. It won't build anything yet.</li>
+          <li>You say <code>yes</code> (or push back, and it adjusts).</li>
+          <li><strong>It builds the resume</strong> and saves it in the <code>generated-resumes</code> folder.</li>
+          <li><strong>It asks whether you want a cover letter.</strong> Say yes or no. Many roles don't need one.</li>
+        </ol>
+        <h3>Check the resume</h3>
+        <ol>
+          <li>Open the file in <code>generated-resumes</code> in your browser (double-click it).</li>
+          <li><strong>Read every line for accuracy.</strong> Titles, dates, and claims should all match your real history. You're the final check.</li>
+          <li>To save a PDF, print the page (<code>Cmd + P</code> or <code>Ctrl + P</code>), set the destination to <strong>Save as PDF</strong>, scale to <strong>100%</strong>, and turn <strong>Background graphics</strong> on.</li>
+        </ol>
+        <div class="callout info"><p><strong>If something looks wrong,</strong> just tell Claude in plain language: "The summary sounds too formal. Make it warmer." or "That bullet overstates what I did. Tone it down." It fixes the file for you.</p></div>
+      </div>
+    </section>
+
+    <!-- Make it yours -->
+    <section class="step" id="tune">
+      <div class="step-num">9</div>
+      <div class="step-body">
+        <h2>Tune it over time</h2>
+        <p>Your agent gets better the more you use it. Whenever a result is off, ask Claude to change the agent, not just the output. A few examples to paste in:</p>
+        <div class="code"><pre><code>Add this to my dealbreakers in the agent: [your new dealbreaker]. From now on, flag those roles and stop.</code></pre><button class="copy" type="button">Copy</button></div>
+        <div class="code"><pre><code>Resumes keep running to three pages. Tighten the length rules in the resume-tailor skill so they stay at two.</code></pre><button class="copy" type="button">Copy</button></div>
+        <div class="code"><pre><code>Add a step to my agent: when a posting lists a salary range, tell me whether it's at or above [your number].</code></pre><button class="copy" type="button">Copy</button></div>
+        <p>After editing the agent or skill files, Claude picks up the changes within seconds. If it doesn't, close and reopen your session.</p>
+      </div>
+    </section>
+
+    <!-- Backup -->
+    <section class="step" id="backup">
+      <div class="step-num opt">Later</div>
+      <div class="step-body">
+        <h2>Optional: back it up</h2>
+        <p>Once your agent is working, it's worth keeping a safe copy so you can't lose it. The standard way is <strong>git</strong> (a history of your changes) plus a <strong>private GitHub repository</strong> (an online copy only you can see). You don't need to learn either. Ask Claude to do it:</p>
+        <div class="code"><pre><code>Set up git in this folder and help me back it up to a private GitHub repository. Walk me through each step and tell me what I need to click or type.</code></pre><button class="copy" type="button">Copy</button></div>
+        <div class="callout heads"><p><strong>Make it private.</strong> Your folder contains your real career history. When GitHub asks whether the repository is public or private, choose <strong>Private</strong>.</p></div>
+      </div>
+    </section>
+
+    <!-- Terminal cheat sheet -->
+    <section id="cheatsheet" style="padding: 2rem 0 0; border-top: 1px solid var(--border);">
+      <h2>Terminal cheat sheet</h2>
+      <p>For the terminal path, or anyone curious. These are the only commands you need.</p>
+      <details>
+        <summary>Commands you type in the terminal</summary>
+        <table>
+          <tr><th>Command</th><th>What it does</th></tr>
+          <tr><td><code>pwd</code></td><td>Shows the folder you're in right now (Mac and Windows PowerShell)</td></tr>
+          <tr><td><code>ls</code> or <code>dir</code></td><td>Lists what's in this folder (<code>ls</code> on Mac, <code>dir</code> on Windows)</td></tr>
+          <tr><td><code>cd foldername</code></td><td>Moves into a folder</td></tr>
+          <tr><td><code>cd ..</code></td><td>Moves up one folder</td></tr>
+          <tr><td><code>claude</code></td><td>Starts Claude in the current folder</td></tr>
+          <tr><td><code>claude -c</code></td><td>Picks up your most recent conversation in this folder</td></tr>
+        </table>
+      </details>
+      <details>
+        <summary>Keys and commands inside Claude</summary>
+        <table>
+          <tr><th>Do this</th><th>What it does</th></tr>
+          <tr><td><code>Esc</code></td><td>Stops Claude if it's mid-task</td></tr>
+          <tr><td><code>/help</code></td><td>Shows what you can do</td></tr>
+          <tr><td><code>/clear</code></td><td>Starts a fresh conversation</td></tr>
+          <tr><td><code>/exit</code> or <code>Ctrl + D</code> twice</td><td>Leaves Claude</td></tr>
+          <tr><td><code>↑</code> arrow</td><td>Brings back what you typed before</td></tr>
+        </table>
+      </details>
+    </section>
+
+    <!-- Troubleshooting -->
+    <section id="troubleshooting" style="padding: 2rem 0 0;">
+      <h2>Troubleshooting</h2>
+      <details>
+        <summary>"command not found: claude" (terminal)</summary>
+        <p>The installer put Claude somewhere your terminal doesn't look yet. Close the terminal and open a new one first. If it still fails on Mac, run these two lines, then open a new terminal:</p>
+        <div class="code"><pre><code>echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc</code></pre><button class="copy" type="button">Copy</button></div>
+        <p>On Windows, if PowerShell says <code>claude</code> isn't recognized, see the <a href="https://code.claude.com/docs/en/terminal-guide#windows-troubleshooting" target="_blank" rel="noopener">official Windows fix</a>.</p>
+      </details>
+      <details>
+        <summary>Claude doesn't see my agent or skill</summary>
+        <ul>
+          <li>Make sure you opened the <strong>starter folder itself</strong>, the one that contains <code>.claude</code>, and not a folder above or below it.</li>
+          <li>Close the session and open it again. The first time agent files appear, Claude needs a fresh start.</li>
+          <li>Ask: <code>What agents and skills can you see in this folder?</code></li>
+        </ul>
+      </details>
+      <details>
+        <summary>The install command shows an error with "syntax error" or HTML</summary>
+        <p>The download link returned a web page instead of the installer. Try the command again. If it keeps happening, check whether Claude Code is available in your country, or use the <a href="https://code.claude.com/docs/en/troubleshoot-install" target="_blank" rel="noopener">install troubleshooting page</a>.</p>
+      </details>
+      <details>
+        <summary>The app shows an upgrade prompt or a 403 error on the Code tab</summary>
+        <p>An upgrade prompt means you need a paid plan. For a 403 error, sign out of the app, sign back in, and restart it. The <a href="https://code.claude.com/docs/en/desktop#403-or-authentication-errors-in-the-code-tab" target="_blank" rel="noopener">official fix</a> has more.</p>
+      </details>
+      <details>
+        <summary>The resume prints with a big gap in the middle</summary>
+        <p>Ask Claude: <code>The printed resume has a gap between sections. Check the file for forced page breaks and remove them.</code> The template is built to avoid this, so it usually means a page-break rule snuck in.</p>
+      </details>
+      <details>
+        <summary>I want to start over</summary>
+        <p>Download the starter kit again and unzip it into a new folder. Your old folder isn't touched.</p>
+      </details>
+    </section>
+
+    <!-- Good habits -->
+    <section style="padding: 2rem 0 0;">
+      <h2>Good habits</h2>
+      <ul>
+        <li><strong>You are the final check.</strong> The agent is built to never invent accomplishments, but you're the one sending the resume. Read every line.</li>
+        <li><strong>Keep your folder private.</strong> Don't share the filled-in version or post it publicly. It has your real history.</li>
+        <li><strong>Don't paste anything confidential</strong> from a current employer into your facts file.</li>
+        <li><strong>Apply anyway.</strong> The agent can tell you whether a role fits, but it can't tell you whether you'll get it. Let real feedback guide the changes.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p><strong>Built by Heidi Lowry.</strong> I made this for colleagues who wanted their own version. Questions or something unclear? <a href="https://www.linkedin.com/in/heidilowry" target="_blank" rel="noopener">Find me on LinkedIn</a>.</p>
+      <p style="margin-bottom:0">Install steps follow the official <a href="https://code.claude.com/docs/en/quickstart" target="_blank" rel="noopener">Claude Code docs</a>, which are the best source if anything here has changed.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+
+      function setPath(path, save) {
+        if (path !== 'app' && path !== 'term') path = 'app';
+        root.setAttribute('data-path', path);
+        tabs.forEach(function (t) {
+          t.setAttribute('aria-selected', String(t.getAttribute('data-path') === path));
+        });
+        if (save) {
+          try { localStorage.setItem('agent-guide-path', path); } catch (e) {}
+        }
+      }
+
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () {
+          setPath(t.getAttribute('data-path'), true);
+          try { history.replaceState(null, '', location.pathname + (t.getAttribute('data-path') === 'term' ? '#terminal' : '#app')); } catch (e) {}
+        });
+        t.addEventListener('keydown', function (e) {
+          if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+          var i = tabs.indexOf(t);
+          var next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+          next.focus();
+          next.click();
+        });
+      });
+
+      var initial = 'app';
+      var hash = location.hash.replace('#', '');
+      if (hash === 'terminal') initial = 'term';
+      else if (hash === 'app') initial = 'app';
+      else {
+        try { initial = localStorage.getItem('agent-guide-path') || 'app'; } catch (e) {}
+      }
+      setPath(initial, false);
+
+      Array.prototype.forEach.call(document.querySelectorAll('.copy'), function (btn) {
+        btn.addEventListener('click', function () {
+          var code = btn.parentNode.querySelector('code');
+          var text = code ? code.innerText : '';
+          function done() {
+            btn.textContent = 'Copied';
+            btn.classList.add('done');
+            setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1600);
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
+          } else {
+            fallback(text, done);
+          }
+        });
+      });
+
+      function fallback(text, done) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    })();
+  </script>
+</body>
+</html>
